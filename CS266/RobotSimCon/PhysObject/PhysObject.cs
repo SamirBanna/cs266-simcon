@@ -5,15 +5,15 @@ using System.Text;
 
 namespace SimCon
 {
-    class PhysObject
+    abstract class PhysObject
     {
         public PhysObject(int id, String name)
         {
-            _id = id;
-            _name = name;
+            Id = id;
+            Name = name;
         }
-        int _id;
-        String _name;
+        public int Id;
+        public String Name;
         
         /// <summary>
         /// Width, or radius of a round object
@@ -24,11 +24,11 @@ namespace SimCon
         /// </summary>
         public float Height = 1;
         public bool IsRound = true;
-        private Coordinates Center;
+        public Coordinates Location;
         /// <summary>
         /// Heading in degrees from _____
         /// </summary>
-        private float heading = 0;
+        public float Orientation = 0;
 
         
     }
