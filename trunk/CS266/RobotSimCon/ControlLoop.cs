@@ -9,6 +9,9 @@ namespace SimCon
     {
         Dictionary<int, Robot> Robots;
         Dictionary<int, PhysObject> WorldObjects;
+        WorldInputInterface Wii;
+
+        static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
 
         public ControlLoop(List<Robot> robots,  List<PhysObject> worldObjects)
@@ -24,15 +27,26 @@ namespace SimCon
             }
         }
 
-        public void AcceptInput(List<Robot> robots, List<PhysObject> worldObjects)
+        /// <summary>
+        /// Runs the actual control loop
+        /// </summary>
+        public void RunLoop()
         {
+            this.GetInput();
+        }
+
+        private void GetInput()
+        {
+            PhysObject worldObjects = Wii.GetPhysObjects();
+            Robot robots = Wii.GetRobots();
+
             foreach (PhysObject obj in worldObjects)
             {
                 this.WorldObjects[obj.Id].Location = obj.Location;
                 this.WorldObjects[obj.Id].Orientation = obj.Orientation;
             }
 
-            // TODO
+            // TODO Collision detection, call algorithm
         }
     }
 }
