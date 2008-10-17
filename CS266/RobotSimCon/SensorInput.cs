@@ -5,7 +5,8 @@ using System.Text;
 
 namespace SimCon
 {
-    class SensorSet
+    class SensorInput
     {
+
     }
 }
