@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SimCon.PolygonIntersection;
+using SimCon.WorldInputInterfaces;
 
 namespace SimCon
 {
+
+    public delegate void RunLoopDelegate();
+
     class ControlLoop
     {
         Dictionary<int, Robot> Robots;
@@ -35,6 +39,8 @@ namespace SimCon
         {
             this.GetInput();
         }
+
+        
 
         private void GetInput()
         {
