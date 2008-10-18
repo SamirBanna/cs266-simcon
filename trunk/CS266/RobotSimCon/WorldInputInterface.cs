@@ -7,7 +7,7 @@ namespace SimCon
 {
     abstract class WorldInputInterface
     {
-        public List<Robot> GetRobots();
-        public List<PhysObject> GetPhysObjects();
+        public abstract List<Robot> GetRobots();
+        public abstract List<PhysObject> GetPhysObjects();
     }
 }

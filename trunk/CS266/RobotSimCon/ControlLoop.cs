@@ -11,7 +11,7 @@ namespace SimCon
         Dictionary<int, PhysObject> WorldObjects;
         WorldInputInterface Wii;
 
-        static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
+        public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
 
         public ControlLoop(List<Robot> robots,  List<PhysObject> worldObjects)
@@ -40,13 +40,20 @@ namespace SimCon
             PhysObject worldObjects = Wii.GetPhysObjects();
             Robot robots = Wii.GetRobots();
 
+            // New positions of objects get updated immediately
             foreach (PhysObject obj in worldObjects)
             {
                 this.WorldObjects[obj.Id].Location = obj.Location;
                 this.WorldObjects[obj.Id].Orientation = obj.Orientation;
             }
 
-            // TODO Collision detection, call algorithm
+            foreach (Robot r in robots)
+            {
+                this.Robots[r.Id].Location = r.Location;
+                this.Robots[r.Id].Orientation = r.Orientation;
+            }
+
+            
         }
     }
 }

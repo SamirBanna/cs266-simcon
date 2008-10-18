@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimCon
 {
-    class Algorithm
+    public class Algorithm
     {
 
         Robot _robot;

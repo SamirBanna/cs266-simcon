@@ -5,7 +5,10 @@ using System.Text;
 
 namespace SimCon
 {
-    abstract class PhysObject
+    /// <summary>
+    /// An class describing an abstract physical object. This is the superclass for all object types in the world.
+    /// </summary>
+    public abstract class PhysObject
     {
         public PhysObject(int id, String name)
         {
