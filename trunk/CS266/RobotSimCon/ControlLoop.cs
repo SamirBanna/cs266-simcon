@@ -16,14 +16,14 @@ namespace SimCon
 
         public ControlLoop(List<Robot> robots,  List<PhysObject> worldObjects)
         {
-            foreach (Robot robot in Robots)
+            foreach (Robot robot in robots)
             {
-                Robots.Add(robot.id,robot);
+                Robots.Add(robot.Id,robot);
             }
 
             foreach (PhysObject obj in worldObjects)
             {
-                WorldObjects.Add(obj.id, obj);
+                WorldObjects.Add(obj.Id, obj);
             }
         }
 
@@ -37,8 +37,8 @@ namespace SimCon
 
         private void GetInput()
         {
-            PhysObject worldObjects = Wii.GetPhysObjects();
-            Robot robots = Wii.GetRobots();
+            List<PhysObject> worldObjects = Wii.GetPhysObjects();
+            List<Robot> robots = Wii.GetRobots();
 
             // New positions of objects get updated immediately
             foreach (PhysObject obj in worldObjects)

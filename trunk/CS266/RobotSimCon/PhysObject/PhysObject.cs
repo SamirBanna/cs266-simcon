@@ -10,10 +10,14 @@ namespace SimCon
     /// </summary>
     public abstract class PhysObject
     {
-        public PhysObject(int id, String name)
+        public PhysObject(int id, String name, Coordinates location, float orientation, float width, float height)
         {
-            Id = id;
-            Name = name;
+            this.Id = id;
+            this.Name = name;
+            this.Location = location;
+            this.Orientation = orientation;
+            this.Width = width;
+            this.Height = height;
         }
         public int Id;
         public String Name;

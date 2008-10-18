@@ -7,14 +7,10 @@ namespace SimCon.PolygonIntersection
 {
     public partial class CollisionDetector
     {
-        public static void Detect(List<Robot> worldRobots, List<PhysObject> worldObjects)
+        public static void Detect(List<Robot> worldRobots, List<PhysObject> allObjects)
         {
             int numRobots = worldRobots.Count;
             List<Polygon> worldPolys = new List<Polygon>();
-
-            List<PhysObject> allObjects = new List<PhysObject>();
-            allObjects = List<PhysObject>.Concat(worldRobots,worldObjects);
-
 
             List<List<PhysObject>> collisions = new List<List<PhysObject>>();
 
@@ -42,7 +38,6 @@ namespace SimCon.PolygonIntersection
                
             }
 
-            int numRobots = worldRobots.Count;
             int numAllObjects = allObjects.Count;
 
             for (int rIndex = 0; rIndex < numRobots; ++rIndex)
