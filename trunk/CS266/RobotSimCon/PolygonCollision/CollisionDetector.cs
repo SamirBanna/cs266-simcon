@@ -18,7 +18,7 @@ namespace SimCon.PolygonIntersection
             {
                 Polygon p = new Polygon();
                 
-                float colScale = 1.0;
+                float colScale = 1;
 
                 // NOTE: Currently assuming a bottom-to-top coordinate system
 
@@ -47,7 +47,7 @@ namespace SimCon.PolygonIntersection
                 List<PhysObject> myCollisions = new List<PhysObject>();
                 for (int objIndex = rIndex + 1; objIndex < numAllObjects; ++objIndex)
                 {
-                    bool isColliding = PolygonCollision(worldPolys[rIndex],worldPolys[objIndex],0).Intersect;
+                    bool isColliding = PolygonCollision(worldPolys[rIndex],worldPolys[objIndex],new Vector()).Intersect;
                     if (isColliding)
                     {
                         myCollisions.Add(allObjects[objIndex]);
@@ -57,6 +57,7 @@ namespace SimCon.PolygonIntersection
                 collisions.Add(myCollisions);
             }
 
+            return collisions;
         }
     }
 }

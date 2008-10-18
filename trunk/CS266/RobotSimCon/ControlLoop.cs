@@ -51,6 +51,7 @@ namespace SimCon
 
             List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
             
+            
         }
     }
 }
