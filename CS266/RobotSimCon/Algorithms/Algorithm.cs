@@ -8,11 +8,11 @@ namespace SimCon
     public class Algorithm
     {
 
-        Robot _robot;
+        public Robot Robot;
 
         public Algorithm(Robot robot)
         {
-            _robot = robot;
+            Robot = robot;
             // What else?
         }
     }

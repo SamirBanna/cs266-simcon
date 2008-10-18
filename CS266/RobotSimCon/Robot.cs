@@ -10,11 +10,15 @@ namespace SimCon
         public Robot(int id, String name, Coordinates location, float orientation, float width, float height) :
             base(id, name, location, orientation, width, height)
         {
-            
+            Stop();
         }
+
+        bool CanMoveForward = true;
+        bool CanMoveBackward = true;
 
         public float Speed = 0;
 
+        public PhysicalRobotAction CurrentAction;
         public SensorInput CurrentInput;
 
         // Needed
