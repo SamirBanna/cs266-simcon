@@ -94,6 +94,8 @@
     <Compile Include="World.cs" />
     <Compile Include="WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\WorldInputInterface.cs" />
+    <Compile Include="WorldOutputInterfaces\SimulatorOutputInterface.cs" />
+    <Compile Include="WorldOutputInterfaces\WorldOutputInterface.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
