@@ -1,4 +1,4 @@
 ﻿namespace SimCon
 {
-    enum ObjectType { Unknown, Obstactle, Robot, Food };
+    public enum ObjectType { Unknown, Obstactle, Robot, Food };
 }

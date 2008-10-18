@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithm.cs" />
+    <Compile Include="Algorithms\Algorithm.cs" />
     <Compile Include="ControlLoop.cs" />
     <Compile Include="PhysObject\Coordinates.cs" />
     <Compile Include="GUI\Form1.cs">
@@ -60,6 +60,9 @@
     <Compile Include="Message.cs" />
     <Compile Include="PhysObject\ObjectType.cs" />
     <Compile Include="PhysObject\PhysObject.cs" />
+    <Compile Include="PolygonCollision\Collision.cs">
+    </Compile>
+    <Compile Include="PolygonCollision\CollisionDetector.cs" />
     <Compile Include="PolygonCollision\Polygon.cs" />
     <Compile Include="PolygonCollision\Vector.cs" />
     <Compile Include="GUI\Program.cs" />

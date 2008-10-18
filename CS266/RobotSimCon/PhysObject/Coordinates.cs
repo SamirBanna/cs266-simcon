@@ -5,17 +5,17 @@ using System.Text;
 
 namespace SimCon
 {
-    class Coordinates
+    public class Coordinates
     {
-        Coordinates(float x, float y)
+        public Coordinates(float x, float y)
         {
             this.X = x;
             this.Y = y;
         }
 
         // No good reason not to make these public
-        float X;
-        float Y;
+        public float X;
+        public float Y;
 
     }
 }

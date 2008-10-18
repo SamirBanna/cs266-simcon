@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SimCon
 {
-    class SingleProximityInput : SensorInput
+    public class SingleProximityInput : SensorInput
     {
         public float Distance;
         public ObjectType ObjectType;
-        SingleProximityInput(float distance, ObjectType objectType)
+        public SingleProximityInput(float distance, ObjectType objectType)
         {
             this.Distance = distance;
             this.ObjectType = objectType;

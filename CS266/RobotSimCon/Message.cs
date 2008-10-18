@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimCon
 {
-    class Message
+    public class Message
     {
     }
 }
