@@ -5,10 +5,12 @@ using System.Text;
 
 namespace SimCon
 {
+
+    public enum PhysicalActionType { MoveForward, MoveBackward, Turn, SetSpeed, Stop };
+
     public class PhysicalRobotAction
     {
-        public enum PhysicalActionType { MoveForward, MoveBackward, Turn, SetSpeed, Stop };
-
+        
         public PhysicalRobotAction(int id, PhysicalActionType actionType, float value)
         {
             this.RobotId = id;

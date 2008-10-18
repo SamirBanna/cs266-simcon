@@ -7,6 +7,12 @@ namespace SimCon
 {
     public class Robot : PhysObject
     {
+        public Robot(int id, String name, Coordinates location, float orientation, float width, float height) :
+            base(id, name, location, orientation, width, height)
+        {
+            
+        }
+
         public float Speed = 0;
 
         // Needed
@@ -23,27 +29,27 @@ namespace SimCon
         
         public void MoveForward(float distance)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, MoveForward, distance));
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveForward, distance));
         }
 
         public void MoveBackward(float distance)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, MoveBackward, distance));
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveBackward, distance));
         }
 
         public void Stop()
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, Stop));
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Stop));
         }
 
         public void ChangeSpeed(float speed)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, ChangeSpeed, speed));
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.SetSpeed, speed));
         }
 
         public void Turn(float degrees)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, Turn, degrees));
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Turn, degrees));
         }
 
 

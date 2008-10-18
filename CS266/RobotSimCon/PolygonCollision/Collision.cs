@@ -90,7 +90,7 @@ namespace SimCon.PolygonIntersection
 
 		// Calculate the distance between [minA, maxA] and [minB, maxB]
 		// The distance will be negative if the intervals overlap
-		public float IntervalDistance(float minA, float maxA, float minB, float maxB) {
+		public static float IntervalDistance(float minA, float maxA, float minB, float maxB) {
 			if (minA < minB) {
 				return minB - maxA;
 			} else {
@@ -99,7 +99,7 @@ namespace SimCon.PolygonIntersection
 		}
 
 		// Calculate the projection of a polygon on an axis and returns it as a [min, max] interval
-		public void ProjectPolygon(Vector axis, Polygon polygon, ref float min, ref float max) {
+		public static void ProjectPolygon(Vector axis, Polygon polygon, ref float min, ref float max) {
 			// To project a point on an axis use the dot product
 			float d = axis.DotProduct(polygon.Points[0]);
 			min = d;
