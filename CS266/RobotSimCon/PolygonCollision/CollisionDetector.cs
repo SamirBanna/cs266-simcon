@@ -7,7 +7,7 @@ namespace SimCon.PolygonIntersection
 {
     public partial class CollisionDetector
     {
-        public static void Detect(List<Robot> worldRobots, List<PhysObject> allObjects)
+        public static List<List<PhysObject>> Detect(List<Robot> worldRobots, List<PhysObject> allObjects)
         {
             int numRobots = worldRobots.Count;
             List<Polygon> worldPolys = new List<Polygon>();
@@ -17,20 +17,22 @@ namespace SimCon.PolygonIntersection
             foreach (PhysObject o in allObjects)
             {
                 Polygon p = new Polygon();
+                
+                float colScale = 1.0;
 
-                // NOTE: Currently assuming a top-to-bottom coordinate system
+                // NOTE: Currently assuming a bottom-to-top coordinate system
 
                 // Top left
-                p.Points.Add(new Vector(o.Location.X - o.Width/2, o.Location.Y + o.Height/2));
+                p.Points.Add(new Vector(o.Location.X - colScale * o.Width / 2, o.Location.Y + colScale * o.Height / 2));
 
                 // Top right
-                p.Points.Add(new Vector(o.Location.X + o.Width/2, o.Location.Y + o.Height/2));
+                p.Points.Add(new Vector(o.Location.X + colScale * o.Width / 2, o.Location.Y + colScale * o.Height / 2));
 
                 // Bottom right
-                p.Points.Add(new Vector(o.Location.X + o.Width/2, o.Location.Y - o.Height/2));
+                p.Points.Add(new Vector(o.Location.X + colScale * o.Width / 2, o.Location.Y - colScale * o.Height / 2));
 
                 // Bottom left
-                p.Points.Add(new Vector(o.Location.X - o.Width/2, o.Location.Y - o.Height/2));
+                p.Points.Add(new Vector(o.Location.X - colScale * o.Width / 2, o.Location.Y - colScale * o.Height / 2));
 
                 p.BuildEdges();
 
