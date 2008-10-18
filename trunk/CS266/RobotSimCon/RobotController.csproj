@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Algorithm.cs" />
+    <Compile Include="Algorithms\RandomWalk.cs" />
     <Compile Include="ControlLoop.cs" />
     <Compile Include="PhysObject\Coordinates.cs" />
     <Compile Include="GUI\Form1.cs">

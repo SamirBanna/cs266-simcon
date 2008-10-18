@@ -15,6 +15,8 @@ namespace SimCon
 
         public float Speed = 0;
 
+        public SensorInput CurrentInput;
+
         // Needed
         // A way to determine vision cone, which objects are in it
 

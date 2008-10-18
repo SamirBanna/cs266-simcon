@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SimCon.PolygonIntersection;
 
 namespace SimCon
 {
@@ -47,12 +48,8 @@ namespace SimCon
                 this.WorldObjects[obj.Id].Orientation = obj.Orientation;
             }
 
-            foreach (Robot r in robots)
-            {
-                this.Robots[r.Id].Location = r.Location;
-                this.Robots[r.Id].Orientation = r.Orientation;
-            }
 
+            List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
             
         }
     }
