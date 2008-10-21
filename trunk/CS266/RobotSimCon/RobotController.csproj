@@ -91,6 +91,7 @@
     <Compile Include="PhysicalRobotAction.cs" />
     <Compile Include="SensorInput\SensorInput.cs" />
     <Compile Include="SensorInput\SingleProximityInput.cs" />
+    <Compile Include="Simulator\SimCode1.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\WorldInputInterface.cs" />
