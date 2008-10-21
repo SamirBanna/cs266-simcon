@@ -119,6 +119,9 @@
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SimulationTutorial1.csproj.user" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
