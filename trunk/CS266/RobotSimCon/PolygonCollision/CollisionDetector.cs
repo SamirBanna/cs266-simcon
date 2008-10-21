@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SimCon.PolygonIntersection
+namespace CS266.SimCon.Controller.PolygonIntersection
 {
     public partial class CollisionDetector
     {

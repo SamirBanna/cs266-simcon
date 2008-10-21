@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace SimCon.PolygonIntersection
+namespace CS266.SimCon.Controller.PolygonIntersection
 {
 
 	public partial class CollisionDetector {

@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 
 
-namespace SimCon.PolygonIntersection
+namespace CS266.SimCon.Controller.PolygonIntersection
 {
 
 	public class Polygon {

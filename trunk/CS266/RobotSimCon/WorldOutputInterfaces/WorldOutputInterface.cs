@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SimCon.WorldOutputInterfaces
+namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
     public abstract class WorldOutputInterface
     {

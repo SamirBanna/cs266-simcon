@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SimCon
+namespace CS266.SimCon.Controller
 {
     /// <summary>
     /// An class describing an abstract physical object. This is the superclass for all object types in the world.
