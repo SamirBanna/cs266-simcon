@@ -71,12 +71,12 @@
     <Compile Include="Algorithms\Algorithm.cs" />
     <Compile Include="Algorithms\RandomWalk.cs" />
     <Compile Include="ControlLoop.cs" />
-    <Compile Include="GUI\Driver.cs" />
+    <Compile Include="Driver\Driver.cs" />
     <Compile Include="PhysObject\Coordinates.cs" />
-    <Compile Include="GUI\Form1.cs">
+    <Compile Include="Driver\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Form1.Designer.cs">
+    <Compile Include="Driver\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Message.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="PolygonCollision\CollisionDetector.cs" />
     <Compile Include="PolygonCollision\Polygon.cs" />
     <Compile Include="PolygonCollision\Vector.cs" />
-    <Compile Include="GUI\Program.cs" />
+    <Compile Include="Driver\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
