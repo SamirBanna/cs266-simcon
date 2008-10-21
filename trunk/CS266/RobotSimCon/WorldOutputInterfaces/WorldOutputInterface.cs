@@ -7,7 +7,9 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
     public abstract class WorldOutputInterface
     {
-        public void DoActions();
+        public void DoActions()
+        {
+        }
 
     }
 }
