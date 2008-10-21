@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimCon.PolygonIntersection;
-using SimCon.WorldInputInterfaces;
+using CS266.SimCon.Controller.PolygonIntersection;
+using CS266.SimCon.Controller.WorldInputInterfaces;
 
-namespace SimCon
+namespace CS266.SimCon.Controller
 {
 
     public delegate void RunLoopDelegate();

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SimCon.WorldInputInterfaces;
+using CS266.SimCon.Controller.WorldInputInterfaces;
 
-namespace SimCon
+namespace CS266.SimCon.Controller
 {
     static class Program
     {

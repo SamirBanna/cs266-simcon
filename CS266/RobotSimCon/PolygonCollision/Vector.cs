@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace SimCon.PolygonIntersection {
+namespace CS266.SimCon.Controller.PolygonIntersection {
 
 	public struct Vector {
 

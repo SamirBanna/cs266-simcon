@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SimCon
+namespace CS266.SimCon.Controller
 {
     public partial class Form1 : Form
     {

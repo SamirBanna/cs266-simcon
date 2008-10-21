@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimCon.Properties {
+namespace CS266.SimCon.Controller.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -1,4 +1,4 @@
-﻿namespace SimCon
+﻿namespace CS266.SimCon.Controller
 {
     partial class Form1
     {
