@@ -72,6 +72,12 @@ namespace Robotics.SimulationTutorial1
             ObjectState Barrier3 = new ObjectState("Obstacle3", "obstacle", new float[3] { 11f, -((WD.zdim / 2f) - 4f), .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 3f, -.5f, .8f });
 
             ObjectState Food1 = new ObjectState("FoodUnit1", "food", new float[3] { 10f, -10f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food2 = new ObjectState("FoodUnit2", "food", new float[3] { 10f, -10.2f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food3 = new ObjectState("FoodUnit3", "food", new float[3] { 10.2f, -10f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food4 = new ObjectState("FoodUnit4", "food", new float[3] { 9.8f, -10f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food5 = new ObjectState("FoodUnit5", "food", new float[3] { 10f, -9.8f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food6 = new ObjectState("FoodUnit6", "food", new float[3] { 10f, -10f, .2f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
+            ObjectState Food7 = new ObjectState("FoodUnit7", "food", new float[3] { 9.8f, -9.8f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
 
             ObjectState Robot1 = new ObjectState("A", "robot", new float[3] { (WD.xdim / 2f), -WD.zdim / 2f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
             ObjectState Robot2 = new ObjectState("B", "robot", new float[3] { (WD.xdim / 2f) + 1, -WD.zdim / 2f, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 });
@@ -85,6 +91,12 @@ namespace Robotics.SimulationTutorial1
             o.Add(Barrier2);
             o.Add(Barrier3);
             o.Add(Food1);
+            o.Add(Food2);
+            o.Add(Food3);
+            o.Add(Food4);
+            o.Add(Food5);
+            o.Add(Food6);
+            o.Add(Food7);
             o.Add(Robot1);
             o.Add(Robot2);
             o.Add(Robot3);
