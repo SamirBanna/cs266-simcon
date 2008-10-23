@@ -80,6 +80,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Message.cs" />
+    <Compile Include="PhysObject\Food.cs" />
     <Compile Include="PhysObject\ObjectType.cs" />
     <Compile Include="PhysObject\PhysObject.cs" />
     <Compile Include="PolygonCollision\Collision.cs">
@@ -99,6 +100,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,6 +115,7 @@
     <Compile Include="SensorInput\SensorInput.cs" />
     <Compile Include="SensorInput\SingleProximityInput.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="WorldInputInterfaces\SimulatorInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\WorldInputInterface.cs" />
     <Compile Include="WorldOutputInterfaces\SimulatorOutputInterface.cs" />
