@@ -7,7 +7,7 @@ using CS266.SimCon.Controller.WorldInputInterfaces;
 
 namespace CS266.SimCon.Controller
 {
-    static class Program
+    public static class Program
     {
 
         static ControlLoop controlLoop;
@@ -18,7 +18,7 @@ namespace CS266.SimCon.Controller
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
 
             Driver.Driver.Run();
