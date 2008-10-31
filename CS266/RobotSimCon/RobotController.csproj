@@ -118,6 +118,7 @@
     <Compile Include="WorldInputInterfaces\SimulatorInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="WorldInputInterfaces\WorldInputInterface.cs" />
+    <Compile Include="WorldOutputInterfaces\RadioOutputInterface.cs" />
     <Compile Include="WorldOutputInterfaces\SimulatorOutputInterface.cs" />
     <Compile Include="WorldOutputInterfaces\WorldOutputInterface.cs" />
   </ItemGroup>

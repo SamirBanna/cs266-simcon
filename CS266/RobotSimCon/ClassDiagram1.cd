@@ -1,70 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CS266.SimCon.Controller.Algorithm" Collapsed="true">
-    <Position X="6.25" Y="3" Width="1.5" />
+    <Position X="6.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Algorithms\Algorithm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.ControlLoop" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAABAAAAAAAAAAAAEAAAAAABAQAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>ControlLoop.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.Message" Collapsed="true">
-    <Position X="8.25" Y="4" Width="1.5" />
+    <Position X="8.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Message.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.PhysicalRobotAction" Collapsed="true">
-    <Position X="8.25" Y="3" Width="1.75" />
+    <Position X="8.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAEAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhysicalRobotAction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.PhysObject" Collapsed="true">
-    <Position X="3.25" Y="3" Width="1.5" />
+    <Position X="3.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAABQAAAAAAAAIAAEQAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhysObject\PhysObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.Robot" Collapsed="true">
-    <Position X="4.25" Y="4" Width="1.5" />
+    <Position X="4.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAACACABAZAAEgAAAAKAAAABBAAAA=</HashCode>
       <FileName>Robot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.SensorInput" Collapsed="true">
-    <Position X="7.25" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SensorInput\SensorInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.SingleProximityInput" Collapsed="true">
-    <Position X="7.25" Y="1.75" Width="1.5" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIAAAAAAAAA=</HashCode>
       <FileName>SensorInput\SingleProximityInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.World" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>World.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.Algorithms.RandomWalk" Collapsed="true">
-    <Position X="6.25" Y="4" Width="1.5" />
+    <Position X="6.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQQAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Algorithms\RandomWalk.cs</FileName>
@@ -78,14 +78,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.PolygonIntersection.CollisionDetector" Collapsed="true">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAQAAAAAAAACAAAACAAAA=</HashCode>
       <FileName>PolygonCollision\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.VisionInputInterface" Collapsed="true">
-    <Position X="3.25" Y="1.75" Width="1.5" />
+    <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
       <FileName>WorldInputInterfaces\VisionInputInterface.cs</FileName>
@@ -99,24 +99,38 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.SimulatorOutputInterface" Collapsed="true">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+    <Position X="6.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WorldOutputInterfaces\SimulatorOutputInterface.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.WorldOutputInterface" Collapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WorldOutputInterfaces\WorldOutputInterface.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.Food" Collapsed="true">
-    <Position X="2.5" Y="4" Width="1.5" />
+    <Position X="2.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhysObject\Food.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.SimulatorInputInterface" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
+      <FileName>WorldInputInterfaces\SimulatorInputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.RadioOutputInterface" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorldOutputInterfaces\RadioOutputInterface.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
