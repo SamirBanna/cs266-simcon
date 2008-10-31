@@ -122,6 +122,12 @@
     <Content Include="SimulationTutorial1.csproj.user" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RobotSimCon\RobotController.csproj">
+      <Project>{FA0949F8-3405-452A-851F-182EE57BD4AF}</Project>
+      <Name>RobotController</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />

@@ -138,6 +138,7 @@ namespace Robotics.SimulationTutorial1
             public OurSimulator()
             {
                 RobotList = new List<IRobotCreate>();
+                CS266.SimCon.Controller.Program.Main();
             }
 
             public void PopulateWorld(WorldDimensions WD, WorldState World)
