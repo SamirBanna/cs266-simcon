@@ -14,8 +14,8 @@ namespace CS266.SimCon.Controller.Driver
             List<Robot> robots = wip.GetRobots();
             List<PhysObject> worldObjects = wip.GetPhysObjects();
 
-            ControlLoop cl = new ControlLoop(robots, worldObjects);
-            wip.SetRunLoopDelegate(cl.RunLoop);
+            //ControlLoop cl = new ControlLoop(robots, worldObjects);
+            //wip.SetRunLoopDelegate(cl.RunLoop);
         }
     }
 }
