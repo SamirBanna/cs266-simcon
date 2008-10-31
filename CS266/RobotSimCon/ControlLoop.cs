@@ -52,7 +52,7 @@ namespace CS266.SimCon.Controller
             {
                 this.WorldObjects[obj.Id].Location = obj.Location;
                 this.WorldObjects[obj.Id].Orientation = obj.Orientation;
-            }
+            } 
 
 
             List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
