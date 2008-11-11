@@ -1,7 +1,3 @@
-#summary Instructions for accessing the repository through SVN.
-
-= Introduction =
-
 To get write access, please send Konstantin your Gmail address.
 
 The Subversion URL (which you use in your Subversion client, not in a web browser) is https://cs266-simcon.googlecode.com/svn/
