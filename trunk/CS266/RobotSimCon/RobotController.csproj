@@ -77,6 +77,8 @@
     <Compile Include="Algorithms\RandomWalk.cs" />
     <Compile Include="ControlLoop.cs" />
     <Compile Include="Driver\Driver.cs" />
+    <Compile Include="Networking\AsynchronousSocketListener.cs" />
+    <Compile Include="Networking\StateObject.cs" />
     <Compile Include="PhysObject\Coordinates.cs" />
     <Compile Include="Driver\Form1.cs">
       <SubType>Form</SubType>
