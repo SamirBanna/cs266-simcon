@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\Algorithm.cs" />
     <Compile Include="Algorithms\RandomWalk.cs" />
+    <Compile Include="Algorithms\randWalk.cs" />
     <Compile Include="ControlLoop.cs" />
     <Compile Include="Driver\Driver.cs" />
     <Compile Include="Networking\AsynchronousSocketListener.cs" />
@@ -120,6 +121,7 @@
     </Compile>
     <Compile Include="Robot.cs" />
     <Compile Include="PhysicalRobotAction.cs" />
+    <Compile Include="SensorInput\RandomWalkSensorInput.cs" />
     <Compile Include="SensorInput\SensorInput.cs" />
     <Compile Include="SensorInput\SingleProximityInput.cs" />
     <Compile Include="World.cs" />

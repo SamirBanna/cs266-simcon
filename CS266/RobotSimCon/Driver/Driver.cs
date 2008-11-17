@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CS266.SimCon.Controller.WorldInputInterfaces;
+using Robotics.SimulationTutorial1;
 
 namespace CS266.SimCon.Controller.Driver
 {
     class Driver
     {
-        public static void Run()
+        public static void Run(ObjectState ws, bool vision)
         {
-            VisionInputInterface wip = new VisionInputInterface();
+            if (vision)
+            {
+                VisionInputInterface wip = new VisionInputInterface();
+            }
+            else
+            {
+                SimulatorInputInterface wip = new SimulatorInputInterface(ws);
+            }
             List<Robot> robots = wip.GetRobots();
             List<PhysObject> worldObjects = wip.GetPhysObjects();
 

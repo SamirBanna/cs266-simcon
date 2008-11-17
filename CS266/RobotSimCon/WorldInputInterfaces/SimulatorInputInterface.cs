@@ -21,8 +21,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (ws.objects[i].type == "robot")
                 {
+                    /* type 2 = robot type */
                     int id = 2;
+                    /* id for robot */
                     String name = ws.objects[i].name;
+
                     Coordinates location = new Coordinates(ws.objects[i].position[0], ws.objects[i].position[1]);
                     float orientation = ws.objects[i].degreesfromx;
                     float width = 1;
