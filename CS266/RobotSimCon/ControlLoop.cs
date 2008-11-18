@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CS266.SimCon.Controller.PolygonIntersection;
 using CS266.SimCon.Controller.WorldInputInterfaces;
+using CS266.SimCon.Controller.WorldOutputInterfaces;
 
 namespace CS266.SimCon.Controller
 {
@@ -15,6 +16,7 @@ namespace CS266.SimCon.Controller
         Dictionary<int, Robot> Robots;
         Dictionary<int, PhysObject> WorldObjects;
         WorldInputInterface Wii;
+        WorldOutputInterface Woi;
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 

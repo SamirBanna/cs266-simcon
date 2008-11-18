@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 //using Robotics.SimulationTutorial1;
+using CS266.SimCon.Controller.Driver;
 
 namespace CS266.SimCon.Controller
 {
@@ -20,8 +21,8 @@ namespace CS266.SimCon.Controller
         [STAThread]
         public static void Main()
         {
-
-            Driver.Driver.Run();
+            RobotTest.Run();
+            //Driver.Driver.Run();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

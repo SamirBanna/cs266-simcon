@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FA0949F8-3405-452A-851F-182EE57BD4AF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -78,6 +78,7 @@
     <Compile Include="Algorithms\randWalk.cs" />
     <Compile Include="ControlLoop.cs" />
     <Compile Include="Driver\Driver.cs" />
+    <Compile Include="Driver\RobotTest.cs" />
     <Compile Include="Networking\AsynchronousSocketListener.cs" />
     <Compile Include="Networking\StateObject.cs" />
     <Compile Include="PhysObject\Coordinates.cs" />
