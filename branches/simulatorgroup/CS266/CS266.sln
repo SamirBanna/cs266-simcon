@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotController", "RobotSimCon\RobotController.csproj", "{FA0949F8-3405-452A-851F-182EE57BD4AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9} = {A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationTutorial1", "SimulationTutorial1\SimulationTutorial1.csproj", "{1610DE33-72D8-4552-B53D-BDAEC5067D9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9} = {A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboticsClasses", "RoboticsClasses\RoboticsClasses.csproj", "{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA0949F8-3405-452A-851F-182EE57BD4AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0949F8-3405-452A-851F-182EE57BD4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0949F8-3405-452A-851F-182EE57BD4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0949F8-3405-452A-851F-182EE57BD4AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1610DE33-72D8-4552-B53D-BDAEC5067D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1610DE33-72D8-4552-B53D-BDAEC5067D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1610DE33-72D8-4552-B53D-BDAEC5067D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1610DE33-72D8-4552-B53D-BDAEC5067D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41F1DB8-1BFD-4CF3-B392-00680D2E2AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
