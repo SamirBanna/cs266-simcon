@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CS266.SimCon.Controller.WorldInputInterfaces;
-using Robotics.SimulationTutorial1;
+using CS266.RoboticsClasses;
 
 namespace CS266.SimCon.Controller.Driver
 {
