@@ -159,9 +159,6 @@
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SimulationTutorial1.csproj.user" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Controller\ClassDiagram1.cd" />
     <None Include="Controller\RobotController_TemporaryKey.pfx" />
   </ItemGroup>
