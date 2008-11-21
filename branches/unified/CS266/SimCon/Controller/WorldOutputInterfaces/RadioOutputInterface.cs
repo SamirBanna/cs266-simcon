@@ -21,6 +21,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
             byte [] cmdBytes = encoding.GetBytes(cmd);
             serialPort.Write(cmdBytes, 0, cmdBytes.Length);
+            serialPort.Open();
         }
 
         internal void wheelCountReset(int id)
@@ -39,16 +40,16 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             int degree1 = degree * 6;
             int degree2 = -degree1;
 
-            sendCommand("*" + id.ToString());
             wheelCountReset(id);
+            sendCommand("*" + id.ToString());
             sendCommand("C," + degree1.ToString() + "," + degree2.ToString());
         }
 
         internal void moveDistance(int id, int dist)
         {
             dist = (int)Math.Floor(dist * 12.5);
-            sendCommand("*" + id.ToString());
             wheelCountReset(id);
+            sendCommand("*" + id.ToString());
             sendCommand("C," + dist.ToString() + "," + dist.ToString());
         }
 

@@ -11,16 +11,16 @@ namespace CS266.SimCon.Controller.Driver
     {
         public static void Run(ObjectState ws, bool vision)
         {
-            if (vision)
-            {
-                VisionInputInterface wip = new VisionInputInterface();
-            }
-            else
-            {
-                SimulatorInputInterface wip = new SimulatorInputInterface(ws);
-            }
-            List<Robot> robots = wip.GetRobots();
-            List<PhysObject> worldObjects = wip.GetPhysObjects();
+            //if (vision)
+            //{
+            //    VisionInputInterface wip = new VisionInputInterface();
+            //}
+            //else
+            //{
+            //    SimulatorInputInterface wip = new SimulatorInputInterface(ws);
+            //}
+            //List<Robot> robots = wip.GetRobots();
+            //List<PhysObject> worldObjects = wip.GetPhysObjects();
 
             //ControlLoop cl = new ControlLoop(robots, worldObjects);
             //wip.SetRunLoopDelegate(cl.RunLoop);
