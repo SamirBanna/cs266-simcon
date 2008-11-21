@@ -43,23 +43,34 @@ namespace CS266.SimCon.Controller
         }
 
         
-
+        // Updates the states of robots and objects with new information
         private void GetInput()
         {
             List<PhysObject> worldObjects = Wii.GetPhysObjects();
             List<Robot> robots = Wii.GetRobots();
 
             // New positions of objects get updated immediately
+            // 
             foreach (PhysObject obj in worldObjects)
             {
                 this.WorldObjects[obj.Id].Location = obj.Location;
                 this.WorldObjects[obj.Id].Orientation = obj.Orientation;
+            }
+            // Will also need velocity info for the simulator
+            foreach (Robot obj in robots)
+            {
+                this.Robots[obj.Id].Location = obj.Location;
+                this.Robots[obj.Id].Orientation = obj.Orientation;
             } 
 
 
             List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
             
             
+        }
+        public List<PhysicalRobotAction> GetActions()
+        {
+
         }
     }
 }

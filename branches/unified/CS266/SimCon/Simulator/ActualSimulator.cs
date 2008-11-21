@@ -7,10 +7,6 @@ using Microsoft.Robotics.Simulation.Engine;
 using CS266.SimCon.Controller;
 using CS266.SimCon.RoboticsClasses;
 
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using System.Xml;
 using System.Net;

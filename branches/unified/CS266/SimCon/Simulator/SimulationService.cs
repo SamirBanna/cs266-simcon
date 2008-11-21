@@ -36,7 +36,6 @@ namespace CS266.SimCon.Simulator
     [DisplayName("CS266 Simulation Service")]
     [Description("CS266 Simulation Service")]
     [Contract(Contract.Identifier)]
-
     public class SimulationService : DsspServiceBase
     {
         [Partner("Engine",

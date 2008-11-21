@@ -32,15 +32,21 @@ namespace CS266.SimCon.Controller
         {
 
         }
-        
+
         public void MoveForward(float distance)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveForward, distance));
+            if (CanMoveForward)
+            {
+                ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveForward, distance));
+            }
         }
 
         public void MoveBackward(float distance)
         {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveBackward, distance));
+            if (CanMoveBackward)
+            {
+                ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.MoveBackward, distance));
+            }
         }
 
         public void Stop()
