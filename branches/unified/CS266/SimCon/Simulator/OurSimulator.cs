@@ -37,9 +37,8 @@ namespace CS266.SimCon.Simulator
         //NEW!!!!! Changed!
         public WorldState GetWorldState()
         {
-            // create an updated world state
-            // set the simulator field
-            return W;
+
+            
         }
 
         //NEW!!!!! Changed!
@@ -297,13 +296,6 @@ namespace CS266.SimCon.Simulator
             {
                 Thread.Sleep(15000);
                 return null;
-            }
-
-            // Currently failed attempt to get robot state directly from robot rather than through XML file
-            for (int i = 0; i < this.RobotList.Count; i++)
-            {
-                Console.WriteLine(this.RobotList[i].State.Name);
-                Console.WriteLine(this.RobotList[i].State.Pose.Position.X);
             }
 
 
