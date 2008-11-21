@@ -34,11 +34,96 @@ namespace CS266.SimCon.Simulator
             FoodList = new List<SingleShapeEntity>();
         }
 
-        //NEW!!!!! Changed!
+        public WorldState WorldStateGetter()
+        {
+            return W;
+        }
         public WorldState GetWorldState()
         {
+            List<ObjectState> objs = new List<ObjectState>();
+            string name = "";
+            string type = "obstacle";
+            float[] position = new float[3];
+            float[] orientation = new float[3];
+            float[] velocity = new float[3];
+            float[] dimension = new float[3];
 
-            
+            for (int i = 0; i < this.BoundaryList.Count; i++)
+            {
+                name = this.BoundaryList[i].State.Name;
+                type = "obstacle";
+                position[0] = this.BoundaryList[i].State.Pose.Position.X;
+                position[1] = -this.BoundaryList[i].State.Pose.Position.Z;
+                position[2] = this.BoundaryList[i].State.Pose.Position.Y;
+                orientation[0] = this.BoundaryList[i].State.Pose.Orientation.X;
+                orientation[1] = -this.BoundaryList[i].State.Pose.Orientation.Z;
+                orientation[2] = this.BoundaryList[i].State.Pose.Orientation.Y;
+                velocity[0] = this.BoundaryList[i].State.Velocity.X;
+                velocity[1] = -this.BoundaryList[i].State.Velocity.Z;
+                velocity[2] = this.BoundaryList[i].State.Velocity.Y;
+                for (int j = 0; j < this.W.objects.Count; j++)
+                {
+                    if (name == this.W.objects[j].name)
+                    {
+                        dimension[0] = this.W.objects[j].dimension.X;
+                        dimension[1] = this.W.objects[j].dimension.Y;
+                        dimension[2] = this.W.objects[j].dimension.Z;
+                    }
+                }
+
+                ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
+                objs.Add(o);
+            }
+
+            for (int i = 0; i < this.RobotList.Count; i++)
+            {
+                name = this.RobotList[i].State.Name;
+                type = "robot";
+                position[0] = this.RobotList[i].State.Pose.Position.X;
+                position[1] = -this.RobotList[i].State.Pose.Position.Z;
+                position[2] = this.RobotList[i].State.Pose.Position.Y;
+                orientation[0] = this.RobotList[i].State.Pose.Orientation.X;
+                orientation[1] = -this.RobotList[i].State.Pose.Orientation.Z;
+                orientation[2] = this.RobotList[i].State.Pose.Orientation.Y;
+                velocity[0] = this.RobotList[i].State.Velocity.X;
+                velocity[1] = -this.RobotList[i].State.Velocity.Z;
+                velocity[2] = this.RobotList[i].State.Velocity.Y;
+                dimension[0] = 1;
+                dimension[1] = 1;
+                dimension[2] = 1;
+
+                ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
+                objs.Add(o);
+            }
+
+            for (int i = 0; i < this.FoodList.Count; i++)
+            {
+                name = this.FoodList[i].State.Name;
+                type = "robot";
+                position[0] = this.FoodList[i].State.Pose.Position.X;
+                position[1] = -this.FoodList[i].State.Pose.Position.Z;
+                position[2] = this.FoodList[i].State.Pose.Position.Y;
+                orientation[0] = this.FoodList[i].State.Pose.Orientation.X;
+                orientation[1] = -this.FoodList[i].State.Pose.Orientation.Z;
+                orientation[2] = this.FoodList[i].State.Pose.Orientation.Y;
+                velocity[0] = this.FoodList[i].State.Velocity.X;
+                velocity[1] = -this.FoodList[i].State.Velocity.Z;
+                velocity[2] = this.FoodList[i].State.Velocity.Y;
+                dimension[0] = 0.5f;
+                dimension[1] = 0.4f;
+                dimension[2] = 0.5f;
+
+                ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
+                objs.Add(o);
+            }
+
+            WorldState ws = new WorldState(objs);
+            this.W = ws;
+
+            // create an updated world state
+            // set the simulator field
+
+            return W;
         }
 
         //NEW!!!!! Changed!
