@@ -6,6 +6,7 @@ namespace CS266.SimCon.RoboticsClasses
 {
     public class WorldDimensions
     {
+
         public float xdim;
         public float zdim;
 

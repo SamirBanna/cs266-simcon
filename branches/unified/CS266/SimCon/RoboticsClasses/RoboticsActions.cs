@@ -6,12 +6,27 @@ namespace CS266.SimCon.RoboticsClasses
 {
     public class RobotActions
     {
-        public RobotAction[] actions;
+        //PHASE 1
+        //public RobotAction[] actions;
+        public List<RobotAction> actions;
         public int size;
-        public RobotActions(RobotAction[] acts)
+        public RobotActions(List<RobotAction> acts)
         {
             this.actions = acts;
-            this.size = acts.Length;
+            this.size = acts.Count;
+        }
+        //Newly Added
+        public RobotActions()
+        {
+            this.actions = new List<RobotAction>();
+            this.size = actions.Count;
+        }
+        //Newly Added
+        public void Add(RobotAction act)
+        {
+            this.actions.Add(act);
+            this.size = this.actions.Count;
         }
     }
+    // DID HAVE A "}" HERE
 }

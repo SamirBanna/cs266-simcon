@@ -33,7 +33,7 @@ namespace CS266.SimCon.RoboticsClasses
             this.position.Y = position[1]; //for all objects
             this.position.Z = position[2]; //for all objects
 
-            float x = orientation[0]; // only for robots, if it's not a robot, just set orientation to [1,0,0]
+            float x = orientation[0]; //  for robots and obstacles, if it's not a robot, just set orientation to [1,0,0]
             float z = orientation[2]; //radians = Math.Atan(z/x);
             double radians = Math.Atan(z / x);
             double angle = radians * (180 / Math.PI);

@@ -27,6 +27,7 @@ namespace CS266.SimCon.Simulator
             List<ObjectState> objects = new List<ObjectState>();
 
             int barriers = 0;
+
             while (ienum.MoveNext())
             {
                 XmlNode entity = (XmlNode)ienum.Current;

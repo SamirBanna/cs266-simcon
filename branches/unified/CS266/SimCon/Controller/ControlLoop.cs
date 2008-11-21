@@ -68,9 +68,5 @@ namespace CS266.SimCon.Controller
             
             
         }
-        public List<PhysicalRobotAction> GetActions()
-        {
-
-        }
     }
 }

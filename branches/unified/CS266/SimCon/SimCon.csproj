@@ -27,7 +27,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>C:\Microsoft Robotics Studio (1.5)\bin\</OutputPath>
@@ -132,6 +132,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Log">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +173,8 @@
     <Compile Include="RoboticsClasses\RobotAction.cs" />
     <Compile Include="RoboticsClasses\RoboticsActions.cs" />
     <Compile Include="RoboticsClasses\WorldDimensions.cs" />
-    <Compile Include="Simulator\ActualSimulator.cs" />
+    <Compile Include="RoboticsClasses\WorldPair.cs" />
+    <Compile Include="Simulator\OurSimulator.cs" />
     <Compile Include="RoboticsClasses\ObjectState.cs" />
     <Compile Include="RoboticsClasses\WorldState.cs" />
     <Compile Include="Simulator\SimulationService.cs" />
