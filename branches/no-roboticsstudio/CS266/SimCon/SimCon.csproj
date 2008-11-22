@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1610DE33-72D8-4552-B53D-BDAEC5067D9B}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -161,20 +161,11 @@
     <Compile Include="Controller\SensorInput\SensorInput.cs" />
     <Compile Include="Controller\SensorInput\SingleProximityInput.cs" />
     <Compile Include="Controller\World.cs" />
-    <Compile Include="Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
-    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
-    <Compile Include="RoboticsClasses\RobotAction.cs" />
-    <Compile Include="RoboticsClasses\RoboticsActions.cs" />
-    <Compile Include="RoboticsClasses\WorldDimensions.cs" />
-    <Compile Include="Simulator\ActualSimulator.cs" />
-    <Compile Include="RoboticsClasses\ObjectState.cs" />
-    <Compile Include="RoboticsClasses\WorldState.cs" />
-    <Compile Include="Simulator\SimulationService.cs" />
-    <Compile Include="Simulator\WorldStateParser.cs" />
+    <Compile Include="Controller\World\ControllerWorldState.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
