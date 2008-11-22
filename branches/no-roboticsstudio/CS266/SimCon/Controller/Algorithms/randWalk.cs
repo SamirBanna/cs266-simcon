@@ -30,13 +30,13 @@ namespace CS266.SimCon.Controller.Algorithms
         double probTurn = 0.5;
         float moveDistance = 5;
 
-        public void Execute()
+        public override void Execute()
         {
             if (isFinished)
             {
                 return;
             }
-            RandomWalkSensorInput input = (RandomWalkSensorInput)Robot.CurrentInput;
+            RandomWalkSensorInput input = null;
             if (input.senseFood == true)
             {
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)

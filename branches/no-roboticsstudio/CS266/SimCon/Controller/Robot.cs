@@ -19,20 +19,18 @@ namespace CS266.SimCon.Controller
         public float Speed = 0;
 
         public PhysicalRobotAction CurrentAction;
-        public SensorInput CurrentInput;
 
-        // Needed
-        // A way to determine vision cone, which objects are in it
+        //List of Sensors the robot is holding, mapped by their string name
+        public Dictionary<String, SensorInput> Sensors;
 
         public Algorithm CurrentAlgorithm;
 
-        // TODO Figure out units
 
-        public void ProcessInput(SingleProximityInput input)
-        {
-
-        }
-
+        /***
+         * 
+         * Possible actions that a robot can do
+         * 
+         * */
         public void MoveForward(float distance)
         {
             if (CanMoveForward)
