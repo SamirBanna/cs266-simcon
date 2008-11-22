@@ -17,6 +17,7 @@ namespace CS266.SimCon.Controller
         Dictionary<int, PhysObject> WorldObjects;
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
+        ControllerWorldState worldState;
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
@@ -40,33 +41,51 @@ namespace CS266.SimCon.Controller
         public void RunLoop()
         {
             this.GetInput();
+            this.RunAlgorithms();
         }
 
-        
+
+    
         // Updates the states of robots and objects with new information
+        //1. Get's the world state from the world input interface
+        //2. update each robot's local view by updating that robots' sensors
         private void GetInput()
         {
-            List<PhysObject> worldObjects = Wii.GetPhysObjects();
-            List<Robot> robots = Wii.GetRobots();
+            //List<PhysObject> worldObjects = Wii.GetPhysObjects();
+            //List<Robot> robots = Wii.GetRobots();
+
+
+            //// New positions of objects get updated immediately
+            //foreach (PhysObject obj in worldObjects)
+            //{
+            //    this.WorldObjects[obj.Id].Location = obj.Location;
+            //    this.WorldObjects[obj.Id].Orientation = obj.Orientation;
+            //} 
 
             // New positions of objects get updated immediately
             // 
-            foreach (PhysObject obj in worldObjects)
+
+
+
+            //List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
+
+            worldState = Wii.getWorldState();
+            foreach (Robot r in Robots.Values)
             {
-                this.WorldObjects[obj.Id].Location = obj.Location;
-                this.WorldObjects[obj.Id].Orientation = obj.Orientation;
+                foreach (SensorInput sensor in r.Sensors.Values)
+                {
+                    sensor.UpdateWorldState(worldState);
+                }
             }
-            // Will also need velocity info for the simulator
-            foreach (Robot obj in robots)
+     }
+
+        //Iterate through list of robots, and all their algorithm's execute function
+        private void RunAlgorithms()
+        {
+            foreach (Robot r in Robots.Values)
             {
-                this.Robots[obj.Id].Location = obj.Location;
-                this.Robots[obj.Id].Orientation = obj.Orientation;
-            } 
-
-
-            List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
-            
-            
+                r.CurrentAlgorithm.Execute();
+            }
         }
 
     }
