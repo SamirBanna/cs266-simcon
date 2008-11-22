@@ -17,5 +17,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             return null;
         }
 
+        public override ControllerWorldState getWorldState()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

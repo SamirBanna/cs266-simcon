@@ -16,7 +16,7 @@ namespace CS266.SimCon.Controller.Algorithms
 
         bool isFinished = false;
 
-        public override void Execute()
+        public void Execute()
         {
             if (isFinished)
             {
@@ -24,22 +24,22 @@ namespace CS266.SimCon.Controller.Algorithms
             }
 
             
-            SingleProximityInput spi = null;
+         //   SingleProximityInput spi = (SingleProximityInput)Robot.CurrentInput;
 
-            if (spi.Distance < minProximity && spi.ObjectType != ObjectType.Food)
-            {
-                float turnDegrees = new Random().Next(-12, 12) * 15;
-                Robot.Turn(turnDegrees);
-            }
-            else if (spi.Distance < minProximity && spi.ObjectType == ObjectType.Food)
-            {
-                Robot.MoveForward(spi.Distance / 2);
-                isFinished = true;
-            }
-            else
-            {
-                Robot.MoveForward(minProximity);
-            }
+            //if (spi.Distance < minProximity && spi.ObjectType != ObjectType.Food)
+            //{
+            //    float turnDegrees = new Random().Next(-12, 12) * 15;
+            //    Robot.Turn(turnDegrees);
+            //}
+            //else if (spi.Distance < minProximity && spi.ObjectType == ObjectType.Food)
+            //{
+            //    Robot.MoveForward(spi.Distance / 2);
+            //    isFinished = true;
+            //}
+            //else
+            //{
+            //    Robot.MoveForward(minProximity);
+            //}
         }
     }
 }

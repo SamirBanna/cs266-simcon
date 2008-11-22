@@ -11,8 +11,8 @@ namespace CS266.SimCon.Controller
     public static class Program
     {
 
-        static ControlLoop controlLoop;
-        static WorldInputInterface wip;
+        //static ControlLoop controlLoop;
+        //static WorldInputInterface wip;
 
 
         /// <summary>

@@ -16,8 +16,7 @@ namespace CS266.SimCon.Controller
         private Robot robot;
         private ControllerWorldState worldState;
         //Replace the worldState with the new worldstate passed in from the parameter;
-        public void UpdateWorldState(ControllerWorldState ws)
-        {
+        public void UpdateWorldState(ControllerWorldState ws){
             worldState = ws;
         }
     }
