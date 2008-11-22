@@ -7,48 +7,59 @@ namespace CS266.SimCon.Controller
 {
     public class ProximitySensor : SensorInput
     {
+        double objectSensingAngle = 10; // angle at which it can sense obstacle objects
+                                    // assumed symmetric for + or - direction
+        double objectSensingDist = 2; // distance at which obstacles can be sensed
+        
         public bool faceObject;
+        public ControllerWorldState worldState;
+        //List<Robot> robots = worldState.robots;
+        //List<PhysObject> objects = worldState.physobjects;
         
         public ProximitySensor(ControllerWorldState worldState)
         {
-            List<Robot> robots = worldState.robots;
-            List<PhysObject> objects = worldState.physobjects;
-            bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject object);
-            double objectSensingAngle = 10; // angle at which it can sense obstacle objects
-                                    // assumed symmetric for + or - direction
-            double objectSensingDist = 2; // distance at which obstacles can be sensed
+            this.worldState = worldState;
+            
+        }
+            
 
-            foreach (Robot robot in robots){
-                this.faceObject = true;    // reset to false each time
-                foreach (PhysObject object in objects){
-	            // check if it is near the robot
-	            if(senseObject(objectSensingAngle, objectSensingDist, robot, object) == true){
-	                this.faceObject = true;
-                        break;
-                    }
-                }
-            }
+            //bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject object);
+            
+            
+            
+
+            //foreach (Robot robot in robots){
+            //    this.faceObject = true;    // reset to false each time
+            //    foreach (PhysObject obj in objects){
+            //    // check if it is near the robot
+            //    if(senseObject(objectSensingAngle, objectSensingDist, robot, object) == true){
+            //        this.faceObject = true;
+            //            break;
+            //        }
+            //    }
+            //}
 
             // returns true if robot senses food in +/- angle within distance
-            bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject object){
-                Coordinates objectLocation = object.location;
-                Coordinates robotLocation = robot.location;
+            public bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject obj){
+                Coordinates objectLocation = obj.Location;
+                Coordinates robotLocation = robot.Location;
+
 
                 double distance = Math.Sqrt(
-	            (objectLocation.x - robotLocation.x)*(objectLocation.x - robotLocation.x) + 
-	            (objectLocation.y - robotLocation.y)*(objectLocation.y - robotLocation.y));  
+	            (objectLocation.X - robotLocation.X)*(objectLocation.X - robotLocation.X) + 
+	            (objectLocation.Y - robotLocation.Y)*(objectLocation.Y - robotLocation.Y));  
 
                 if(distance > maxdistance) return false;
 
                 // get angle between
-                double radians = ATan2(objectLocation.y - robotLocation.y, 
-		                       objectLocation.x - robotLocation.x); 
+                double radians = Math.Atan2(objectLocation.Y - robotLocation.Y, 
+		                       objectLocation.X - robotLocation.X); 
                 double angle = radians * (180/Math.PI); // from -180 to 180
 
                 // assume orientation is defined from -180 to 180
                 // TODO: Is the above true?
                 double angleDifference;
-                double orientation = robot.orientation;
+                double orientation = robot.Orientation;
                 if((angle >= 0 && orientation >= 0) || (angle <= 0 && orientation <= 0)){
                     angleDifference = Math.Abs(angle - orientation);
                 }else{    //find angle difference by adding their degree distance from 0, then 
@@ -65,4 +76,4 @@ namespace CS266.SimCon.Controller
             }   
         }
     }
-}
+
