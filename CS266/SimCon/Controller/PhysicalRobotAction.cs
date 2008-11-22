@@ -10,7 +10,11 @@ namespace CS266.SimCon.Controller
 
     public class PhysicalRobotAction
     {
-        
+
+        public int RobotId;
+        public PhysicalActionType ActionType;
+        public float ActionValue;
+
         public PhysicalRobotAction(int id, PhysicalActionType actionType, float value)
         {
             this.RobotId = id;
@@ -29,9 +33,6 @@ namespace CS266.SimCon.Controller
             this.ActionType = actionType;
         }
 
-        public int RobotId;
-        public PhysicalActionType ActionType;
-        public float ActionValue;
 
     }
 

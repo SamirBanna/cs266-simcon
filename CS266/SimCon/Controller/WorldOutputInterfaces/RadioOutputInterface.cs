@@ -8,6 +8,20 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
     public class RadioOutputInterface : WorldOutputInterface
     {
+        //Translate the RobotActions into real world robot movements serial commands
+        public override void DoActions(PhysicalRobotAction action)
+        {
+            if (action.ActionType == PhysicalActionType.MoveForward)
+                moveDistance(action.RobotId, (int) action.ActionValue);
+            else if (action.ActionType == PhysicalActionType.MoveBackward)
+                moveDistance(action.RobotId, -1*(int)action.ActionValue);
+            else if (action.ActionType == PhysicalActionType.Turn)
+                moveDistance(action.RobotId, (int)action.ActionValue);
+            else if (action.ActionType == PhysicalActionType.SetSpeed)
+                moveDistance(action.RobotId, (int)action.ActionValue);
+ 
+        }
+        
         SerialPort serialPort;
 
         internal void setupSerialPort()
