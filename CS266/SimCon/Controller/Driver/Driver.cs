@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 using System.Text;
 using CS266.SimCon.Controller.WorldInputInterfaces;
-using CS266.SimCon.RoboticsClasses;
+
 
 namespace CS266.SimCon.Controller.Driver
 {
     class Driver
     {
-        public static void Run(ObjectState ws, bool vision)
+        public static void Run( bool vision)
         {
             //if (vision)
             //{
