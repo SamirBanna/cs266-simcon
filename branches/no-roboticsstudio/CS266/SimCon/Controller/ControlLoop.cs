@@ -6,7 +6,6 @@ using CS266.SimCon.Controller.PolygonIntersection;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
 
-
 namespace CS266.SimCon.Controller
 {
 
@@ -20,12 +19,22 @@ namespace CS266.SimCon.Controller
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
 
-
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
-
-        public ControlLoop(List<Robot> robots,  List<PhysObject> worldObjects)
+        //Constructor
+        //Initialize the robots
+        //Initialize the world state
+        public ControlLoop(WorldInputInterface Wii, WorldOutputInterface Woi)
         {
+
+            this.Wii = Wii;
+            this.Woi = Woi;
+
+            worldState = Wii.getWorldState();
+
+            List<Robot> robots = worldState.robots;
+            List<PhysObject> worldObjects = worldState.physobjects;
+
             foreach (Robot robot in robots)
             {
                 Robots.Add(robot.Id,robot);
@@ -43,9 +52,11 @@ namespace CS266.SimCon.Controller
         public void RunLoop()
         {
             this.GetInput();
+            this.RunAlgorithms();
         }
 
-        
+
+    
         // Updates the states of robots and objects with new information
         //1. Get's the world state from the world input interface
         //2. update each robot's local view by updating that robots' sensors
@@ -77,7 +88,15 @@ namespace CS266.SimCon.Controller
                     sensor.UpdateWorldState(worldState);
                 }
             }
-            
+     }
+
+        //Iterate through list of robots, and all their algorithm's execute function
+        private void RunAlgorithms()
+        {
+            foreach (Robot r in Robots.Values)
+            {
+                r.CurrentAlgorithm.Execute();
+            }
         }
 
     }

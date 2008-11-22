@@ -16,7 +16,7 @@ namespace CS266.SimCon.Controller.Algorithms
 
         bool isFinished = false;
 
-        public void Execute()
+        public override void Execute()
         {
             if (isFinished)
             {
