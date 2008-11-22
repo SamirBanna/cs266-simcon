@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
-    public abstract class Algorithm
+    public class Algorithm
     {
 
         public Robot Robot;
@@ -15,6 +15,5 @@ namespace CS266.SimCon.Controller
             Robot = robot;
             // What else?
         }
-        public abstract void Execute();
     }
 }

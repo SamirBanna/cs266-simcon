@@ -16,21 +16,21 @@ namespace CS266.SimCon.Controller
         bool CanMoveForward = true;
         bool CanMoveBackward = true;
 
-        public float Speed = 0;
+       // public float Speed = 0;
 
         public PhysicalRobotAction CurrentAction;
-
-        //List of Sensors the robot is holding, mapped by their string name
+       
         public Dictionary<String, SensorInput> Sensors;
+
+        // Needed
+        // A way to determine vision cone, which objects are in it
 
         public Algorithm CurrentAlgorithm;
 
+        // TODO Figure out units
 
-        /***
-         * 
-         * Possible actions that a robot can do
-         * 
-         * */
+      
+
         public void MoveForward(float distance)
         {
             if (CanMoveForward)
@@ -52,10 +52,10 @@ namespace CS266.SimCon.Controller
             ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Stop));
         }
 
-        public void ChangeSpeed(float speed)
-        {
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.SetSpeed, speed));
-        }
+        //public void ChangeSpeed(float speed)
+        //{
+        //    ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.SetSpeed, speed));
+        //}
 
         public void Turn(float degrees)
         {
