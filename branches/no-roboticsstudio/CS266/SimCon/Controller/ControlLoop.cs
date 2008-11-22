@@ -13,8 +13,8 @@ namespace CS266.SimCon.Controller
 
     class ControlLoop
     {
-        Dictionary<int, Robot> Robots;
-        Dictionary<int, PhysObject> WorldObjects;
+        Dictionary<int, Robot> Robots = new Dictionary<int,Robot>();
+        Dictionary<int, PhysObject> WorldObjects = new Dictionary<int,PhysObject>();
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
@@ -53,32 +53,25 @@ namespace CS266.SimCon.Controller
         {
             this.GetInput();
             this.RunAlgorithms();
+            this.RunActionQueue(); ;
         }
 
 
+        private void RunActionQueue()
+        {
+            foreach (PhysicalRobotAction action in ActionQueue)
+            {
+                Woi.DoActions(action);
+            }
+            
+
+        }
     
         // Updates the states of robots and objects with new information
         //1. Get's the world state from the world input interface
         //2. update each robot's local view by updating that robots' sensors
         private void GetInput()
         {
-            //List<PhysObject> worldObjects = Wii.GetPhysObjects();
-            //List<Robot> robots = Wii.GetRobots();
-
-
-            //// New positions of objects get updated immediately
-            //foreach (PhysObject obj in worldObjects)
-            //{
-            //    this.WorldObjects[obj.Id].Location = obj.Location;
-            //    this.WorldObjects[obj.Id].Orientation = obj.Orientation;
-            //} 
-
-            // New positions of objects get updated immediately
-            // 
-
-
-
-            //List<List<PhysObject>> allCollisions = CollisionDetector.Detect(robots, worldObjects);
 
             worldState = Wii.getWorldState();
             foreach (Robot r in Robots.Values)
@@ -88,7 +81,7 @@ namespace CS266.SimCon.Controller
                     sensor.UpdateWorldState(worldState);
                 }
             }
-     }
+        }
 
         //Iterate through list of robots, and all their algorithm's execute function
         private void RunAlgorithms()
