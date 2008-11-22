@@ -17,7 +17,7 @@
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>False</DelaySign>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>True</SignAssembly>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>
@@ -27,9 +27,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
-    <TargetFrameworkSubset>
-    </TargetFrameworkSubset>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>C:\Microsoft Robotics Studio (1.5)\bin\</OutputPath>
@@ -72,7 +70,7 @@
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Simulator|AnyCPU' ">
@@ -94,8 +92,20 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DssRuntime">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Ccr.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DssBase">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PhysicsEngine, Version=1.0.2452.17667, Culture=neutral, PublicKeyToken=d12f30389d94881d, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -125,8 +135,10 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Controller\Algorithms\Algorithm.cs" />
     <Compile Include="Controller\Algorithms\RandomWalk.cs" />
+    <Compile Include="Controller\Algorithms\randWalk.cs" />
     <Compile Include="Controller\ControlLoop.cs" />
     <Compile Include="Controller\Driver\Driver.cs" />
     <Compile Include="Controller\Driver\Program.cs" />
@@ -140,26 +152,22 @@
     <Compile Include="Controller\PhysObject\Food.cs" />
     <Compile Include="Controller\PhysObject\ObjectType.cs" />
     <Compile Include="Controller\PhysObject\PhysObject.cs" />
-    <Compile Include="Controller\SensorInput\FoodSensor.cs" />
-    <Compile Include="Controller\SensorInput\PolygonCollision\Collision.cs" />
-    <Compile Include="Controller\SensorInput\PolygonCollision\CollisionDetector.cs" />
-    <Compile Include="Controller\SensorInput\PolygonCollision\Polygon.cs" />
-    <Compile Include="Controller\SensorInput\PolygonCollision\Vector.cs" />
+    <Compile Include="Controller\PolygonCollision\Collision.cs" />
+    <Compile Include="Controller\PolygonCollision\CollisionDetector.cs" />
+    <Compile Include="Controller\PolygonCollision\Polygon.cs" />
+    <Compile Include="Controller\PolygonCollision\Vector.cs" />
     <Compile Include="Controller\Robot.cs" />
     <Compile Include="Controller\SensorInput\RandomWalkSensorInput.cs" />
     <Compile Include="Controller\SensorInput\SensorInput.cs" />
-    <Compile Include="Controller\SensorInput\SingleProximityInput.cs" />
     <Compile Include="Controller\World.cs" />
     <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
-    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
-    <Compile Include="Controller\World\WorldState.cs" />
+    <Compile Include="Controller\World\ControllerWorldState.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Controller\ClassDiagram1.cd" />
     <None Include="Controller\RobotController_TemporaryKey.pfx" />
   </ItemGroup>
