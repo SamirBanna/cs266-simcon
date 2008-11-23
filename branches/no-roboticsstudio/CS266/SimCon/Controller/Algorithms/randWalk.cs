@@ -48,14 +48,14 @@ namespace CS266.SimCon.Controller.Algorithms
             }
             else if (input.isMoving == true && input.faceObstacle == true)
             {
-                Robot.Stop();
+                robot.Stop();
             }
             else if (input.faceObstacle == false)
             { // and agent is not moving    
                 double prob = new Random().Next(0, 100) / (double)100; // discretizing probabilities to within 100 b/c we are lazy
                 if (prob > probTurn)
                 { // shouldn't turn 
-                    Robot.MoveForward(moveDistance);
+                    robot.MoveForward(moveDistance);
                 }
                 else
                 { // turn in random direction at interval
@@ -65,7 +65,7 @@ namespace CS266.SimCon.Controller.Algorithms
                     {
                         turnDegrees = turnDegrees - 360;
                     }
-                    Robot.Turn(turnDegrees);
+                    robot.Turn(turnDegrees);
                 }
             }
             else
@@ -77,7 +77,7 @@ namespace CS266.SimCon.Controller.Algorithms
                 {
                     turnDegrees = turnDegrees - 360;
                 }
-                Robot.Turn(turnDegrees);
+                robot.Turn(turnDegrees);
             }
         }
     }

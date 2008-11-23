@@ -24,6 +24,8 @@ namespace CS266.SimCon.Controller.Driver
 
             //ControlLoop cl = new ControlLoop(robots, worldObjects);
             //wip.SetRunLoopDelegate(cl.RunLoop);
+
+  
         }
     }
 }
