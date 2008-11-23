@@ -19,5 +19,6 @@ namespace CS266.SimCon.Controller
         public void UpdateWorldState(ControllerWorldState ws){
             worldState = ws;
         }
+        public abstract void UpdateSensor();
     }
 }
