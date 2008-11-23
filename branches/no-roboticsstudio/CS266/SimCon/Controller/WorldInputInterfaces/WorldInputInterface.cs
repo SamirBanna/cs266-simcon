@@ -9,10 +9,13 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
     public abstract class WorldInputInterface
     {
 
-        
+        protected List<Robot> RobotList;
+        protected List<PhysObject> PhysObjList;
 
         public WorldInputInterface()
         {
+            RobotList = new List<Robot>();
+            PhysObjList = new List<PhysObject>();
         }
 
         public void SetRunLoopDelegate(RunLoopDelegate del)
@@ -23,5 +26,6 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public abstract List<PhysObject> GetPhysObjects();
         public RunLoopDelegate runLoopDelegate;
         public abstract ControllerWorldState getWorldState();
+        public abstract void setupInitialState();
     }
 }

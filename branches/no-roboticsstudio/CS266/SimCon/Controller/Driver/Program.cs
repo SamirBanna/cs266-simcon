@@ -21,9 +21,8 @@ namespace CS266.SimCon.Controller
         [STAThread]
         public static void Main()
         {
-            //RobotTest.Run();
-            //Driver.Driver.Run();
-            
+
+            Driver.Driver.Run("WalkStraight");
 
         }
     }

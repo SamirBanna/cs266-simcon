@@ -33,7 +33,7 @@ namespace CS266.SimCon.Controller
         {
             this.Wii = Wii;
             this.Woi = Woi;
-            this.numRobots = Wii.GetRobots().Count;
+            //this.numRobots = Wii.GetRobots().Count;
         }
 
         //Setup Experiment should create the Robot class instantiations
@@ -49,13 +49,14 @@ namespace CS266.SimCon.Controller
             {
                 try
                 {
+                    Console.WriteLine("Running Control Loop");
                     cl.RunLoop();
                 }
                 catch (AlgorithmFinishedException e)
                 {
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
                 }
-                Thread.Sleep(5000);
+                Thread.Sleep(100);
             }
         }
 

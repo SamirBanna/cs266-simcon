@@ -23,20 +23,19 @@ namespace CS266.SimCon.Controller
             : base(Wii, Woi)
         {
             sensorNames = new List<string>();
-      
-            //sensorNames.Add("ProximitySensor");
+
+            
             
         }
 
         public override void SetupExperiment()
         {
-            Robot r = new Robot(numRobots, numRobots.ToString(), new Coordinates(0, 0), 0, 0, 0);
-            r.CurrentAlgorithm = new RandomWalk(r);
-            Dictionary<String, SensorInput> sensors = new Dictionary<String, SensorInput>();
-            //create the sensors
-            foreach (String name in sensorNames)
+            Wii.setupInitialState();
+            robots = Wii.getWorldState().robots;
+            foreach (Robot r in robots)
             {
-                sensors.Add(name, SensorList.makeSensor(name));
+                r.CurrentAlgorithm = new WalkStraight(r);
+                r.Sensors = new Dictionary<string, SensorInput>();
             }
         }
     }
