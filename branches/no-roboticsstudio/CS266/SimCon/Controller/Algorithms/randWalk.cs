@@ -7,7 +7,10 @@ using CS266.SimCon.Controller;
 
 namespace CS266.SimCon.Controller
 {
-
+    // Assume the robot has the following sensors:
+    // - Food sensor
+    // - Obstacle sensor
+    // Checks if robot has speed sensor
     class RandWalk : Algorithm
     {
         public RandWalk(Robot r)
@@ -20,7 +23,7 @@ namespace CS266.SimCon.Controller
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
-            // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
+                                            // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
             this.probTurn = probTurn;   // probability of turning when agent isn't moving
             this.moveDistance = moveDistance; // distance to move forward if moving
         }
@@ -30,32 +33,49 @@ namespace CS266.SimCon.Controller
         double probTurn = 0.5;
         float moveDistance = 5;
 
+         
         public override void Execute()
         {
+            // Get all sensor information
+            bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
+            bool faceObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
+            bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+            bool isMoving = false;
+            double speed;
+
+            if(this.robot.Sensors.ContainsKey("SpeedSensor")){
+                speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;             
+                if(speed > 0) isMoving = true;
+            }else{
+                speed = 0; // assumed that robot isn't moving when algorithm gets to execute
+            }
+              
             if (isFinished)
             {
                 return;
             }
-            RandomWalkSensorInput input = null;
-            if (input.senseFood == true)
+            
+            if (senseFood == true)
             {
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)
+                Finished();
             }
-            else if (input.isMoving == true && input.faceObstacle == false)
+            else if (isMoving == true && faceObstacle == false) // won't be here if speed = 0
             {
-                // do nothing TODO:  is this isFinished also?
                 return;
             }
-            else if (input.isMoving == true && input.faceObstacle == true)
+            else if (isMoving == true && faceObstacle == true)  // won't be here if speed = 0
             {
                 robot.Stop();
+                return;
             }
-            else if (input.faceObstacle == false)
+            else if (faceObstacle == false) // Not facing an obstacle
             { // and agent is not moving    
                 double prob = new Random().Next(0, 100) / (double)100; // discretizing probabilities to within 100 b/c we are lazy
                 if (prob > probTurn)
                 { // shouldn't turn 
                     robot.MoveForward(moveDistance);
+                    return;
                 }
                 else
                 { // turn in random direction at interval
@@ -66,10 +86,10 @@ namespace CS266.SimCon.Controller
                         turnDegrees = turnDegrees - 360;
                     }
                     robot.Turn(turnDegrees);
+                    return;
                 }
             }
-            else
-            { // face obstacle and isn't moving
+            else { // face obstacle and isn't moving
                 int howManyIntervals = (int)(360 / degInterval);
                 float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
 
@@ -78,6 +98,7 @@ namespace CS266.SimCon.Controller
                     turnDegrees = turnDegrees - 360;
                 }
                 robot.Turn(turnDegrees);
+                return;
             }
         }
     }

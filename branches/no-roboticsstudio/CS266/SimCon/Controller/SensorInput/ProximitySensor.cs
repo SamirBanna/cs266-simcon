@@ -7,42 +7,36 @@ namespace CS266.SimCon.Controller
 {
     public class ProximitySensor : SensorInput
     {
-        double objectSensingAngle = 10; // angle at which it can sense obstacle objects
+        public double objectSensingAngle = 10; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction
-        double objectSensingDist = 2; // distance at which obstacles can be sensed
+        public double objectSensingDist = 2; // distance at which obstacles can be sensed
         
-        public bool faceObject;
+        public bool detectObject;
         public ControllerWorldState worldState;
-        //List<Robot> robots = worldState.robots;
-        //List<PhysObject> objects = worldState.physobjects;
 
         public ProximitySensor() { }
 
+        public ProximitySensor(double angle, double distance) {
+            this.objectSensingAngle = angle;
+            this.objectSensingDist = distance;
+        }
+
         public ProximitySensor(ControllerWorldState worldState)
         {
-            this.worldState = worldState;
-           
+            this.worldState = worldState;          
         }
-            
+  
+        public void SetSensingAngle(double angle){
+            objectSensingAngle = angle;
+        }
 
-            //bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject object);
-            
-            
-            
+        public void SetSensingDistance(double distance)
+        {
+            objectSensingDist = distance;
+        }
 
-            //foreach (Robot robot in robots){
-            //    this.faceObject = true;    // reset to false each time
-            //    foreach (PhysObject obj in objects){
-            //    // check if it is near the robot
-            //    if(senseObject(objectSensingAngle, objectSensingDist, robot, object) == true){
-            //        this.faceObject = true;
-            //            break;
-            //        }
-            //    }
-            //}
-
-            // returns true if robot senses food in +/- angle within distance
-            public bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject obj){
+        // Given an object, determines whether that object is sensed by the robot
+        public bool senseObject(double maxangle, double maxdistance, Robot robot, PhysObject obj){
                 Coordinates objectLocation = obj.Location;
                 Coordinates robotLocation = robot.Location;
 
@@ -76,9 +70,34 @@ namespace CS266.SimCon.Controller
                 }
                 return false;
             }
+            
+            // Update the proximity sensor data fields
+            // 1. For all objects in the world  (robot or wall or food or whatever)
+            // 2. Check if robot senses any object
+         
             public override void UpdateSensor()
             {
-                throw new NotImplementedException();
+                bool detect = false;
+
+                foreach (PhysObject obj in worldState.physobjects)
+                {
+                    detect = senseObject(objectSensingAngle, objectSensingDist, this.robot, obj);
+                    if (detect)
+                    {
+                        detectObject = true;
+                        return;
+                    }
+                }
+
+               foreach (Robot rob in worldState.robots)
+                {
+                        detect = senseObject(objectSensingAngle, objectSensingDist, this.robot, rob);
+                        if (detect)
+                        {
+                            detectObject = true;
+                            return;
+                        }
+                }
             }
         }
     }
