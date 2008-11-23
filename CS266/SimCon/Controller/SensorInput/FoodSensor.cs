@@ -62,6 +62,10 @@ namespace CS266.SimCon.Controller
                 return true;    
             }
             return false;
-        }   
+        }
+        public override void UpdateSensor()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
