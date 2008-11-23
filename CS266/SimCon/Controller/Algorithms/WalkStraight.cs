@@ -6,6 +6,8 @@ namespace CS266.SimCon.Controller
 {
     public class WalkStraight:Algorithm
     {
+        public int x = 0;
+
         public WalkStraight(Robot r) : base(r) 
         { 
         
@@ -13,7 +15,9 @@ namespace CS266.SimCon.Controller
 
         public override void Execute()
         {
-            robot.MoveForward(100);                
+            x++;
+            robot.Turn(200);
+            robot.MoveForward(100);
         }
     }
 }

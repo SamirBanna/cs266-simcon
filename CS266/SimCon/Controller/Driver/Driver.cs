@@ -16,10 +16,12 @@ namespace CS266.SimCon.Controller.Driver
             //Check the type of experiment and creat that experiment object
             if (experimentType == "WalkStraight")
             {
+                Console.WriteLine("Setting up Wii and Woi");
                 WorldInputInterface wii = new VisionInputInterface();
                 WorldOutputInterface woi = new RadioOutputInterface();
 
                 WalkStraightExperiment exp = new WalkStraightExperiment(wii, woi);
+                exp.SetupExperiment();
                 exp.runExperiment();
             }
             

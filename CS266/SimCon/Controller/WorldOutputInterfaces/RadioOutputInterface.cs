@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using System.IO.Ports;
+using System.Threading;
 
 namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
@@ -16,17 +17,24 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             else if (action.ActionType == PhysicalActionType.MoveBackward)
                 moveDistance(action.RobotId, -1*(int)action.ActionValue);
             else if (action.ActionType == PhysicalActionType.Turn)
-                moveDistance(action.RobotId, (int)action.ActionValue);
+                rotateDegree(action.RobotId, (int)action.ActionValue);
             else if (action.ActionType == PhysicalActionType.SetSpeed)
                 moveDistance(action.RobotId, (int)action.ActionValue);
- 
+
+             
         }
         
         SerialPort serialPort;
 
+        public RadioOutputInterface()
+        {
+            setupSerialPort();
+        }
+
         internal void setupSerialPort()
         {
             serialPort = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.Two);
+            serialPort.Open();
         }
 
         internal void sendCommand(String cmd)
@@ -35,12 +43,15 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
             byte [] cmdBytes = encoding.GetBytes(cmd);
             serialPort.Write(cmdBytes, 0, cmdBytes.Length);
-            serialPort.Open();
+            Console.WriteLine("Sending command to robot:" + cmd);
+            Thread.Sleep(200);
         }
 
         internal void wheelCountReset(int id)
         {
             sendCommand("*" + id.ToString());
+            sendCommand("G,0,0");
+            
         }
 
         internal void setSpeed(int id, int speed, int accel)

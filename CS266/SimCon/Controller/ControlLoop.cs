@@ -31,7 +31,7 @@ namespace CS266.SimCon.Controller
 
             worldState = Wii.getWorldState();
 
-            List<Robot> robots = Wii.GetRobots(); 
+            List<Robot> robots = worldState.robots;
             List<PhysObject> worldObjects = worldState.physobjects;
 
             foreach (Robot robot in robots)
@@ -50,6 +50,7 @@ namespace CS266.SimCon.Controller
         /// </summary>
         public void RunLoop()
         {
+            Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
             this.GetInput();
             this.RunAlgorithms();
             this.RunActionQueue(); ;
@@ -58,10 +59,13 @@ namespace CS266.SimCon.Controller
 
         private void RunActionQueue()
         {
+            
+
             foreach (PhysicalRobotAction action in ActionQueue)
             {
                 Woi.DoActions(action);
             }
+            ActionQueue.Clear();
         }
     
         // Updates the states of robots and objects with new information
@@ -76,6 +80,7 @@ namespace CS266.SimCon.Controller
                 foreach (SensorInput sensor in r.Sensors.Values)
                 {
                     sensor.UpdateWorldState(worldState);
+                    sensor.UpdateSensor();
                 }
             }
         }

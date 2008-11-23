@@ -17,6 +17,7 @@ namespace CS266.SimCon.Controller
         }
         public abstract void Execute();
 
+        
         public void Finished()
         {
             throw new AlgorithmFinishedException(robot.Id);
