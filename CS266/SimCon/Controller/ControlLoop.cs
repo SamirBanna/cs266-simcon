@@ -24,14 +24,14 @@ namespace CS266.SimCon.Controller
         //Constructor
         //Initialize the robots
         //Initialize the world state
-        public ControlLoop(WorldInputInterface Wii, WorldOutputInterface Woi, List<Robot> robots)
+        public ControlLoop(WorldInputInterface Wii, WorldOutputInterface Woi)
         {
             this.Wii = Wii;
             this.Woi = Woi;
 
             worldState = Wii.getWorldState();
 
-            
+            List<Robot> robots = Wii.GetRobots(); 
             List<PhysObject> worldObjects = worldState.physobjects;
 
             foreach (Robot robot in robots)
