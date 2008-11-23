@@ -5,13 +5,13 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
-    public class FoodSensor : ProximitySensor
+    public class ObstacleSensor : ProximitySensor
     {
-        // returns true if robot senses food in +/- angle within distance
-        public bool senseFood(double maxangle, double maxdistance, Robot robot,
+        // returns true if robot senses obstacle in +/- angle within distance
+        public bool senseObstacle(double maxangle, double maxdistance, Robot robot,
                               PhysObject obj)
         {
-            return (senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Food)));
+            return (senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Obstacle)));
         }
 
         // Checks all physObjects and sees if it is food
@@ -22,7 +22,7 @@ namespace CS266.SimCon.Controller
 
                 foreach (PhysObject obj in worldState.physobjects)
                 {
-                    detect = senseFood(objectSensingAngle, objectSensingDist, this.robot, obj);
+                    detect = senseObstacle(objectSensingAngle, objectSensingDist, this.robot, obj);
                     if (detect)
                     {
                         detectObject = true;
