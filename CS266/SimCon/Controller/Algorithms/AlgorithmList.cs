@@ -18,8 +18,8 @@ namespace CS266.SimCon.Controller
 
             switch (name)
             {
-                case "RandomWalk":
-                    alg = new RandomWalk(r);
+                case "randWalk":
+                    alg = new randWalk(r);
                     break;
 
                 case "WalkStraight":

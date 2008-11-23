@@ -32,7 +32,22 @@ namespace CS266.SimCon.Controller
                     sensor = new ProximitySensor();
                     break;
 
-                   
+                case "FoodSensor":
+                    sensor = new FoodSensor();
+                    break;
+
+                case "ObstacleSensor":
+                    sensor = new ObstacleSensor();
+                    break;
+
+                case "RobotSensor":
+                    sensor = new RobotSensor();
+                    break;
+
+                case "SpeedSensor":
+                    sensor = new SpeedSensor();
+                    break;
+                
             }
 
             return sensor;

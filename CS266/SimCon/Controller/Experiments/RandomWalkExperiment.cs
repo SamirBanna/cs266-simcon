@@ -26,7 +26,10 @@ namespace CS266.SimCon.Controller
             //Note the sensorNames list is being generated in the code here
             //However it can easily be extended to read from a Configuration File from the disk
             sensorNames = new List<string>();
-            sensorNames.Add("ProxmitySensor");
+            
+            sensorNames.Add("RobotSensor");
+            sensorNames.Add("ObstacleSensor");
+            sensorNames.Add("FoodSensor");
         }
 
         //Setup all the intial values for the experiment
@@ -36,20 +39,20 @@ namespace CS266.SimCon.Controller
         //Place in their algorithms
         public override void SetupExperiment()
         {
-            base.robots = new List<Robot>();
-            for (int x = 0; x < numRobots; x++)
+            Wii.setupInitialState();
+            robots = Wii.getWorldState().robots;
+            
+            foreach (Robot r in robots)
             {
-                Robot r = new Robot(numRobots, numRobots.ToString(), new Coordinates(0, 0), 0, 0, 0);
-                r.CurrentAlgorithm = new RandomWalk(r);
-                Dictionary<String, SensorInput> sensors = new Dictionary<String, SensorInput>();
-                //create the sensors
-                foreach (String name in sensorNames)
+                r.CurrentAlgorithm = new randWalk(r);
+                r.Sensors = new Dictionary<string, SensorInput>();
+                foreach (String s in sensorNames)
                 {
-                    //the Sensors are being created by their names from the sensorName List<String>
-                    //this is used since we would like eventually allow the use of config files to specify which sensors to use
-                    sensors.Add(name,SensorList.makeSensor(name));
+                    r.Sensors.Add(s, SensorList.makeSensor(s));
                 }
             }
+
+
         }
     }
 }

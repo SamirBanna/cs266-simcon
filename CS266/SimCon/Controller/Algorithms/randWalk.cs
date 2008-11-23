@@ -11,15 +11,15 @@ namespace CS266.SimCon.Controller
     // - Food sensor
     // - Obstacle sensor
     // Checks if robot has speed sensor
-    class RandWalk : Algorithm
+    class randWalk : Algorithm
     {
-        public RandWalk(Robot r)
+        public randWalk(Robot r)
             : base(r)
         {
 
         }
 
-        public RandWalk(Robot r, int degInterval, float probTurn, float moveDistance)
+        public randWalk(Robot r, int degInterval, float probTurn, float moveDistance)
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
@@ -38,8 +38,9 @@ namespace CS266.SimCon.Controller
         {
             // Get all sensor information
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
-            bool faceObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
-            bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+            bool faceObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject ||
+                                ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+            //bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
             bool isMoving = false;
             double speed;
 
