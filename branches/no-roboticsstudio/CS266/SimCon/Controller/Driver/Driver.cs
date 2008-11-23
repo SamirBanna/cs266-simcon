@@ -24,6 +24,16 @@ namespace CS266.SimCon.Controller.Driver
                 exp.SetupExperiment();
                 exp.runExperiment();
             }
+            else if (experimentType == "RandomWalk")
+            {
+                Console.WriteLine("Setting up Wii and Woi");
+                WorldInputInterface wii = new VisionInputInterface();
+                WorldOutputInterface woi = new RadioOutputInterface();
+
+                RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
+                exp.SetupExperiment();
+                exp.runExperiment();
+            }
             
         }
     }
