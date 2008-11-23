@@ -19,7 +19,11 @@ namespace CS266.SimCon.Controller
             this.isMoving = isMoving;
 	    this.senseFood = senseFood;
 	    this.faceObstacle = faceObstacle;
-	}
+	    }
+        public override void UpdateSensor()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
