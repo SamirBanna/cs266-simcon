@@ -132,17 +132,23 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Controller\Algorithms\Algorithm.cs" />
+    <Compile Include="Controller\Algorithms\AlgorithmList.cs" />
     <Compile Include="Controller\Algorithms\RandomWalk.cs" />
     <Compile Include="Controller\Algorithms\randWalk.cs" />
+    <Compile Include="Controller\Algorithms\WalkStraight.cs" />
     <Compile Include="Controller\ControlLoop.cs" />
     <Compile Include="Controller\Driver\Driver.cs" />
     <Compile Include="Controller\Driver\Program.cs" />
     <Compile Include="Controller\Driver\RobotTest.cs" />
+    <Compile Include="Controller\Experiments\Experiment.cs" />
+    <Compile Include="Controller\Experiments\RandomWalkExperiment.cs" />
+    <Compile Include="Controller\Experiments\WalkStraightExperiment.cs" />
     <Compile Include="Controller\Message.cs" />
     <Compile Include="Controller\Networking\AsynchronousSocketListener.cs" />
     <Compile Include="Controller\Networking\StateObject.cs" />
@@ -157,8 +163,10 @@
     <Compile Include="Controller\PolygonCollision\Polygon.cs" />
     <Compile Include="Controller\PolygonCollision\Vector.cs" />
     <Compile Include="Controller\Robot.cs" />
+    <Compile Include="Controller\SensorInput\ProximitySensor.cs" />
     <Compile Include="Controller\SensorInput\RandomWalkSensorInput.cs" />
     <Compile Include="Controller\SensorInput\SensorInput.cs" />
+    <Compile Include="Controller\SensorInput\SensorList.cs" />
     <Compile Include="Controller\World.cs" />
     <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />

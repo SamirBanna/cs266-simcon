@@ -13,6 +13,7 @@ namespace CS266.SimCon.Controller
         public bool senseFood;
         public bool faceObstacle;
 
+        public RandomWalkSensorInput(){}
         public RandomWalkSensorInput(bool isMoving, bool senseFood, bool faceObstacle)
         {
             this.isMoving = isMoving;

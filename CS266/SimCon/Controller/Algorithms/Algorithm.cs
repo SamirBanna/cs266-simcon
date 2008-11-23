@@ -8,11 +8,11 @@ namespace CS266.SimCon.Controller
     public abstract class Algorithm
     {
 
-        public Robot Robot;
+        public Robot robot;
 
         public Algorithm(Robot robot)
         {
-            Robot = robot;
+            this.robot = robot;
             // What else?
         }
         public abstract void Execute();

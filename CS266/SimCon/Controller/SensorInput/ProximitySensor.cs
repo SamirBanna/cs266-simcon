@@ -15,11 +15,13 @@ namespace CS266.SimCon.Controller
         public ControllerWorldState worldState;
         //List<Robot> robots = worldState.robots;
         //List<PhysObject> objects = worldState.physobjects;
-        
+
+        public ProximitySensor() { }
+
         public ProximitySensor(ControllerWorldState worldState)
         {
             this.worldState = worldState;
-            
+           
         }
             
 
