@@ -17,7 +17,7 @@ namespace CS266.SimCon.Controller
         {
             x++;
             robot.Turn(200);
-            robot.MoveForward(100);
+            robot.MoveForward(300);
         }
     }
 }
