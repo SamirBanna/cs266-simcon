@@ -56,7 +56,7 @@ namespace CS266.SimCon.Controller
                 {
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
         }
 
