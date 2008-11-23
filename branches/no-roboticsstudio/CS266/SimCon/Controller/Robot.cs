@@ -15,9 +15,8 @@ namespace CS266.SimCon.Controller
 
         bool CanMoveForward = true;
         bool CanMoveBackward = true;
-
-       // public float Speed = 0;
-
+      
+      
         public PhysicalRobotAction CurrentAction;
        
         public Dictionary<String, SensorInput> Sensors;

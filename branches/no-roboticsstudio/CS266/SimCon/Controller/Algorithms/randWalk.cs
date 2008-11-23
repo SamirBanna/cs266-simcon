@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-namespace CS266.SimCon.Controller.Algorithms
+namespace CS266.SimCon.Controller
 {
 
     class RandWalk : Algorithm

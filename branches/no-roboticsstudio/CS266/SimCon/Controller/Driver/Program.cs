@@ -21,8 +21,10 @@ namespace CS266.SimCon.Controller
         [STAThread]
         public static void Main()
         {
-            RobotTest.Run();
+            //RobotTest.Run();
             //Driver.Driver.Run();
+            
+
         }
     }
 }

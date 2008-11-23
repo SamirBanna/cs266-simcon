@@ -138,6 +138,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Controller\Algorithms\Algorithm.cs" />
+    <Compile Include="Controller\Algorithms\AlgorithmFinishedException.cs" />
     <Compile Include="Controller\Algorithms\AlgorithmList.cs" />
     <Compile Include="Controller\Algorithms\RandomWalk.cs" />
     <Compile Include="Controller\Algorithms\randWalk.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Controller\PolygonCollision\Polygon.cs" />
     <Compile Include="Controller\PolygonCollision\Vector.cs" />
     <Compile Include="Controller\Robot.cs" />
+    <Compile Include="Controller\SensorInput\FoodSensor.cs" />
     <Compile Include="Controller\SensorInput\ProximitySensor.cs" />
     <Compile Include="Controller\SensorInput\RandomWalkSensorInput.cs" />
     <Compile Include="Controller\SensorInput\SensorInput.cs" />
