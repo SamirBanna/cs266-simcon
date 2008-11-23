@@ -7,7 +7,7 @@ namespace CS266.SimCon.Controller
 {
     public class ProximitySensor : SensorInput
     {
-        public double objectSensingAngle = 10; // angle at which it can sense obstacle objects
+        public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction
         public double objectSensingDist = 2; // distance at which obstacles can be sensed
         
