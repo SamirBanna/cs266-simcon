@@ -24,7 +24,7 @@ namespace CS266.SimCon.Controller
         public bool senseFood(double maxangle, double maxdistance, Robot robot,
                               PhysObject obj)
         {
-            if(obj.Name != 'Food'){
+            if(obj.Name != "Food"){
                 return false;
             }
 
