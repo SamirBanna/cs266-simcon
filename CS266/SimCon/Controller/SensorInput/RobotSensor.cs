@@ -18,16 +18,19 @@ namespace CS266.SimCon.Controller
         // Checks all robots and sees if any of them is close to the current
         public override void UpdateSensor()
         {
-                 
+             detectObject = false;        
              bool detect = false;
 
                 foreach (Robot rob in worldState.robots)
                 {
-                    detect = senseRobot(objectSensingAngle, objectSensingDist, this.robot, rob);
-                    if (detect)
+                    if (rob.Id != this.robot.Id)
                     {
-                        detectObject = true;
-                        return;
+                        detect = senseRobot(objectSensingAngle, objectSensingDist, this.robot, rob);
+                        if (detect)
+                        {
+                            detectObject = true;
+                            return;
+                        }
                     }
                 }
 

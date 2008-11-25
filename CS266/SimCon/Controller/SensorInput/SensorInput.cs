@@ -14,11 +14,12 @@ namespace CS266.SimCon.Controller
     public abstract class SensorInput
     {
         public Robot robot;
-        private ControllerWorldState worldState;
+        public ControllerWorldState worldState;
         //Replace the worldState with the new worldstate passed in from the parameter;
         public void UpdateWorldState(ControllerWorldState ws){
             worldState = ws;
         }
+   
         public abstract void UpdateSensor();
     }
 }

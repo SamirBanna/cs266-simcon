@@ -20,6 +20,7 @@ namespace CS266.SimCon.Controller
         
         public void Finished()
         {
+            Console.WriteLine("finished running");
             throw new AlgorithmFinishedException(robot.Id);
         }
     }

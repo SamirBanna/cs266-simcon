@@ -40,19 +40,27 @@ namespace CS266.SimCon.Controller
         public override void SetupExperiment()
         {
             Wii.setupInitialState();
-            robots = Wii.getWorldState().robots;
+            robots = Wii.GetRobots();
             
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new randWalk(r);
                 r.Sensors = new Dictionary<string, SensorInput>();
+
+                
                 foreach (String s in sensorNames)
                 {
-                    r.Sensors.Add(s, SensorList.makeSensor(s));
+                    SensorInput sens = SensorList.makeSensor(s);
+                    //Console.WriteLine(s);
+                    ControllerWorldState ws = Wii.ws;
+                    //Console.WriteLine("getting ws");
+                    sens.UpdateWorldState(ws);
+                    sens.robot = r;
+                    r.Sensors.Add(s, sens);
                 }
             }
 
-
+            //Console.WriteLine("finish setup experiment");
         }
     }
 }

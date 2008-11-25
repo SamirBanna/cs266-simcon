@@ -11,15 +11,15 @@ namespace CS266.SimCon.Controller
         public bool senseObstacle(double maxangle, double maxdistance, Robot robot,
                               PhysObject obj)
         {
-            return (senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Obstacle)));
+            return (base.senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Obstacle)));
         }
 
         // Checks all physObjects and sees if it is food
         public override void UpdateSensor()
         {
-                 
+            detectObject = false;    
              bool detect = false;
-
+             
                 foreach (PhysObject obj in worldState.physobjects)
                 {
                     detect = senseObstacle(objectSensingAngle, objectSensingDist, this.robot, obj);

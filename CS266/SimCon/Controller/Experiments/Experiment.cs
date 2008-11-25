@@ -43,8 +43,9 @@ namespace CS266.SimCon.Controller
 
         public void runExperiment()
         {
+            
             ControlLoop cl = new ControlLoop(Wii, Woi);
-
+            
             while (true)
             {
                 try
@@ -56,7 +57,7 @@ namespace CS266.SimCon.Controller
                 {
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
         }
 

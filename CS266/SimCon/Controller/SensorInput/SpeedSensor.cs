@@ -8,7 +8,7 @@ namespace CS266.SimCon.Controller
     public class SpeedSensor : SensorInput
     {
         public double speed = 0;
-        public ControllerWorldState worldState;
+        
 
         public SpeedSensor() { }
 

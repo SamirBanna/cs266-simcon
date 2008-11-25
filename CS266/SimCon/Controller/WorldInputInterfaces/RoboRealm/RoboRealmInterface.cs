@@ -416,7 +416,10 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 int res;
                 try
                 {
+                    
                     res = binaryReader.Read(buffer, num, 4096 - num);
+                    
+                    
                 }
                 catch (IOException e)
                 {
@@ -756,14 +759,17 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         */
         public bool loadProgram(String filename)
         {
+           
             if (!connected) return false;
             if ((filename == null) || (filename.Length == 0)) return false;
 
             if (send("<request><load_program>" + escape(filename) + "</load_program></request>"))
             {
+                
                 String buffer;
                 if ((buffer = readMessage()) != null)
                 {
+                    
                     if (buffer.Equals("<response>ok</response>"))
                         return true;
                 }
@@ -1067,6 +1073,7 @@ public class shape
     public float orientation;
     public float width;
     public float height;
+    public float confidence;
 }
 
 
