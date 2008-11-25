@@ -29,10 +29,11 @@ namespace CS266.SimCon.Controller
             this.Wii = Wii;
             this.Woi = Woi;
 
-            worldState = Wii.getWorldState();
+            worldState = Wii.ws;
 
             List<Robot> robots = worldState.robots;
             List<PhysObject> worldObjects = worldState.physobjects;
+            
 
             foreach (Robot robot in robots)
             {
@@ -52,15 +53,16 @@ namespace CS266.SimCon.Controller
         {
             Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
             this.GetInput();
+            //Console.WriteLine("got input");
+
             this.RunAlgorithms();
+            
             this.RunActionQueue(); ;
         }
 
 
         private void RunActionQueue()
         {
-            
-
             foreach (PhysicalRobotAction action in ActionQueue)
             {
                 Woi.DoActions(action);
@@ -73,13 +75,31 @@ namespace CS266.SimCon.Controller
         //2. update each robot's local view by updating that robots' sensors
         private void GetInput()
         {
+            worldState = ((VisionInputInterface)Wii).getNewWorldState();
+          //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
+           // Console.WriteLine("controloop con");
 
-            worldState = Wii.getWorldState();
+            Console.WriteLine("*****Number of objects in the world: " +worldState.physobjects.Count + "*******");
+            //update robot orientation and location
+            foreach (Robot r in Robots.Values)
+            {
+                foreach (Robot z in worldState.robots)
+                {
+                    if (r.Id == z.Id)
+                    {
+                        r.Orientation = z.Orientation;
+                        r.Location = z.Location;
+                    }
+                }
+            }
+
             foreach (Robot r in Robots.Values)
             {
                 foreach (SensorInput sensor in r.Sensors.Values)
                 {
+                    
                     sensor.UpdateWorldState(worldState);
+                  //  Console.WriteLine("SENSOR AFTER WORLD STATE UPDATE: " + sensor.worldState.robots[0].Orientation);
                     sensor.UpdateSensor();
                 }
             }

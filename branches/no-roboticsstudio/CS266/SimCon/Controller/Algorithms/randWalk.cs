@@ -30,19 +30,22 @@ namespace CS266.SimCon.Controller
 
         int degInterval = 15; // assume divisible by 360
         bool isFinished = false;
-        double probTurn = 0.5;
-        float moveDistance = 5;
+        double probTurn = 0.0;
+        float moveDistance = 50;
 
          
         public override void Execute()
         {
             // Get all sensor information
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
-            bool faceObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject ||
-                                ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
-            //bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+            bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
+            bool detectRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+
+            bool faceObstacle = detectObstacle || detectRobot;
+            bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
             bool isMoving = false;
             double speed;
+
 
             if(this.robot.Sensors.ContainsKey("SpeedSensor")){
                 speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;             
@@ -72,6 +75,7 @@ namespace CS266.SimCon.Controller
             }
             else if (faceObstacle == false) // Not facing an obstacle
             { // and agent is not moving    
+                Console.WriteLine("Not facing obstacle and not moving");
                 double prob = new Random().Next(0, 100) / (double)100; // discretizing probabilities to within 100 b/c we are lazy
                 if (prob > probTurn)
                 { // shouldn't turn 
@@ -82,15 +86,28 @@ namespace CS266.SimCon.Controller
                 { // turn in random direction at interval
                     int howManyIntervals = (int)(360 / degInterval);
                     float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                    
                     if (turnDegrees > 180)
                     {
                         turnDegrees = turnDegrees - 360;
+                    }
+
+                    while (Math.Abs(turnDegrees) < 60)
+                    {
+                        turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+
+                        if (turnDegrees > 180)
+                        {
+                            turnDegrees = turnDegrees - 360;
+                        }
+
                     }
                     robot.Turn(turnDegrees);
                     return;
                 }
             }
             else { // face obstacle and isn't moving
+                Console.WriteLine("Facing obstacle and not moving");
                 int howManyIntervals = (int)(360 / degInterval);
                 float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
 
@@ -98,6 +115,19 @@ namespace CS266.SimCon.Controller
                 {
                     turnDegrees = turnDegrees - 360;
                 }
+
+                while (Math.Abs(turnDegrees) < 60)
+                {
+                    turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+
+                    if (turnDegrees > 180)
+                    {
+                        turnDegrees = turnDegrees - 360;
+                    }
+
+                }
+
+
                 robot.Turn(turnDegrees);
                 return;
             }

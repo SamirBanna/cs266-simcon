@@ -43,8 +43,8 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
             byte [] cmdBytes = encoding.GetBytes(cmd);
             serialPort.Write(cmdBytes, 0, cmdBytes.Length);
-            Console.WriteLine("Sending command to robot:" + cmd);
-            Thread.Sleep(200);
+            Console.WriteLine("Sending command to robot " + cmd);
+            Thread.Sleep(300);
         }
 
         internal void wheelCountReset(int id)
