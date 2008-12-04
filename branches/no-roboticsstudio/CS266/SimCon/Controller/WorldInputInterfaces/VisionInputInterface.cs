@@ -81,7 +81,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     }
                     if (!flag)
                     {// robot hasn't already been inserted
-                        RobotList.Add(r);
+                        
+                            RobotList.Add(r);
+                            Console.WriteLine("ROBOT ANGLE!!!!!!!!!!!!!!!!!!!!!: " + r.Orientation);
                     }
                     else
                     {
@@ -178,28 +180,28 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     shapeList.Add(sh);
             }
 
-            shape s_stored = new shape();
-            s_stored.id = -1;
-            for (int i = 1; i <= 10; i++)
-            {
-                foreach (shape sha in shapeList)
-                {
-                    if (sha.shapetype == "robot")
-                    {
-                        if (s_stored.id == -1 && sha.id==i)
-                        {
-                            s_stored = sha;
-                        }
-                        else if(sha.id==i)
-                        {
-                            if (s_stored.confidence < sha.confidence)
-                                shapeList.Remove(s_stored);
-                            else
-                                shapeList.Remove(sha);
-                        }
-                    }
-                }
-            }
+            //shape s_stored = new shape();
+            //s_stored.id = -1;
+            //for (int i = 1; i <= 10; i++)
+            //{
+            //    foreach (shape sha in shapeList)
+            //    {
+            //        if (sha.shapetype == "robot")
+            //        {
+            //            if (s_stored.id == -1 && sha.id==i)
+            //            {
+            //                s_stored = sha;
+            //            }
+            //            else if(sha.id==i)
+            //            {
+            //                if (s_stored.confidence < sha.confidence)
+            //                    shapeList.Remove(s_stored);
+            //                else
+            //                    shapeList.Remove(sha);
+            //            }
+            //        }
+            //    }
+            //}
 
             sr.Close();
             return shapeList;
@@ -231,7 +233,14 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 } else {
                     Console.WriteLine("++++++++++++++Line 6:" +line[6]);
                     sh.shapetype = "robot";
-                    sh.id = int.Parse(line[6]);
+                    try
+                    {
+                        sh.id = int.Parse(line[6]);
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
                 }
 
                 // RIGHT NOW WIDTH AND HEIGHT AREN'T DEFINED
