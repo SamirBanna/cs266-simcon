@@ -47,6 +47,14 @@ namespace CS266.SimCon.Controller
                 case "SpeedSensor":
                     sensor = new SpeedSensor();
                     break;
+
+                case "BoundarySensor":
+                    sensor = new BoundarySensor();
+                    break;
+                
+                case "LocalGridSensor":
+                    sensor = new LocalGridSensor();
+                    break;
                 
             }
 
