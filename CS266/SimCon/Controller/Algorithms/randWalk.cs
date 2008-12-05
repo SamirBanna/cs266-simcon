@@ -10,6 +10,7 @@ namespace CS266.SimCon.Controller
     // Assume the robot has the following sensors:
     // - Food sensor
     // - Obstacle sensor
+    // - Boundary Sensor
     // Checks if robot has speed sensor
     class randWalk : Algorithm
     {
@@ -40,9 +41,8 @@ namespace CS266.SimCon.Controller
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
             bool detectRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
-
-            bool faceObstacle = detectObstacle || detectRobot;
-            bool senseRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
+            bool detectBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
+            bool faceObstacle = detectObstacle || detectRobot || detectBoundary;
             bool isMoving = false;
             double speed;
 
