@@ -72,7 +72,7 @@ namespace CS266.SimCon.Controller
                                objectLocation.X - robotLocation.X);// -0.5 * Math.PI;    // -pi/2 factor shifts frame
                                                                                      // according to definition in
                                                                                      // vision
-                double angle = radians * (180/Math.PI); // from -180 to 180
+                double angle = radians * (180/Math.PI); // convert to from -180 to 180
 
                 Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
 
