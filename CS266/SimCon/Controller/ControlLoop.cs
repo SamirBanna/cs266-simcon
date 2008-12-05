@@ -18,6 +18,8 @@ namespace CS266.SimCon.Controller
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
+
+        // Robot grid. This should be instantiated in Experiments with a reference to worldState, and dimensions
         public static Grid robotGrid;
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
