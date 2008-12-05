@@ -42,6 +42,10 @@ namespace CS266.SimCon.Controller
                 Coordinates objectLocation = obj.Location;
                 Coordinates robotLocation = robot.Location;
 
+                Console.WriteLine("OTHER ROBOT?======== " + obj.Name);
+                
+                //System.Threading.Thread.Sleep(5000);
+                
 
                 double distance = Math.Sqrt(
 	            (objectLocation.X - robotLocation.X)*(objectLocation.X - robotLocation.X) + 
