@@ -1,8 +1,7 @@
 #summary These are the settings needed to have the Robotics Studio service start the simulator assembly.
 
-= Introduction =
-
 *Application > Output Type*
+
 {{{Class library}}}
 
 *Debug > Start Actions > Start External Program*
@@ -10,7 +9,9 @@
 {{{C:\Microsoft Robotics Studio (1.5)\bin\DssHost.exe}}}
 
 *Command Line Arguments*
+
 {{{-p:50000 -t:50001 -m:"samples\config\SimulationTutorial1.manifest.xml"}}}
 
 *Working directory*
+
 {{{C:\Microsoft Robotics Studio (1.5)\}}}
