@@ -178,6 +178,8 @@
     <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
     <Compile Include="Controller\World\ControllerWorldState.cs" />
+    <Compile Include="Controller\World\Grid.cs" />
+    <Compile Include="Controller\World\GridData.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
