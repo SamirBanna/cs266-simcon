@@ -15,6 +15,8 @@ namespace CS266.SimCon.Controller
     // Checks if robot has speed sensor
     class NodeCounting : Algorithm
     {
+        public bool finishedTurning = false; // algorithm is trying to aviod and is in the obstacle avoidance routine
+
         public NodeCounting(Robot r)
             : base(r)
         {
@@ -25,7 +27,7 @@ namespace CS266.SimCon.Controller
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
-                                            // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
+            // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
             this.probTurn = probTurn;   // probability of turning when agent isn't moving
             this.moveDistance = moveDistance; // distance to move forward if moving
         }
@@ -35,7 +37,6 @@ namespace CS266.SimCon.Controller
         double probTurn = 0.0;
         float moveDistance = 50;
 
-         
         public override void Execute()
         {
             // Get all sensor information
@@ -43,23 +44,27 @@ namespace CS266.SimCon.Controller
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
             bool detectRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
             bool detectBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
+            double[,] localgrid = ((LocalGridSensor)this.robot.Sensors["LocalGridSensor"]).localgrid;
             bool faceObstacle = detectObstacle || detectRobot || detectBoundary;
             bool isMoving = false;
             double speed;
+            float turnDegrees;
 
-
-            if(this.robot.Sensors.ContainsKey("SpeedSensor")){
-                speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;             
-                if(speed > 0) isMoving = true;
-            }else{
+            if (this.robot.Sensors.ContainsKey("SpeedSensor"))
+            {
+                speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;
+                if (speed > 0) isMoving = true;
+            }
+            else
+            {
                 speed = 0; // assumed that robot isn't moving when algorithm gets to execute
             }
-              
+
             if (isFinished)
             {
                 return;
             }
-           
+
             // Initiate algorithm
             if (senseFood == true)
             {
@@ -75,68 +80,140 @@ namespace CS266.SimCon.Controller
                 robot.Stop();
                 return;
             }
-            else if (faceObstacle == false) // Not facing an obstacle
-            { // and agent is not moving    
-                // Run node counting by sensing nearby grids
 
-
-                Console.WriteLine("Not facing obstacle and not moving");
-                double prob = new Random().Next(0, 100) / (double)100; // discretizing probabilities to within 100 b/c we are lazy
-                if (prob > probTurn)
-                { // shouldn't turn 
-                    robot.MoveForward(moveDistance);
-                    return;
-                }
-                else
-                { // turn in random direction at interval
-                    int howManyIntervals = (int)(360 / degInterval);
-                    float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
-                    
-                    if (turnDegrees > 180)
-                    {
-                        turnDegrees = turnDegrees - 360;
-                    }
-
-                    while (Math.Abs(turnDegrees) < 60)
-                    {
-                        turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
-
-                        if (turnDegrees > 180)
-                        {
-                            turnDegrees = turnDegrees - 360;
-                        }
-
-                    }
-                    robot.Turn(turnDegrees);
-                    return;
-                }
-            }
-            else { // face obstacle and isn't moving
-                Console.WriteLine("Facing obstacle and not moving");
+            if (finishedTurning && faceObstacle)
+            {
+                // Initiate avoidance
+                // In this state until we have moved in some random direction
                 int howManyIntervals = (int)(360 / degInterval);
-                float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
 
                 if (turnDegrees > 180)
                 {
                     turnDegrees = turnDegrees - 360;
                 }
-
-                while (Math.Abs(turnDegrees) < 60)
-                {
-                    turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
-
-                    if (turnDegrees > 180)
-                    {
-                        turnDegrees = turnDegrees - 360;
-                    }
-
-                }
-
-
                 robot.Turn(turnDegrees);
                 return;
             }
+
+            if (finishedTurning && !faceObstacle){
+               // if direction is chosen and legal, just move.
+               robot.MoveForward(moveDistance);
+
+               // robot only moves here. Before moving, mark your spot
+               GRID.Mark(robot);
+
+               finishedTurning = false; // so we choose a direction next time 
+                    // TODO: maybe have propensity to just move forward sometimes?
+               return;
+            }
+
+            // Else, Run Node counting to figure out direction to move in
+            //                Figure out direction to moveDistance in.
+            // Check all 8 directions
+                double[,] directionalvalues = new double[3, 3];
+                // for now, just fill in based on the 8 squares closest to the robot, placed at grid center
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        // TODO: assume local grid is also 3x3 [otherwise, get robot's loc in grid and look there]
+                        directionalvalues[i, j] = localgrid[i, j];
+                    }
+                }
+
+                // Find direction with smallest value
+                int rowIndexOfSmallest = 0;
+                int colIndexOfSmallest = 0;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (i == 1 && j == 1)
+                        {// robot's current square, ignore
+                            continue;
+                        }
+
+                        if (directionalvalues[i, j] < directionalvalues[rowIndexOfSmallest, colIndexOfSmallest])
+                        {
+                            rowIndexOfSmallest = i;
+                            colIndexOfSmallest = j;
+                        }
+                    }
+                }
+
+
+                // get base direction (angles from -180 to 180 for the agent to go in)
+                double angle = getBaseDirection(rowIndexOfSmallest, colIndexOfSmallest);
+
+                // get robot orientation
+                double orientation = this.robot.Orientation;
+
+                // Figure out how many angles to get the robot to turn, 
+                turnDegrees = (float)(angle - orientation);
+
+                // turnDegrees is between -360 to 360, try to turn on short edge s.t. range is [-180,180]
+                if (Math.Abs(turnDegrees) > 180)
+                {
+                    if (turnDegrees < 0) //turnDegrees < -180
+                    {
+                        turnDegrees += 360;
+                    }
+                    else
+                    { // turnDegrees > 180 and 
+                        turnDegrees -= 360;
+                    }
+                }
+
+                robot.Turn(turnDegrees);
+                finishedTurning = true;
+                return;
+
         }
+        
+
+        // figure out the direction based on the direction with the largest value
+        public double getBaseDirection(int rowIndexOfSmallest, int colIndexOfSmallest)
+        {
+            double basedirection = 0;
+
+            if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 0)
+            {
+                // go in northwest direction, taking into account current orientation
+                basedirection = 135;
+            }
+            else if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 1)
+            { // North
+                basedirection = 90;
+            }
+            else if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 2)
+            { // Northeast
+                basedirection = 45;
+            }
+            else if (rowIndexOfSmallest == 1 && colIndexOfSmallest == 0)
+            { // West
+                basedirection = 180;
+            }
+            else if (rowIndexOfSmallest == 1 && colIndexOfSmallest == 2)
+            { // East
+                basedirection = 0;
+            }
+            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 0)
+            { // Southwest
+                basedirection = -135;
+            }
+            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 1)
+            { // South
+                basedirection = -90;
+            }
+            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 2)
+            { // Southeast
+                basedirection = -45;
+            }
+            return basedirection;
+        }
+
     }
 }
 
