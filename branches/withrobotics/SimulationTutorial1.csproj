@@ -115,9 +115,6 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\Documents and Settings\Owner.YOUR-292DD34EAC\Desktop\SimCode1.cs">
-      <Link>Simulator\SimCode1.cs</Link>
-    </Compile>
     <Compile Include="Simulator\AssemblyInfo.cs" />
     <Compile Include="Simulator\Controller\Algorithms\Algorithm.cs" />
     <Compile Include="Simulator\Controller\Algorithms\AlgorithmFinishedException.cs" />
@@ -158,6 +155,7 @@
     <Compile Include="Simulator\Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
     <Compile Include="Simulator\Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
     <Compile Include="Simulator\Controller\World\ControllerWorldState.cs" />
+    <Compile Include="Simulator\SimCode1.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
