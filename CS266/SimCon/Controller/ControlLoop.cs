@@ -18,6 +18,7 @@ namespace CS266.SimCon.Controller
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
+        public static Grid robotGrid;
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
