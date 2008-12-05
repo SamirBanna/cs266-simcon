@@ -25,8 +25,8 @@ namespace CS266.SimCon.Controller
 
             switch (name)
             {
-                case "RandomWalkSensorInput":
-                    sensor = new RandomWalkSensorInput();
+                case "DFSSensor":
+                    sensor = new DFSSensor();
                     break;
                 case "ProximitySensor":
                     sensor = new ProximitySensor();
