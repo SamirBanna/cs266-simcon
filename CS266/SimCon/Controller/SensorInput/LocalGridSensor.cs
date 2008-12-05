@@ -7,7 +7,7 @@ namespace CS266.SimCon.Controller
 {
     public class LocalGridSensor : SensorInput
     {
-        double[,] localgrid;
+        public double[,] localgrid;
         int localnumrows = 3;
         int localnumcols = 3;
 
