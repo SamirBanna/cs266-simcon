@@ -7,31 +7,30 @@ namespace CS266.SimCon.Controller
 {
     public class Grid
     {
-        public GridData[][] gridData;
+        // World state to figure out locations of current robots
+        public ControllerWorldState ws;
+
+        // Actual grid
+        public GridData[,] gridData;
+
+        // Dimensions of the world
         public double WorldWidth;
         public double WorldHeight;
 
         // public double minX;
         // public double minY;
 
+        // Dimensions of the grid
         public int NumSquaresX;
         public int NumSquaresY;
 
         // Previous location of robot. Only exists if robot has continuous markings on
-        private Dictionary<Robot, Coordinates> prevLocations;
+        public Dictionary<Robot, Coordinates> prevLocations;
 
-        //public static Grid GetGrid(double WorldWidth, double WorldHeight, int numX, int numY)
-        //{
-        //    if (g == null)
-        //    {
-        //        g = Grid(WorldWidth, WorldHeight, numX, numY);
-
-        //    }
-        //    return g;
-        //}
-
-        public Grid(double WorldWidth, double WorldHeight, int numX, int numY)
+        // constructor gets a reference to the world state
+        public Grid(ControllerWorldState ws, double WorldWidth, double WorldHeight, int numX, int numY)
         {
+            this.ws = ws;
             this.WorldWidth = WorldWidth;
             this.WorldHeight = WorldHeight;
             this.NumSquaresX = numX;
@@ -40,11 +39,38 @@ namespace CS266.SimCon.Controller
             gridData = new GridData()[NumSquaresX, NumSquaresY];
         }
         // Update the robot's current position on the grid
-        public void MarkLocation(int robotId)
+        public void MarkLocation(Robot robot)
         {
+            
+            // Check if robot has a previous location. This means continuous marking
+            // is turned on
+            if (prevLocations.ContainsKey(robot))
+            {
+                // Mark continuously with interpolation
+                // Assume previous location is already marked
+            }
+            else
+            {
+                // Mark just at current location
+            }
 
         }
 
+        // Turn on continuous marking
+        public void TurnOnContinuousMarking(Robot robot)
+        {
+            // Get location of robot and store in prevLocations
+        }
+
+        // Turn off continuous marking, take robot off of prevLocations list
+        public void TurnOffContinuousMarking(Robot robot)
+        {
+        }
+
+
+        /* Get the location on the grid (actually the GridData object at that
+         * location, which contains all the information)
+         */ 
         public GridData getGridLoc(Coordinates location)
         {
             // Get grid coordinates
