@@ -48,6 +48,8 @@ namespace CS266.SimCon.Controller
             {
                 // Mark continuously with interpolation
                 // Assume previous location is already marked
+
+                // At the end, update previous location to current location
             }
             else
             {
