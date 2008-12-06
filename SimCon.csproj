@@ -10,14 +10,14 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>SimulationTutorial1.Y2006.M06</AssemblyName>
-    <RootNamespace>Robotics.DssSimulationTutorial1</RootNamespace>
+    <AssemblyName>CS266SimCon</AssemblyName>
+    <RootNamespace>CS266.SimCon</RootNamespace>
     <AssemblyOriginatorKeyFile>C:\Microsoft Robotics Studio (1.5)\samples\mrisamples.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>False</DelaySign>
-    <SignAssembly>True</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>
@@ -116,52 +116,63 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Simulator\AssemblyInfo.cs" />
-    <Compile Include="Simulator\Controller\Algorithms\Algorithm.cs" />
-    <Compile Include="Simulator\Controller\Algorithms\AlgorithmFinishedException.cs" />
-    <Compile Include="Simulator\Controller\Algorithms\AlgorithmList.cs" />
-    <Compile Include="Simulator\Controller\Algorithms\randWalk.cs" />
-    <Compile Include="Simulator\Controller\Algorithms\WalkStraight.cs" />
-    <Compile Include="Simulator\Controller\ControlLoop.cs" />
-    <Compile Include="Simulator\Controller\Driver\Driver.cs" />
-    <Compile Include="Simulator\Controller\Driver\Program.cs" />
-    <Compile Include="Simulator\Controller\Driver\RobotTest.cs" />
-    <Compile Include="Simulator\Controller\Experiments\Experiment.cs" />
-    <Compile Include="Simulator\Controller\Experiments\RandomWalkExperiment.cs" />
-    <Compile Include="Simulator\Controller\Experiments\WalkStraightExperiment.cs" />
-    <Compile Include="Simulator\Controller\Message.cs" />
-    <Compile Include="Simulator\Controller\Networking\AsynchronousSocketListener.cs" />
-    <Compile Include="Simulator\Controller\Networking\StateObject.cs" />
-    <Compile Include="Simulator\Controller\PhysicalRobotAction.cs" />
-    <Compile Include="Simulator\Controller\PhysObject\Coordinates.cs" />
-    <Compile Include="Simulator\Controller\PhysObject\Food.cs" />
-    <Compile Include="Simulator\Controller\PhysObject\ObjectType.cs" />
-    <Compile Include="Simulator\Controller\PhysObject\Obstacle.cs" />
-    <Compile Include="Simulator\Controller\PhysObject\PhysObject.cs" />
-    <Compile Include="Simulator\Controller\Robot.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\FoodSensor.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\ObstacleSensor.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\ProximitySensor.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\RandomWalkSensorInput.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\RobotSensor.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\SensorInput.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\SensorList.cs" />
-    <Compile Include="Simulator\Controller\SensorInput\SpeedSensor.cs" />
-    <Compile Include="Simulator\Controller\World.cs" />
-    <Compile Include="Simulator\Controller\WorldInputInterfaces\RoboRealm\RoboRealmInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldInputInterfaces\VisionInputInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldInputInterfaces\WorldInputInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
-    <Compile Include="Simulator\Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
-    <Compile Include="Simulator\Controller\World\ControllerWorldState.cs" />
-    <Compile Include="Simulator\SimCode1.cs" />
+    <Compile Include="Controller\Algorithms\Algorithm.cs" />
+    <Compile Include="Controller\Algorithms\AlgorithmFinishedException.cs" />
+    <Compile Include="Controller\Algorithms\AlgorithmList.cs" />
+    <Compile Include="Controller\Algorithms\randWalk.cs" />
+    <Compile Include="Controller\Algorithms\WalkStraight.cs" />
+    <Compile Include="Controller\ControlLoop.cs" />
+    <Compile Include="Controller\Driver\Driver.cs" />
+    <Compile Include="Controller\Driver\Program.cs" />
+    <Compile Include="Controller\Driver\RobotTest.cs" />
+    <Compile Include="Controller\Experiments\Experiment.cs" />
+    <Compile Include="Controller\Experiments\RandomWalkExperiment.cs" />
+    <Compile Include="Controller\Experiments\WalkStraightExperiment.cs" />
+    <Compile Include="Controller\Message.cs" />
+    <Compile Include="Controller\Networking\AsynchronousSocketListener.cs" />
+    <Compile Include="Controller\Networking\StateObject.cs" />
+    <Compile Include="Controller\PhysicalRobotAction.cs" />
+    <Compile Include="Controller\PhysObject\Coordinates.cs" />
+    <Compile Include="Controller\PhysObject\Food.cs" />
+    <Compile Include="Controller\PhysObject\ObjectType.cs" />
+    <Compile Include="Controller\PhysObject\Obstacle.cs" />
+    <Compile Include="Controller\PhysObject\PhysObject.cs" />
+    <Compile Include="Controller\Robot.cs" />
+    <Compile Include="Controller\SensorInput\FoodSensor.cs" />
+    <Compile Include="Controller\SensorInput\ObstacleSensor.cs" />
+    <Compile Include="Controller\SensorInput\ProximitySensor.cs" />
+    <Compile Include="Controller\SensorInput\RandomWalkSensorInput.cs" />
+    <Compile Include="Controller\SensorInput\RobotSensor.cs" />
+    <Compile Include="Controller\SensorInput\SensorInput.cs" />
+    <Compile Include="Controller\SensorInput\SensorList.cs" />
+    <Compile Include="Controller\SensorInput\SpeedSensor.cs" />
+    <Compile Include="Controller\World.cs" />
+    <Compile Include="Controller\WorldInputInterfaces\RoboRealm\RoboRealmInterface.cs" />
+    <Compile Include="Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />
+    <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
+    <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />
+    <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
+    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
+    <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
+    <Compile Include="Controller\World\ControllerWorldState.cs" />
+    <Compile Include="Simulator\DFS.cs" />
+    <Compile Include="Simulator\GenAlgorithm.cs" />
+    <Compile Include="Simulator\ObjectState.cs" />
+    <Compile Include="Simulator\OurSimulator.cs" />
+    <Compile Include="Simulator\RobotAction.cs" />
+    <Compile Include="Simulator\RobotActions.cs" />
+    <Compile Include="Simulator\SimulationService.cs" />
+    <Compile Include="Simulator\WorldDimensions.cs" />
+    <Compile Include="Simulator\WorldPair.cs" />
+    <Compile Include="Simulator\WorldState.cs" />
+    <Compile Include="Simulator\WorldStateParser.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Simulator\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SimulationTutorial1.manifest.xml" />
     <Content Include="Simulator\Game Parameters.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -172,8 +183,8 @@
     <ProxyDelaySign>/delaysign+</ProxyDelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>cp "$(ProjectDir)\Simulator\Game Parameters.txt" "$(TargetDir)"
+cp "$(ProjectDir)\CS266SimCon.manifest.xml" "$(TargetDir)"</PreBuildEvent>
     <PostBuildEvent>"C:\Microsoft Robotics Studio (1.5)\bin\DssProxy.exe" /dll:"$(TargetPath)" /proxyprojectpath:"$(ProjectDir)Proxy " /keyfile:"$(AssemblyOriginatorKeyFile)" $(ProxyDelaySign) $(CompactFrameworkProxyGen) /binpath:". " @(ReferencePath->'/referencepath:"%(RootDir)%(Directory) "', ' ')</PostBuildEvent>
   </PropertyGroup>
 </Project>
