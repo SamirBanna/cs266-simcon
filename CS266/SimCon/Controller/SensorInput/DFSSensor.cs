@@ -7,39 +7,42 @@ namespace CS266.SimCon.Controller
     public class DFSSensor : SensorInput
     {
 
-        bool isActive;
-        bool isLeader;
-        bool isTail;
+       
+        int doorX;
+        int doorY;
 
-        public Robot getSucc(){
-            return null;
+        public DFSSensor(int doorX, int doorY)
+        {
+               
         }
 
+   
         public float getDirectionPred(){
             return 0;
         }
 
-        public void createNewRobot(){
+        public int nextID()
+        {
+            return 0;
+            // add robot to world state
         }
 
-        public bool isLeader(){
-            return false;
+  
+        public void addRobotToList(Robot newRobot){
+            // add robot to world state
         }
 
-        public bool isActive(){
-            return false;
+  
+        public Coordinates getDoor()
+        {
+            // call grid method to turn (doorX,doorY) -> floats
+            return null;
         }
 
-        public bool isTail(){
-            return false;
-        }
 
-        public void setLeadership(){
+        public override void UpdateSensor()
+        {
+          //TODO
         }
-          
-        public void deactivate(){
-        }
-
-    
     }
 }
