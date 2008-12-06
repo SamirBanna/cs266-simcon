@@ -6,7 +6,7 @@ using System.Text;
 namespace CS266.SimCon.Controller
 {
 
-    public enum PhysicalActionType { MoveForward, MoveBackward, Turn, SetSpeed, Stop };
+    public enum PhysicalActionType { MoveForward, MoveBackward, Turn, SetSpeed, Stop, CreateRobot};
 
     public class PhysicalRobotAction
     {
