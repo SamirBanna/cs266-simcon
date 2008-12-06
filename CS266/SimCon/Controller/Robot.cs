@@ -62,14 +62,16 @@ namespace CS266.SimCon.Controller
         }
 
 
-        public void SendMessage(int id, Message msg)
+         public void createNewRobot(int IdOfNewRobot)
         {
-            // TODO
+            //what is the value we should pass here? Maybe the door position?
+            float value = 90;
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(IdOfNewRobot, PhysicalActionType.CreateRobot, value ));
+
         }
 
-        public void SendMessage(Message msg)
-        {
-            // TODO
-        }
+  
+
+
     }
 }
