@@ -17,6 +17,8 @@ namespace CS266.SimCon.Controller
         public bool isTail;
         public Robot pred;
         public Robot succ;
+        //TODO!!!!
+        public bool isTurnPhase;
 
 
         //true if leader should move randomly, false, if leader always should move in directions its facing too
