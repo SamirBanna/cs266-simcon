@@ -46,14 +46,50 @@ namespace CS266.SimCon.Controller
             // is turned on
             if (prevLocations.ContainsKey(robot))
             {
+                int prevX = prevLocations[robot].X;
+                int prevY = prevLocations[robot].Y;
+                int newX = robot.Location.X;
+                int newY = robot.Location.Y;
+                
+                int curX = prevX;
+                int curY = prevY;
                 // Mark continuously with interpolation
                 // Assume previous location is already marked
+                GridData finalSpot = getGridLoc(newX, newY);
+                GridData curSpot = getGridLoc(curX, curY);
+
+                incr = .3;
+                do
+                {
+                    GridData nextSpot;
+                    // Increment X and Y
+                    if (newX > prevX)
+                        curX += incr;
+                    else
+                        curX -= incr;
+                    
+                    if (newY > prevY)
+                        curY += incr;
+                    else
+                        curY -= incr;
+                    // Get next grid spot
+                    nextSpot = getGridLoc(curX, curY);
+
+                    // If different mark it
+                    if (nextSpot != curSpot)
+                    {
+                        nextSpot.numTimesVisited++;
+                        curSpot = nextSpot;
+                    }
+                } while (curSpot != finalSpot);
 
                 // At the end, update previous location to current location
+                prevLocations.Item(robot) = new Coordinates(newX, newY);
             }
             else
             {
                 // Mark just at current location
+                getGridLoc(robot.Location).numTimesVisited++;
             }
 
         }
@@ -61,12 +97,19 @@ namespace CS266.SimCon.Controller
         // Turn on continuous marking
         public void TurnOnContinuousMarking(Robot robot)
         {
+            // Make a copy of the location
+            Coordinates locCopy = new Coordinates;
+            locCopy.X = robot.Location.X;
+            locCopy.Y = robot.Location.Y;
+
             // Get location of robot and store in prevLocations
+            prevLocations.Add(robot, locCopy);
         }
 
         // Turn off continuous marking, take robot off of prevLocations list
         public void TurnOffContinuousMarking(Robot robot)
         {
+            prevLocations.Remove(robot);
         }
 
 
@@ -75,8 +118,11 @@ namespace CS266.SimCon.Controller
          */ 
         public GridData getGridLoc(Coordinates location)
         {
-            // Get grid coordinates
+            // Get grid coordinates. Round down
             int gridX = (int)NumSquaresX * location.X / WorldWidth;
+            int gridY = (int)NumSquaresY * location.Y / WorldHeight;
+
+            return gridData[gridX, gridY];
         }
     }
 }
