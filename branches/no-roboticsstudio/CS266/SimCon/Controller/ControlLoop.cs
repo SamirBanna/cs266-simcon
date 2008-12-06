@@ -111,9 +111,17 @@ namespace CS266.SimCon.Controller
         //Iterate through list of robots, and all their algorithm's execute function
         private void RunAlgorithms()
         {
+
             foreach (Robot r in Robots.Values)
             {
-                r.CurrentAlgorithm.Execute();
+                try
+                {
+                    r.CurrentAlgorithm.Execute();
+                }catch (NewRobotException e)
+                {
+                 
+                    break;
+                }
             }
         }
 
