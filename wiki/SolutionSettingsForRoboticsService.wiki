@@ -10,7 +10,7 @@
 
 *Command Line Arguments*
 
-{{{-p:50000 -t:50001 -m:"samples\config\SimulationTutorial1.manifest.xml"}}}
+{{{-p:50000 -t:50001 -m:"bin\CS266SimCon.manifest.xml"}}}
 
 *Working directory*
 
