@@ -7,9 +7,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 {
     public class SimulatorInputInterface:WorldInputInterface
     {
-        Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os;
+        CS266.SimCon.Simulator.OurSimulator os;
 
-        public SimulatorInputInterface(Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os)
+        public SimulatorInputInterface(CS266.SimCon.Simulator.OurSimulator os)
             : base()
         {
             this.os = os;
@@ -49,11 +49,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
         public override void setupInitialState()
         {
-            Robotics.SimulationTutorial1.SimulationTutorial1.WorldState simWS = os.GetWorldState();
+            CS266.SimCon.Simulator.WorldState simWS = os.GetWorldState();
             int x = 0;
             int y = 0;
 
-            foreach (Robotics.SimulationTutorial1.SimulationTutorial1.ObjectState obj in simWS.objects)
+            foreach (CS266.SimCon.Simulator.ObjectState obj in simWS.objects)
             {
                 int i = 0;
                 if (obj.type == "robot")

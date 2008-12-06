@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
-using Robotics.SimulationTutorial1;
+using CS266.SimCon.Simulator;
+
+
+#region Simulation namespaces
+using Microsoft.Robotics.Simulation;
+using Microsoft.Robotics.Simulation.Engine;
+using engineproxy = Microsoft.Robotics.Simulation.Engine.Proxy;
+using Microsoft.Robotics.Simulation.Physics;
+using Microsoft.Robotics.PhysicalModel;
+using System.ComponentModel;
+using CS266.SimCon.Controller;
+#endregion
 
 namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
     public class SimulatorOutputInterface:WorldOutputInterface
     {
         public static int counter = 0;
-        Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os;
+        CS266.SimCon.Simulator.OurSimulator os;
 
-        public SimulatorOutputInterface(Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os)
+        public SimulatorOutputInterface(CS266.SimCon.Simulator.OurSimulator os)
             : base()
         {
             this.os = os;
@@ -38,20 +49,20 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
 
                 if (action.ActionType == PhysicalActionType.MoveForward)
                 {
-                    Robotics.SimulationTutorial1.SimulationTutorial1.RobotActions rb = new SimulationTutorial1.RobotActions();
-                    rb.Add(new SimulationTutorial1.RobotAction(action.RobotId.ToString(), 0, action.ActionValue));
+                    CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
+                    rb.Add(new RobotAction(action.RobotId.ToString(), 0, action.ActionValue));
                     os.ExecuteActions(rb);
                 }
                 else if (action.ActionType == PhysicalActionType.MoveBackward)
                 {
-                    Robotics.SimulationTutorial1.SimulationTutorial1.RobotActions rb = new SimulationTutorial1.RobotActions();
-                    rb.Add(new SimulationTutorial1.RobotAction(action.RobotId.ToString(), 0, -action.ActionValue));
+                    CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
+                    rb.Add(new RobotAction(action.RobotId.ToString(), 0, -action.ActionValue));
                     os.ExecuteActions(rb);
                 }
                 else if (action.ActionType == PhysicalActionType.Turn)
                 {
-                    Robotics.SimulationTutorial1.SimulationTutorial1.RobotActions rb = new SimulationTutorial1.RobotActions();
-                    rb.Add(new SimulationTutorial1.RobotAction(action.RobotId.ToString(), action.ActionValue, 0));
+                    CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
+                    rb.Add(new RobotAction(action.RobotId.ToString(), action.ActionValue, 0));
                     os.ExecuteActions(rb);
                 }
                 else if (action.ActionType == PhysicalActionType.SetSpeed) { }

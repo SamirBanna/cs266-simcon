@@ -5,7 +5,7 @@ using System.Text;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
 using System.Diagnostics;
-using Robotics.SimulationTutorial1;
+using CS266.SimCon.Simulator;
 
 
 namespace CS266.SimCon.Controller.Driver
@@ -13,9 +13,9 @@ namespace CS266.SimCon.Controller.Driver
     class Driver
     {
 
-        public Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os;
+        public CS266.SimCon.Simulator.OurSimulator os;
 
-        public void setOurSim(Robotics.SimulationTutorial1.SimulationTutorial1.OurSimulator os)
+        public void setOurSim(CS266.SimCon.Simulator.OurSimulator os)
         {
             this.os = os;
         }
