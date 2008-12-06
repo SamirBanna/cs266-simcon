@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-namespace CS266.SimCon.Controller.Algorithms
+namespace CS266.SimCon.Controller
 {
     //This DFS algorithm assumes a grid cell structure. 
     //Each robot can move forward or to the left or to the right.
     //Robots needs to know which robot is in front (predecessor) and behind (sucessor).
-    class BasicDFS : Algorithm
+    class BasicDFS : Algorithm 
     {
 
         //each robot can be either a leader of a follower. In this basic DFS we assume that there is always exactly only one leader.
-        bool isLeader = false;
-        bool isActive;
-        bool isTail;
-        Robot pred;
-        Robot succ;
+        public bool isLeader = false;
+        public bool isActive;
+        public bool isTail;
+        public Robot pred;
+        public Robot succ;
 
 
         //true if leader should move randomly, false, if leader always should move in directions its facing too
         bool moveRandom = false;
-        Robot r;
 
         public BasicDFS(Robot r)
             : base(r)
@@ -34,7 +33,7 @@ namespace CS266.SimCon.Controller.Algorithms
         public BasicDFS(Robot r, bool isLeader, bool moveRandom)
             : base(r)
         {
-            this.r = r;
+          
             this.isLeader = isLeader;
             this.moveRandom = moveRandom;
             //no longer needed?
@@ -46,16 +45,16 @@ namespace CS266.SimCon.Controller.Algorithms
 
         }
 
-        public void Execute(){
+         public override void Execute(){
 
-            if (((DFSSensor)this.robot.Sensors["DFSSensor"]).isActive())
+            if (isActive)
             {
 
                 //sensors all robots need
                 float moveDistance = ((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
                 
                 //LEADER behavior
-                if (((DFSSensor)this.robot.Sensors["DFSSensor"]).isLeader()){
+                if (isLeader){
 
                     //assuming we get back the coordinates of the food source, to be used for statistics and evaluation
                     //double[][] foodCoordinates = ((GridSensor)this.robot.Sensors["GridSensor"]).getFoodCoordinatesInAdjCells;
@@ -71,17 +70,17 @@ namespace CS266.SimCon.Controller.Algorithms
                         
                     //if leader has no moves, it must assign leadership to follower
                     if (possibleMoves.GetLength(0)==0){
-                        r.Stop();
-                        Robot succ = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getSucc();
-                        ((DFSSensor)succ.Sensors["DFSSensor"]).setLeadership();
+                        robot.Stop();
+                 
+                        ((BasicDFS)succ.CurrentAlgorithm).isLeader=true;
                         //changes status active and leadership
-                        ((DFSSensor)this.robot.Sensors["DFSSensor"]).deactivate();
+                        isActive=false;
                     }
                     else if(moveRandom){
                         //moveIndex indicated the index of the possibleMoves field assuming that possibleMoves includes the degrees the robot can possible move to
                         int moveIndex = new Random().Next(0, possibleMoves.GetLength(0));
-                        r.Turn(possibleMoves[moveIndex]);
-                        r.MoveForward(moveDistance);
+                        robot.Turn(possibleMoves[moveIndex]);
+                        robot.MoveForward(moveDistance);
                         }
                     //move determinstically
                     else{
@@ -99,12 +98,12 @@ namespace CS266.SimCon.Controller.Algorithms
                         }
                         if (!forward){
                             if (left){
-                                r.Turn(270);
+                                robot.Turn(270);
                             }
                             else if (right)
-                                r.Turn(90);
+                                robot.Turn(90);
                         }
-                        r.MoveForward(moveDistance);
+                        robot.MoveForward(moveDistance);
     					
                     }	
             }
@@ -113,28 +112,69 @@ namespace CS266.SimCon.Controller.Algorithms
             else{
                 //this function returns the direction the robot must turn to in order to do next move
                 float angleForNextMove = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDirectionPred();
-                r.Turn(angleForNextMove);
-                r.MoveForward(moveDistance);
+                robot.Turn(angleForNextMove);
+                robot.MoveForward(moveDistance);
             }
 
             //If at door, create new robot (regardless of whether leader/follower)
-            if (((DFSSensor)this.robot.Sensors["DFSSensor"]).isTail()){   	        
+            if (isTail){   	        
                 //this method MUST assign predecessor (for new robot) and succesor (for this robot)
                 //and reassign the chaintail to the new robot
 
                 // create new robot
                 int id = ((DFSSensor)this.robot.Sensors["DFSSensor"]).nextID();
-                Robot nextRobot = new Robot(id,  );
+                //this is for the simulator
+                robot.createNewRobot(id);
 
+              
+                Robot nextRobot = clone(id);
+                
+               
+               
                 ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
+                
                 // copy my algorithm
                 // update attributes
 
-                //((DFSSensor)this.robot.Sensors["DFSSensor"]).createNewRobot();               
+                //((DFSSensor)this.robot.Sensors["DFSSensor"]).createNewRobot();         
+                throw new NewRobotException();
             }          
         }
 		
         }
+        //this Clone is only used by the DFS algorithm and therefore includes some specifics!!!!
+        public Robot clone(int id)
+         {
+             
+             //this is for adding the robot to the control loop
+             Coordinates coord = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDoor();
+             float orientation = 90;
+             //size of robot is 5,5
+
+           
+             Robot newRobot = new Robot(id,"", coord, orientation,5,5);
+             newRobot.CurrentAlgorithm = new BasicDFS(newRobot,false, moveRandom);
+             newRobot.Sensors = new Dictionary<string, SensorInput>();
+             foreach (String s in this.robot.Sensors.Keys){
+                 SensorInput sens = SensorList.makeSensor(s);
+                 sens.robot = newRobot;
+                 newRobot.Sensors.Add(s, sens);
+             }
+             //assign attributes to the newly created robot
+             ((BasicDFS)newRobot.CurrentAlgorithm).isTail = true;
+             ((BasicDFS)newRobot.CurrentAlgorithm).pred = this.robot;
+             ((BasicDFS)newRobot.CurrentAlgorithm).isLeader = false;
+             ((BasicDFS)newRobot.CurrentAlgorithm).isActive = true;
+             ((BasicDFS)newRobot.CurrentAlgorithm).succ = null;
+             
+             //change attributes of second to last robot (this robot)
+             succ = newRobot;        
+             isTail = false;
+             
+             return newRobot;
+
+         }
     }
+        
 }
 
