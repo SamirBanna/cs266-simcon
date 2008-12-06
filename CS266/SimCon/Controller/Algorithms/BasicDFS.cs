@@ -13,6 +13,12 @@ namespace CS266.SimCon.Controller.Algorithms
 
         //each robot can be either a leader of a follower. In this basic DFS we assume that there is always exactly only one leader.
         bool isLeader = false;
+        bool isActive;
+        bool isTail;
+        Robot pred;
+        Robot succ;
+
+
         //true if leader should move randomly, false, if leader always should move in directions its facing too
         bool moveRandom = false;
         Robot r;
@@ -25,7 +31,7 @@ namespace CS266.SimCon.Controller.Algorithms
 
         // The moveDistance that is passed in should be the length of one grid cell edge
         //the very first robot created must be a leader
-        public BasicDFS(Robot r, double moveDistance, bool isLeader, bool moveRandom)
+        public BasicDFS(Robot r, bool isLeader, bool moveRandom)
             : base(r)
         {
             this.r = r;
@@ -115,7 +121,16 @@ namespace CS266.SimCon.Controller.Algorithms
             if (((DFSSensor)this.robot.Sensors["DFSSensor"]).isTail()){   	        
                 //this method MUST assign predecessor (for new robot) and succesor (for this robot)
                 //and reassign the chaintail to the new robot
-                ((DFSSensor)this.robot.Sensors["DFSSensor"]).createNewRobot();               
+
+                // create new robot
+                int id = ((DFSSensor)this.robot.Sensors["DFSSensor"]).nextID();
+                Robot nextRobot = new Robot(id,  );
+
+                ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
+                // copy my algorithm
+                // update attributes
+
+                //((DFSSensor)this.robot.Sensors["DFSSensor"]).createNewRobot();               
             }          
         }
 		
