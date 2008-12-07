@@ -101,7 +101,7 @@ namespace CS266.SimCon.Controller
                robot.MoveForward(moveDistance);
 
                // robot only moves here. Before moving, mark your spot
-               GRID.Mark(robot);
+               ControlLoop.robotGrid.Mark(robot);
 
                finishedTurning = false; // so we choose a direction next time 
                     // TODO: maybe have propensity to just move forward sometimes?
