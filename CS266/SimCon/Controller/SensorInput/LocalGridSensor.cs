@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using System.Text;
+using CS266.SimCon.Controller;
 
 namespace CS266.SimCon.Controller
 {
@@ -41,9 +42,9 @@ namespace CS266.SimCon.Controller
 
         public override void UpdateSensor()
         {
-            double[][] grid = CS266.SimCon.Controller.ControlLoop.RobotGrid.grid;
+            GridData[,] grid = CS266.SimCon.Controller.ControlLoop.robotGrid.gridData;
 
-            Coordinates robotLocation = getGridLoc(this.robot.Location);
+            GridData robotLocation = ControlLoop.robotGrid.getGridLoc(this.robot.Location);
 
 
         }
