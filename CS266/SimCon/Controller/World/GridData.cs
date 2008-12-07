@@ -13,7 +13,7 @@ namespace CS266.SimCon.Controller
         // If no information given, assume initialized at beginning
         public GridData()
         {
-            isOccupied = 0;
+            isOccupied = false;
             numTimesVisited = 0;
         }
         public GridData(bool occupied, int visited)
