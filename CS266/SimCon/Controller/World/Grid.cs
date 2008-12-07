@@ -36,7 +36,14 @@ namespace CS266.SimCon.Controller
             this.NumSquaresX = numX;
             this.NumSquaresY = numY;
 
-            gridData = new GridData()[NumSquaresX, NumSquaresY];
+            gridData = new GridData[NumSquaresX, NumSquaresY];
+            for (int i = 0; i < NumSquaresX; i++)
+            {
+                for (int j = 0; j < NumSquaresY; j++)
+                {
+                    gridData[i, j] = new GridData();
+                }
+            }
         }
         // Update the robot's current position on the grid
         public void MarkLocation(Robot robot)
@@ -46,34 +53,38 @@ namespace CS266.SimCon.Controller
             // is turned on
             if (prevLocations.ContainsKey(robot))
             {
-                int prevX = prevLocations[robot].X;
-                int prevY = prevLocations[robot].Y;
-                int newX = robot.Location.X;
-                int newY = robot.Location.Y;
-                
-                int curX = prevX;
-                int curY = prevY;
+                Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+                Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+
+                Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
                 // Mark continuously with interpolation
                 // Assume previous location is already marked
-                GridData finalSpot = getGridLoc(newX, newY);
-                GridData curSpot = getGridLoc(curX, curY);
+                GridData finalSpot = getGridLoc(newLoc);
+                GridData curSpot = getGridLoc(curLoc);
 
-                incr = .3;
+                float incr = (float) .3;
+                float incrX;
+                float incrY;
+                
+                if (newLoc.X > prevLoc.X)
+                    incrX = incr;
+                else
+                    incrX = -1 * incr;
+
+                if (newLoc.Y > prevLoc.Y)
+                    incrY = incr;
+                else
+                    incrY = -1 * incr;
+
                 do
                 {
                     GridData nextSpot;
                     // Increment X and Y
-                    if (newX > prevX)
-                        curX += incr;
-                    else
-                        curX -= incr;
-                    
-                    if (newY > prevY)
-                        curY += incr;
-                    else
-                        curY -= incr;
+                    curLoc.X += incrX;
+                    curLoc.Y += incrY;
+
                     // Get next grid spot
-                    nextSpot = getGridLoc(curX, curY);
+                    nextSpot = getGridLoc(curLoc);
 
                     // If different mark it
                     if (nextSpot != curSpot)
@@ -84,7 +95,7 @@ namespace CS266.SimCon.Controller
                 } while (curSpot != finalSpot);
 
                 // At the end, update previous location to current location
-                prevLocations.Item(robot) = new Coordinates(newX, newY);
+                prevLocations[robot] = curLoc;
             }
             else
             {
@@ -98,9 +109,7 @@ namespace CS266.SimCon.Controller
         public void TurnOnContinuousMarking(Robot robot)
         {
             // Make a copy of the location
-            Coordinates locCopy = new Coordinates;
-            locCopy.X = robot.Location.X;
-            locCopy.Y = robot.Location.Y;
+            Coordinates locCopy = new Coordinates(robot.Location.X, robot.Location.Y);
 
             // Get location of robot and store in prevLocations
             prevLocations.Add(robot, locCopy);
@@ -119,8 +128,8 @@ namespace CS266.SimCon.Controller
         public GridData getGridLoc(Coordinates location)
         {
             // Get grid coordinates. Round down
-            int gridX = (int)NumSquaresX * location.X / WorldWidth;
-            int gridY = (int)NumSquaresY * location.Y / WorldHeight;
+            int gridX = (int) Math.Floor(NumSquaresX * location.X / WorldWidth);
+            int gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
 
             return gridData[gridX, gridY];
         }
