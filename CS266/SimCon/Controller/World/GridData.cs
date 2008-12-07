@@ -7,18 +7,17 @@ namespace CS266.SimCon.Controller
     // What occupies the grid. Contains information that can be added or taken away
     public class GridData
     {
-        public bool isOccupied;
         public int numTimesVisited;
+        public List<PhysObject> objectsInSquare;
 
         // If no information given, assume initialized at beginning
         public GridData()
         {
-            isOccupied = false;
             numTimesVisited = 0;
+            objectsInSquare = new List<PhysObject>();
         }
-        public GridData(bool occupied, int visited)
+        public GridData(int visited)
         {
-            this.isOccupied = occupied;
             this.numTimesVisited = visited;
         }
     }
