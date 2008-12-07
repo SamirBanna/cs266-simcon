@@ -168,5 +168,23 @@ namespace CS266.SimCon.Controller
         {
             return (float)NumSquaresY / (float) WorldHeight;
         }
+
+        public List<PhysObject> getObjectsInCell(int x, int y)
+        {
+            return gridData[x, y].objectsInSquare;
+        }
+
+        public bool gridVisited()
+        {
+            for (int i = 0; i < NumSquaresX; i++)
+            {
+                for (int j = 0; j < NumSquaresY; j++)
+                {
+                    if (gridData[i, j].numTimesVisited == 0)
+                        return false;
+                }
+            }
+            return true;
+        }
     }
 }
