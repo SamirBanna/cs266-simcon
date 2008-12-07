@@ -46,7 +46,7 @@ namespace CS266.SimCon.Controller
             }
         }
         // Update the robot's current position on the grid
-        public void MarkLocation(Robot robot)
+        public void Mark(Robot robot)
         {
             
             // Check if robot has a previous location. This means continuous marking
@@ -102,6 +102,10 @@ namespace CS266.SimCon.Controller
                 // Mark just at current location
                 getGridLoc(robot.Location).numTimesVisited++;
             }
+            // Add robot
+            getGridLoc(robot.Location).objectsInSquare.Add(robot);
+            // Take out robot from previous
+            findObj(robot).objectsInSquare.Remove(robot);
 
         }
 
@@ -132,6 +136,37 @@ namespace CS266.SimCon.Controller
             int gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
 
             return gridData[gridX, gridY];
+        }
+        // Find an object in the grid (right now, only robots)
+        public GridData findObj(PhysObject obj)
+        {
+            for (int i = 0; i < NumSquaresX; i++)
+            {
+                for (int j = 0; j < NumSquaresY; j++)
+                {
+                    if (gridData[i, j].objectsInSquare.Contains(obj))
+                        return gridData[i, j];
+                }
+            }
+            return null;
+        }
+
+        // returns the coordinates to the center of a grid cell
+        public Coordinates getCenterOfCell(int gridX, int gridY)
+        {
+            float x = ((float)gridX + (float).5) * getLengthGridX();
+            float y = ((float)gridY + (float).5) * getLengthGridY();
+            return new Coordinates(x, y);
+        }
+
+        public float getLengthGridX()
+        {
+            return (float)NumSquaresX / (float)WorldWidth;
+        }
+
+        public float getLengthGridY()
+        {
+            return (float)NumSquaresY / (float) WorldHeight;
         }
     }
 }
