@@ -21,15 +21,24 @@ namespace CS266.SimCon.Controller
             return 0;
         }
 
+        // Returns the new id of a robot to be created
         public int nextID()
         {
-            return 0;
-            // add robot to world state
+            int maxId = -1;
+            foreach (Robot robot in worldState.robots)
+            {
+                if (robot.Id > maxId)
+                {
+                    maxId = robot.Id;
+                }
+            }
+            return maxId + 1;
         }
 
   
         public void addRobotToList(Robot newRobot){
             // add robot to world state
+            worldState.robots.Add(newRobot);
         }
 
   
