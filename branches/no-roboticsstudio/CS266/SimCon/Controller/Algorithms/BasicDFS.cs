@@ -16,35 +16,26 @@ namespace CS266.SimCon.Controller
         public bool isActive;
         public bool isTail;
         public Robot pred;
-        public Robot succ;
-        //TODO!!!!
+        public Robot succ;      
         public bool isTurnPhase;
-
-
         //true if leader should move randomly, false, if leader always should move in directions its facing too
-        bool moveRandom = false;
+        bool moveRandom;
 
-        public BasicDFS(Robot r)
-            : base(r)
-        {
+        //public BasicDFS(Robot r)
+        //    : base(r)
+        //{
 
-        }
+        //}
 
         // The moveDistance that is passed in should be the length of one grid cell edge
         //the very first robot created must be a leader
         public BasicDFS(Robot r, bool isLeader, bool moveRandom)
             : base(r)
-        {
-          
+        {         
             this.isLeader = isLeader;
             this.moveRandom = moveRandom;
-            //no longer needed?
-            //if (isLeader == true)
-            //{
-            //    r.isTail = true;
-            //    r.active = true;
-            //}
-
+            this.isActive = true;
+            this.isTurnPhase = true;
         }
 
          public override void Execute(){
@@ -64,62 +55,91 @@ namespace CS266.SimCon.Controller
                     //for now, just return bool
                     bool foundFood = ((GridSensor)this.robot.Sensors["GridSensor"]).detectFoodInAdjCells();
                     //returns array containing angles corresponding to possible moves: forwards, left, or right 
-                    float[] possibleMoves = ((GridSensor)this.robot.Sensors["GridSensor"]).getPossibleMoves();
-                   
+                    List<float> possibleMoves = ((GridSensor)this.robot.Sensors["GridSensor"]).getPossibleMoves();
+
+
                     //assume that only the leader can find food
-                    if(foundFood == true)
+                    if (foundFood == true)
                         Finished();
-                        
+
                     //if leader has no moves, it must assign leadership to follower
-                    if (possibleMoves.GetLength(0)==0){
-                        robot.Stop();
-                 
-                        ((BasicDFS)succ.CurrentAlgorithm).isLeader=true;
-                        //changes status active and leadership
-                        isActive=false;
+                    if (possibleMoves.Count == 0)
+                    {
+                        if (isTurnPhase) // also, must be in Turn phase
+                        {
+                            robot.Stop();
+                            ((BasicDFS)succ.CurrentAlgorithm).isLeader = true;
+                            //changes status active and leadership
+                            isActive = false;
+                        }
                     }
-                    else if(moveRandom){
-                        //moveIndex indicated the index of the possibleMoves field assuming that possibleMoves includes the degrees the robot can possible move to
-                        int moveIndex = new Random().Next(0, possibleMoves.GetLength(0));
-                        robot.Turn(possibleMoves[moveIndex]);
-                        robot.MoveForward(moveDistance);
+                    
+                    else if (moveRandom)
+                    {
+                        if (isTurnPhase)
+                        {
+                            //moveIndex indicated the index of the possibleMoves field assuming that possibleMoves includes the degrees the robot can possible move to
+                            int moveIndex = new Random().Next(0, possibleMoves.Count);
+                            robot.Turn(possibleMoves[moveIndex]);
                         }
+                        else
+                        {
+                            robot.MoveForward(moveDistance);
+                        }
+                    }
                     //move determinstically
-                    else{
-                        bool forward = false;
-                        bool left = false;
-                        bool right = false;
-                        for (int i = 0; i < possibleMoves.GetLength(0); i++){
-                            //define degrees as constants later
-                            if (possibleMoves[i] == 0)
-                                forward = true;
-                            else if (possibleMoves[i] == 270)
-                                left = true;
-                            else if (possibleMoves[i] == 90)
-                                right = true;
-                        }
-                        if (!forward){
-                            if (left){
-                                robot.Turn(270);
+                    else
+                    {
+                        if (isTurnPhase)
+                        {
+                            bool forward = false;
+                            bool left = false;
+                            bool right = false;
+                            for (int i = 0; i < possibleMoves.Count; i++)
+                            {
+                                //possibleMoves returns array of turnDegrees
+                                if (possibleMoves[i] == 0)
+                                    forward = true;
+                                else if (possibleMoves[i] == 90)
+                                    left = true;
+                                else if (possibleMoves[i] == -90)
+                                    right = true;
                             }
-                            else if (right)
-                                robot.Turn(90);
+                            if (!forward)
+                            {
+                                if (left)
+                                {
+                                    robot.Turn(90);
+                                }
+                                else if (right)
+                                    robot.Turn(-90);
+                            }
                         }
-                        robot.MoveForward(moveDistance);
-    					
+                        else
+                        {
+                            robot.MoveForward(moveDistance);
+                        }
+
                     }	
             }
 			
             //FOLLOWER behavior
-            else{
-                //this function returns the direction the robot must turn to in order to do next move
-                float angleForNextMove = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDirectionPred();
-                robot.Turn(angleForNextMove);
-                robot.MoveForward(moveDistance);
+            else
+            {
+                if (isTurnPhase)
+                {
+                    //this function returns the direction the robot must turn to in order to do next move
+                    float angleForNextMove = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDirectionPred();
+                    robot.Turn(angleForNextMove);
+                }
+                else
+                {
+                    robot.MoveForward(moveDistance);
+                }
             }
 
             //If at door, create new robot (regardless of whether leader/follower)
-            if (isTail){   	        
+            if (isTail && !isTurnPhase){   
                 //this method MUST assign predecessor (for new robot) and succesor (for this robot)
                 //and reassign the chaintail to the new robot
 
@@ -127,23 +147,18 @@ namespace CS266.SimCon.Controller
                 int id = ((DFSSensor)this.robot.Sensors["DFSSensor"]).nextID();
                 //this is for the simulator
                 robot.createNewRobot(id);
-
-              
                 Robot nextRobot = clone(id);
-                
-               
-               
                 ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
-                
-                // copy my algorithm
-                // update attributes
 
-                //((DFSSensor)this.robot.Sensors["DFSSensor"]).createNewRobot();         
-                throw new NewRobotException();
+                //this exception tells the simulator not to overwrite previous action with "createNewRobot"      
+                throw new NewRobotException();               
             }          
         }
-		
+            // switch Turn phase <-> Move phase
+            isTurnPhase = !isTurnPhase;
         }
+
+
         //this Clone is only used by the DFS algorithm and therefore includes some specifics!!!!
         public Robot clone(int id)
          {
@@ -165,8 +180,6 @@ namespace CS266.SimCon.Controller
              //assign attributes to the newly created robot
              ((BasicDFS)newRobot.CurrentAlgorithm).isTail = true;
              ((BasicDFS)newRobot.CurrentAlgorithm).pred = this.robot;
-             ((BasicDFS)newRobot.CurrentAlgorithm).isLeader = false;
-             ((BasicDFS)newRobot.CurrentAlgorithm).isActive = true;
              ((BasicDFS)newRobot.CurrentAlgorithm).succ = null;
              
              //change attributes of second to last robot (this robot)
