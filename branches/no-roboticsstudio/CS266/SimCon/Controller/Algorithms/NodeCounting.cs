@@ -15,7 +15,7 @@ namespace CS266.SimCon.Controller
     // Checks if robot has speed sensor
     class NodeCounting : Algorithm
     {
-        public bool finishedTurning = false; // algorithm is trying to aviod and is in the obstacle avoidance routine
+        public bool finishedTurning = false; // algorithm is trying to avoid and is in the obstacle avoidance routine
 
         public NodeCounting(Robot r)
             : base(r)
@@ -23,7 +23,7 @@ namespace CS266.SimCon.Controller
 
         }
 
-        public NodeCounting(Robot r, int degInterval, float probTurn, float moveDistance)
+        public NodeCounting(Robot r, int degInterval, double probTurn, double moveDistance)
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
@@ -32,10 +32,10 @@ namespace CS266.SimCon.Controller
             this.moveDistance = moveDistance; // distance to move forward if moving
         }
 
-        int degInterval = 15; // assume divisible by 360
+        int degInterval = 15; // assumes divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
-        float moveDistance = 50;
+        double moveDistance = 50.0;
 
         public override void Execute()
         {
@@ -98,10 +98,10 @@ namespace CS266.SimCon.Controller
 
             if (finishedTurning && !faceObstacle){
                // if direction is chosen and legal, just move.
-               robot.MoveForward(moveDistance);
+               robot.MoveForward((float)moveDistance);
 
                // robot only moves here. Before moving, mark your spot
-               ControlLoop.robotGrid.Mark(robot);
+               ControlLoop.robotGrid.MarkLocation(robot);
 
                finishedTurning = false; // so we choose a direction next time 
                     // TODO: maybe have propensity to just move forward sometimes?
@@ -153,7 +153,7 @@ namespace CS266.SimCon.Controller
                 // Figure out how many angles to get the robot to turn, 
                 turnDegrees = (float)(angle - orientation);
 
-                // turnDegrees is between -360 to 360, try to turn on short edge s.t. range is [-180,180]
+                // turnDegrees is between 0 and 360, try to turn on short edge s.t. range is [-180,180]
                 if (Math.Abs(turnDegrees) > 180)
                 {
                     if (turnDegrees < 0) //turnDegrees < -180
@@ -173,7 +173,7 @@ namespace CS266.SimCon.Controller
         }
         
 
-        // figure out the direction based on the direction with the largest value
+        // figure out the direction to move to based on the cell with the largest value
         public double getBaseDirection(int rowIndexOfSmallest, int colIndexOfSmallest)
         {
             double basedirection = 0;
@@ -216,6 +216,3 @@ namespace CS266.SimCon.Controller
 
     }
 }
-
-
-
