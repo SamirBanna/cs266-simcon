@@ -6,18 +6,19 @@ namespace CS266.SimCon.Controller
 {
     public class DFSSensor : SensorInput
     {
+        int doorX; // in grid coordinates
+        int doorY; // in grid coordinates
 
-       
-        int doorX;
-        int doorY;
-
+        // assume grid coordinates are passed in, e.g., (0,0)
         public DFSSensor(int doorX, int doorY)
         {
-               
+            this.doorX = doorX;
+            this.doorY = doorY;
         }
 
    
         public float getDirectionPred(){
+            //TODO
             return 0;
         }
 
@@ -44,8 +45,7 @@ namespace CS266.SimCon.Controller
   
         public Coordinates getDoor()
         {
-            // call grid method to turn (doorX,doorY) -> floats
-            return null;
+            return ControlLoop.robotGrid.getCenterOfCell(doorX, doorY);
         }
 
 
