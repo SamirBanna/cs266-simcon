@@ -128,7 +128,7 @@ namespace CS266.SimCon.Controller
             {
                 if (isTurnPhase)
                 {
-                    //this function returns the direction the robot must turn to in order to do next move
+                    //this function returns the turnDegrees the robot must turn to in order to do next move
                     float angleForNextMove = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDirectionPred();
                     robot.Turn(angleForNextMove);
                 }
