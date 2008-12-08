@@ -28,6 +28,7 @@ namespace CS266.SimCon.Controller
                 case "DFSSensor":
                     sensor = new DFSSensor();
                     break;
+
                 case "ProximitySensor":
                     sensor = new ProximitySensor();
                     break;
