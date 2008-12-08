@@ -137,6 +137,12 @@ namespace CS266.SimCon.Controller
 
             return gridData[gridX, gridY];
         }
+
+        public GridData getGridLoc(int gridX, int gridY)
+        {
+            return gridData[gridX, gridY];
+        }
+
         // Find an object in the grid (right now, only robots)
         public GridData findObj(PhysObject obj)
         {
@@ -146,6 +152,22 @@ namespace CS266.SimCon.Controller
                 {
                     if (gridData[i, j].objectsInSquare.Contains(obj))
                         return gridData[i, j];
+                }
+            }
+            return null;
+        }
+
+        public int[] getLocObj(PhysObject obj)
+        {
+            for (int i = 0; i < NumSquaresX; i++)
+            {
+                for (int j = 0; j < NumSquaresY; j++)
+                {
+                    if (gridData[i, j].objectsInSquare.Contains(obj))
+                    {
+                        int[] loc = { i, j };
+                        return loc;
+                    }
                 }
             }
             return null;
