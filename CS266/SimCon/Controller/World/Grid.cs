@@ -41,41 +41,91 @@ namespace CS266.SimCon.Controller
             {
                 for (int j = 0; j < NumSquaresY; j++)
                 {
-                    gridData[i, j] = new GridData();
+                    gridData[i, j] = new GridData(i,j);
                 }
             }
         }
-        // Update the robot's current position on the grid
-        public void Mark(Robot robot)
-        {
+
+        public void Mark(Robot robot, bool continuous){
+
             
-            // Check if robot has a previous location. This means continuous marking
-            // is turned on
-            if (prevLocations.ContainsKey(robot))
-            {
-                Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
-                Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+            if(!continuous || !prevLocations.ContainsKey(robot)){
+                  getGridLoc(robot.Location).pheromoneLevel++;
+                  return;
+            }
+            Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+            Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+            Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
 
-                Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
-                // Mark continuously with interpolation
-                // Assume previous location is already marked
-                GridData finalSpot = getGridLoc(newLoc);
-                GridData curSpot = getGridLoc(curLoc);
+            // Mark continuously with interpolation
+            // Assume previous location is already marked
+            GridData finalSpot = getGridLoc(newLoc);
+            GridData curSpot = getGridLoc(curLoc);
 
-                float incr = (float) .3;
-                float incrX;
-                float incrY;
+
+             float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+                float dX = robot.Location.X - prevLocations[robot].X;
+                float dY = robot.Location.Y - prevLocations[robot].Y;
+                float incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
+                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY); 
                 
-                if (newLoc.X > prevLoc.X)
-                    incrX = incr;
-                else
-                    incrX = -1 * incr;
+                
+                
+                do
+                {
+                    GridData nextSpot;
+                    // Increment X and Y
+                    curLoc.X += incrX;
+                    curLoc.Y += incrY;
 
-                if (newLoc.Y > prevLoc.Y)
-                    incrY = incr;
-                else
-                    incrY = -1 * incr;
+                    // Get next grid spot
+                    nextSpot = getGridLoc(curLoc);
 
+                    // If different mark it
+                    if (nextSpot != curSpot)
+                    {
+                        nextSpot.pheromoneLevel++;
+                        curSpot = nextSpot;
+                    }
+                } while (curSpot != finalSpot);
+
+                
+                return;
+        }
+    
+        public void GridUpdate(Robot robot){
+            // Take out robot from locations of where robot is in the grid
+            findObj(robot).objectsInSquare.Remove(robot);
+
+            // Add robot
+            getGridLoc(robot.Location).objectsInSquare.Add(robot);
+
+            Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+            GridData finalSpot = getGridLoc(newLoc);
+
+            if(!prevLocations.ContainsKey(robot)){    
+                prevLocations[robot] = newLoc;
+                finalSpot.numTimesVisited++;    
+                 return;
+            }
+
+            Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+            Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+            GridData curSpot = getGridLoc(curLoc);
+
+            if(finalSpot == curSpot){
+                // don't mark anything
+                return;
+            }
+
+             float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+                float dX = robot.Location.X - prevLocations[robot].X;
+                float dY = robot.Location.Y - prevLocations[robot].Y;
+                float incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
+                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY); 
+                
+                
+                
                 do
                 {
                     GridData nextSpot;
@@ -94,21 +144,10 @@ namespace CS266.SimCon.Controller
                     }
                 } while (curSpot != finalSpot);
 
-                // At the end, update previous location to current location
                 prevLocations[robot] = curLoc;
-            }
-            else
-            {
-                // Mark just at current location
-                getGridLoc(robot.Location).numTimesVisited++;
-            }
-            // Add robot
-            getGridLoc(robot.Location).objectsInSquare.Add(robot);
-            // Take out robot from previous
-            findObj(robot).objectsInSquare.Remove(robot);
-
+                return;
         }
-
+        
         // Turn on continuous marking
         public void TurnOnContinuousMarking(Robot robot)
         {
@@ -183,12 +222,12 @@ namespace CS266.SimCon.Controller
 
         public float getLengthGridX()
         {
-            return (float)NumSquaresX / (float)WorldWidth;
+            return (float)WorldWidth / (float)NumSquaresX;
         }
 
         public float getLengthGridY()
         {
-            return (float)NumSquaresY / (float) WorldHeight;
+            return (float)WorldHeight / (float)NumSquaresY;
         }
 
         public List<PhysObject> getObjectsInCell(int x, int y)
@@ -210,3 +249,4 @@ namespace CS266.SimCon.Controller
         }
     }
 }
+
