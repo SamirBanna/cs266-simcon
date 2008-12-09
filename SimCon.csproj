@@ -172,7 +172,7 @@
     <None Include="Simulator\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SimulationTutorial1.manifest.xml" />
+    <Content Include="CS266SimCon.manifest.xml" />
     <Content Include="Simulator\Game Parameters.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -183,8 +183,8 @@
     <ProxyDelaySign>/delaysign+</ProxyDelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>cp "$(ProjectDir)\Simulator\Game Parameters.txt" "$(TargetDir)"
-cp "$(ProjectDir)\CS266SimCon.manifest.xml" "$(TargetDir)"</PreBuildEvent>
+    <PreBuildEvent>copy /Y "$(ProjectDir)Simulator\Game Parameters.txt" "$(TargetDir)"
+copy /Y "$(ProjectDir)CS266SimCon.manifest.xml" "$(TargetDir)"</PreBuildEvent>
     <PostBuildEvent>"C:\Microsoft Robotics Studio (1.5)\bin\DssProxy.exe" /dll:"$(TargetPath)" /proxyprojectpath:"$(ProjectDir)Proxy " /keyfile:"$(AssemblyOriginatorKeyFile)" $(ProxyDelaySign) $(CompactFrameworkProxyGen) /binpath:". " @(ReferencePath->'/referencepath:"%(RootDir)%(Directory) "', ' ')</PostBuildEvent>
   </PropertyGroup>
 </Project>
