@@ -39,6 +39,8 @@ namespace CS266.SimCon.Controller
 
         public override void Execute()
         {
+            ControlLoop.robotGrid.GridUpdate(this.robot);
+
             // Get all sensor information
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
@@ -49,6 +51,7 @@ namespace CS266.SimCon.Controller
             bool isMoving = false;
             double speed;
             float turnDegrees;
+
 
             if (this.robot.Sensors.ContainsKey("SpeedSensor"))
             {
@@ -101,12 +104,13 @@ namespace CS266.SimCon.Controller
                robot.MoveForward((float)moveDistance);
 
                // robot only moves here. Before moving, mark your spot
-               ControlLoop.robotGrid.MarkLocation(robot);
+               ControlLoop.robotGrid.Mark(robot, true);
 
                finishedTurning = false; // so we choose a direction next time 
                     // TODO: maybe have propensity to just move forward sometimes?
                return;
             }
+
 
             // Else, Run Node counting to figure out direction to move in
             //                Figure out direction to moveDistance in.
@@ -134,7 +138,10 @@ namespace CS266.SimCon.Controller
                         {// robot's current square, ignore
                             continue;
                         }
-
+                        if (directionalvalues[i,j] < 0)
+                        {
+                            continue;
+                        }
                         if (directionalvalues[i, j] < directionalvalues[rowIndexOfSmallest, colIndexOfSmallest])
                         {
                             rowIndexOfSmallest = i;
