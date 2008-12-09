@@ -433,11 +433,13 @@ namespace CS266.SimCon.Simulator
             }
             //The Sleep function may be an issue!!!!!!!
             //Thread.Sleep(10000);
-            WorldStateParser WP = new WorldStateParser("SimulationEngineState.xml");
+            //WorldStateParser WP = new WorldStateParser("SimulationEngineState.xml");
             //WorldStateParser WP = new WorldStateParser("http://localhost:50000/simulationengine");
-            WorldState WS = WP.parse();
+            //WorldState WS = WP.parse();
 
-            return WS;
+            
+            // We just need an empty world state
+            return new WorldState(new List<CS266.SimCon.Simulator.ObjectState>());
         }
 
         public void Forward(IRobotCreate[] RobotArray, int id, int distance)
