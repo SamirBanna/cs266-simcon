@@ -45,7 +45,7 @@
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -115,6 +115,24 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Algorithms\BasicDFS.cs" />
+    <Compile Include="Controller\Exceptions\NewRobotException.cs" />
+    <Compile Include="Controller\Experiments\DFSExperiment.cs" />
+    <Compile Include="Controller\SensorInput\BoundarySensor.cs" />
+    <Compile Include="Controller\SensorInput\DFSSensor.cs" />
+    <Compile Include="Controller\SensorInput\GridSensor.cs" />
+    <Compile Include="Controller\SensorInput\LocalGridSensor.cs" />
+    <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controller\World\Grid.cs" />
+    <Compile Include="Controller\World\GridData.cs" />
     <Compile Include="Simulator\AssemblyInfo.cs" />
     <Compile Include="Controller\Algorithms\Algorithm.cs" />
     <Compile Include="Controller\Algorithms\AlgorithmFinishedException.cs" />
@@ -151,9 +169,6 @@
     <Compile Include="Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />
-    <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
-    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
-    <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
     <Compile Include="Controller\World\ControllerWorldState.cs" />
     <Compile Include="Simulator\DFS.cs" />
     <Compile Include="Simulator\GenAlgorithm.cs" />
