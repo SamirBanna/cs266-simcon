@@ -8,6 +8,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
     public class SimulatorInputInterface:WorldInputInterface
     {
         CS266.SimCon.Simulator.OurSimulator os;
+        public double worldWidth = 200;
+        public double worldHeight = 90;
 
         public SimulatorInputInterface(CS266.SimCon.Simulator.OurSimulator os)
             : base()
