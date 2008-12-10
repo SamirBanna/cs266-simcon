@@ -9,25 +9,27 @@ namespace CS266.SimCon.Controller
     public class BoundarySensor : SensorInput
     {
         public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
-                                                // assumed symmetric for + or - direction
+        // assumed symmetric for + or - direction
         public double objectSensingDist = 80; // distance at which obstacles can be sensed
-        
+
         public bool detectObject;
-        
+
 
         public BoundarySensor() { }
 
-        public BoundarySensor(double angle, double distance) {
+        public BoundarySensor(double angle, double distance)
+        {
             this.objectSensingAngle = angle;
             this.objectSensingDist = distance;
         }
 
         public BoundarySensor(ControllerWorldState worldState)
         {
-            this.worldState = worldState;          
+            this.worldState = worldState;
         }
-  
-        public void SetSensingAngle(double angle){
+
+        public void SetSensingAngle(double angle)
+        {
             objectSensingAngle = angle;
         }
 
@@ -43,45 +45,46 @@ namespace CS266.SimCon.Controller
         }
 
         // Given the boundaries of the world, determine whether robot senses a boundary
-        public bool senseObject(Robot robot, double minx, double miny, double maxx, double maxy){
-                
-                Coordinates robotLocation = robot.Location;
-                    
-                double angle = robot.Orientation;
-                if(angle < 0){
-                    // convert to [0, 360]
-                    angle += 360;
-                }
-                // Convert to radians
-                angle = angle * Math.PI / 180;
+        public bool senseObject(Robot robot, double minx, double miny, double maxx, double maxy)
+        {
 
-                Coordinates endLocation = new Coordinates((float)(robotLocation.X + objectSensingDist * Math.Cos(angle)), 
-                                                           (float)(robotLocation.Y + objectSensingDist * Math.Sin(angle)));
+            Coordinates robotLocation = robot.Location;
 
-                if (isInside(endLocation.X, endLocation.Y, minx, miny, maxx, maxy))
-                {
-                    // doesn't sense boundary; no collision
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            
-            // Update the proximity sensor data fields
-            // 1. For all objects in the world  (robot or wall or food or whatever)
-            // 2. Check if robot senses any object
-         
-            public override void UpdateSensor()
+            double angle = robot.Orientation;
+            if (angle < 0)
             {
-                detectObject = false;    
-                bool detect = false;
+                // convert to [0, 360]
+                angle += 360;
+            }
+            // Convert to radians
+            angle = angle * Math.PI / 180;
 
-                    /// TODO: get information from the world state
-                    /// 
-                
+            Coordinates endLocation = new Coordinates((float)(robotLocation.X + objectSensingDist * Math.Cos(angle)),
+                                                       (float)(robotLocation.Y + objectSensingDist * Math.Sin(angle)));
+
+            if (isInside(endLocation.X, endLocation.Y, minx, miny, maxx, maxy))
+            {
+                // doesn't sense boundary; no collision
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
+
+        // Update the proximity sensor data fields
+        // 1. For all objects in the world  (robot or wall or food or whatever)
+        // 2. Check if robot senses any object
+
+        public override void UpdateSensor()
+        {
+            /// TODO: get information from the world state
+            /// 
+            detectObject = senseObject(this.robot, 0, 0, worldState.maxX, worldState.maxY);
+
+
+        }
     }
+}
 
