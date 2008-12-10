@@ -29,5 +29,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public RunLoopDelegate runLoopDelegate;
         public abstract ControllerWorldState getWorldState();
         public abstract void setupInitialState();
+
+        public double worldWidth;
+        public double worldHeight;
     }
 }
