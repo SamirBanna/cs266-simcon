@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+//using Microsoft.Xna.Framework;
 using Microsoft.Robotics.PhysicalModel;
 using Microsoft.Robotics.Simulation.Engine;
 using Microsoft.Robotics.Simulation.Physics;
@@ -44,6 +45,7 @@ namespace CS266.SimCon.Simulator
             float[] orientation = new float[3];
             float[] velocity = new float[3];
             float[] dimension = new float[3];
+            double newdegreesfromx;
 
             for (int i = 0; i < this.BoundaryList.Count; i++)
             {
@@ -98,7 +100,51 @@ namespace CS266.SimCon.Simulator
                 dimension[1] = 1;
                 dimension[2] = 1;
 
+                double x = this.RobotList[i].State.Pose.Orientation.X / Math.Sqrt(1 - this.RobotList[i].State.Pose.Orientation.W * this.RobotList[i].State.Pose.Orientation.W);
+                //Wrong orientation when negative
+                double y = -(this.RobotList[i].State.Pose.Orientation.Z / Math.Sqrt(1 - this.RobotList[i].State.Pose.Orientation.W * this.RobotList[i].State.Pose.Orientation.W));
+
+                //Console.WriteLine(this.RobotList[i].Rotation);
+
+                //THe problem is that W == 1! What do we do in that corner case. Otherwise all is okay!!
+                Console.WriteLine("========================RotationAngles.Y is: " + this.RobotList[i].RotationAngles.Y);
+                Console.WriteLine("========================RotationAngles.Z is: " + this.RobotList[i].RotationAngles.Z);
+                Console.WriteLine("========================RotationAngles.X is: " + this.RobotList[i].RotationAngles.X);
+                Console.WriteLine("========================Y is: " + y);
+                Console.WriteLine("========================X is: " + x);
+                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.W);
+                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.X);
+                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.Y);
+                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.Z);
+
+                if (x == 0)
+                {
+                    if (y > 0)
+                    {
+                        newdegreesfromx = 90;
+                    }
+                    else
+                    {
+                        //Need to be -90?
+                        newdegreesfromx = 270;
+                    }
+                }
+                else
+                {
+                    double radians = Math.Atan(y / x);
+                    newdegreesfromx = radians * (180 / Math.PI);
+                    if (y > 0 && x < 0)
+                    {
+                        newdegreesfromx = newdegreesfromx + 180;
+                    }
+                    else if (y < 0 && x < 0)
+                    {
+                        newdegreesfromx = newdegreesfromx + 180;
+                    }
+                }
+
                 ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
+                o.SetNewDegreesFromX(newdegreesfromx);
                 objs.Add(o);
             }
 
@@ -131,6 +177,18 @@ namespace CS266.SimCon.Simulator
 
             return W;
         }
+
+        private static int NewRobotCount = 0;
+
+        public void AddNewRobot(ObjectState Robot)
+        {
+            NewRobotCount++;
+            //Name as N0, N1, N2. . .
+            Robot.name = "N" + NewRobotCount.ToString();
+            this.RobotList.Add(AddRobot(Robot));
+            this.GetWorldState();
+        }
+
 
         //NEW!!!!! Changed!
         public void SetWorldState(WorldState World)
