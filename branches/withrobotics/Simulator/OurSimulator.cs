@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-//using Microsoft.Xna.Framework;
+using Microsoft;
 using Microsoft.Robotics.PhysicalModel;
 using Microsoft.Robotics.Simulation.Engine;
 using Microsoft.Robotics.Simulation.Physics;
@@ -104,19 +104,12 @@ namespace CS266.SimCon.Simulator
                 //Wrong orientation when negative
                 double y = -(this.RobotList[i].State.Pose.Orientation.Z / Math.Sqrt(1 - this.RobotList[i].State.Pose.Orientation.W * this.RobotList[i].State.Pose.Orientation.W));
 
-                //Console.WriteLine(this.RobotList[i].Rotation);
+                Console.WriteLine(this.RobotList[i].Rotation);
+
+                newdegreesfromx = (this.RobotList[i].Rotation.Y);
 
                 //THe problem is that W == 1! What do we do in that corner case. Otherwise all is okay!!
-                Console.WriteLine("========================RotationAngles.Y is: " + this.RobotList[i].RotationAngles.Y);
-                Console.WriteLine("========================RotationAngles.Z is: " + this.RobotList[i].RotationAngles.Z);
-                Console.WriteLine("========================RotationAngles.X is: " + this.RobotList[i].RotationAngles.X);
-                Console.WriteLine("========================Y is: " + y);
-                Console.WriteLine("========================X is: " + x);
-                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.W);
-                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.X);
-                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.Y);
-                Console.WriteLine(this.RobotList[i].State.Pose.Orientation.Z);
-
+                
                 if (x == 0)
                 {
                     if (y > 0)
@@ -143,7 +136,12 @@ namespace CS266.SimCon.Simulator
                     }
                 }
 
+                //This is correct!!!
+                newdegreesfromx = (this.RobotList[i].Rotation.Y + 90);
+                //Thread.Sleep(5000);
+
                 ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
+                Console.WriteLine("Orientation is: " + newdegreesfromx);
                 o.SetNewDegreesFromX(newdegreesfromx);
                 objs.Add(o);
             }
