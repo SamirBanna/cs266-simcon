@@ -10,17 +10,17 @@ namespace CS266.SimCon.Controller
     /// </summary>
     public abstract class PhysObject
     {
-        public PhysObject(int id, String name, Coordinates location, float orientation, float width, float height)
+        public PhysObject(int id, ObjectType type, Coordinates location, float orientation, float width, float height)
         {
             this.Id = id;
-            this.Name = name;
+            this.Type = type;
             this.Location = location;
             this.Orientation = orientation;
             this.Width = width;
             this.Height = height;
         }
         public int Id;
-        public String Name;
+        public ObjectType Type;
         
         /// <summary>
         /// Width, or radius of a round object
