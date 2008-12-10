@@ -44,7 +44,8 @@ namespace CS266.SimCon.Controller
 
             if (isActive)
             {
-
+                ControlLoop.robotGrid.GridUpdate(this.robot);
+              
                 //sensors all robots need
                 float moveDistance = ((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
                 
