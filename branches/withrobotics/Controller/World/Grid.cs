@@ -46,6 +46,12 @@ namespace CS266.SimCon.Controller
             }
         }
 
+        /// <summary>
+        /// Marks the grid at the given robot's current location.
+        /// "continuous" sets whether the entire line from the last location to the current should be marked.
+        /// </summary>
+        /// <param name="robot"></param>
+        /// <param name="continuous"></param>
         public void Mark(Robot robot, bool continuous)
         {
 
@@ -95,6 +101,10 @@ namespace CS266.SimCon.Controller
             return;
         }
 
+        /// <summary>
+        /// Adds a robot to a CELL in the grid (wherever the robot is currently located)
+        /// </summary>
+        /// <param name="robot"></param>
         public void GridUpdate(Robot robot)
         {
             // Take out robot from locations of where robot is in the grid
@@ -153,7 +163,10 @@ namespace CS266.SimCon.Controller
             return;
         }
 
-        // Turn on continuous marking
+        /// <summary>
+        /// Turn on continuous marking
+        /// </summary>
+        /// <param name="robot"></param>
         public void TurnOnContinuousMarking(Robot robot)
         {
             // Make a copy of the location
@@ -163,16 +176,23 @@ namespace CS266.SimCon.Controller
             prevLocations.Add(robot, locCopy);
         }
 
-        // Turn off continuous marking, take robot off of prevLocations list
+        
+        /// <summary>
+        /// Turn off continuous marking, take robot off of prevLocations list
+        /// </summary>
+        /// <param name="robot"></param>
         public void TurnOffContinuousMarking(Robot robot)
         {
             prevLocations.Remove(robot);
         }
 
 
-        /* Get the location on the grid (actually the GridData object at that
-         * location, which contains all the information)
-         */
+        /// <summary>
+        /// Get the location on the grid (actually the GridData object at that
+        /// location, which contains all the information)
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public GridData getGridLoc(Coordinates location)
         {
             // Get grid coordinates. Round down
