@@ -93,8 +93,8 @@ namespace CS266.SimCon.Controller
             {
                 if (Robots.ContainsKey(z.Id))
                 {
-                    r.Orientation = z.Orientation;
-                    r.Location = z.Location;
+                    Robots[z.Id].Orientation = z.Orientation;
+                    Robots[z.Id].Location = z.Location;
                 }
                 else
                 {
