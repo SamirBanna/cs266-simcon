@@ -45,8 +45,6 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             }
             else
             {
-                counter++;
-                if (counter == 1) os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { 1, 1, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
                 if (action.ActionType == PhysicalActionType.MoveForward)
                 {
                     CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
@@ -64,6 +62,11 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
                     CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
                     rb.Add(new RobotAction(action.RobotId.ToString(), action.ActionValue, 0));
                     os.ExecuteActions(rb);
+                }
+                else if (action.ActionType == PhysicalActionType.CreateRobot)
+                {
+                    Coordinates location = ControlLoop.robotGrid.getCenterOfCell(1, 1);
+                    os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { location.X, location.Y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
                 }
                 else if (action.ActionType == PhysicalActionType.SetSpeed) { }
                 //System.Threading.Thread.Sleep(500);
