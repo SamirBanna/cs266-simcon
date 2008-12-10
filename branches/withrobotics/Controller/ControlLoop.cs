@@ -58,9 +58,11 @@ namespace CS266.SimCon.Controller
         /// </summary>
         public void RunLoop()
         {
-            Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
+            //Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
             this.GetInput();
             //Console.WriteLine("got input");
+            Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
+            System.Threading.Thread.Sleep(1500);
 
             this.RunAlgorithms();
             
@@ -100,6 +102,7 @@ namespace CS266.SimCon.Controller
                 {
                     // create a new robot
                     Robot newRobot = new Robot(z.Id, z.Name, z.Location, z.Orientation, 7, 7);
+                    Robots.Add(newRobot.Id, newRobot);
                 }
             }
 
