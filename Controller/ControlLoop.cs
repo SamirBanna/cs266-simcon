@@ -118,6 +118,16 @@ namespace CS266.SimCon.Controller
             //        newRobot.CurrentAction = z.CurrentAction;
             //        newRobot.CurrentAlgorithm = z.CurrentAlgorithm;
                     
+                    //code from DFSExperiment to deepcopy the sensors over
+                    //foreach (String s in z.Sensors.Keys)
+                    //{
+                    //    SensorInput sens = SensorList.makeSensor(s);
+                    //    ControllerWorldState ws = Wii.ws;
+                    //    sens.UpdateWorldState(ws);
+                    //    sens.robot = newRobot;
+                    //    newRobot.Sensors.Add(s, sens);
+                    //}
+                    
             //        //code from DFSExperiment to deepcopy the sensors over
             //        foreach (String s in z.Sensors.Keys)
             //        {
