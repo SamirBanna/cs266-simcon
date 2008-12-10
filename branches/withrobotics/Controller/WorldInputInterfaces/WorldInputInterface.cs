@@ -30,5 +30,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public abstract ControllerWorldState getWorldState();
         public abstract void setupInitialState();
         public abstract ControllerWorldState getNewWorldState();
+
+        public double worldWidth;
+        public double worldHeight;
     }
 }
