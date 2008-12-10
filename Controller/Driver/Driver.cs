@@ -25,7 +25,10 @@ namespace CS266.SimCon.Controller.Driver
             WorldInputInterface wii = new SimulatorInputInterface(os);
             WorldOutputInterface woi = new SimulatorOutputInterface(os);
 
-            RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
+            // Here we need to check for os.Algo type!!!!
+
+            //RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
+            DFSExperiment exp = new DFSExperiment(wii, woi);
             exp.SetupExperiment();
             exp.runExperiment();
         }
