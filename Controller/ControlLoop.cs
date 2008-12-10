@@ -92,7 +92,8 @@ namespace CS266.SimCon.Controller
             //update robot orientation and location
 
             foreach (Robot z in worldState.robots)
-            {
+            {   
+                //if we already know about this robot, then update parametes; otherwise create and add
                 if (Robots.ContainsKey(z.Id))
                 {
                     Robots[z.Id].Orientation = z.Orientation;
@@ -100,8 +101,22 @@ namespace CS266.SimCon.Controller
                 }
                 else
                 {
-                    // create a new robot
+                    // create a new robot. TODO: should 7,7 be z.width and z.height?
                     Robot newRobot = new Robot(z.Id, z.Name, z.Location, z.Orientation, 7, 7);
+                    
+                    // copy algorithm and action
+                    newRobot.CurrentAction = z.CurrentAction;
+                    newRobot.CurrentAlgorithm = z.CurrentAlgorithm;
+                    
+                    //code from DFSExperiment to deepcopy the sensors over
+                    foreach (String s in z.Sensors.Keys)
+                    {
+                        SensorInput sens = SensorList.makeSensor(s);
+                        ControllerWorldState ws = Wii.ws;
+                        sens.UpdateWorldState(ws);
+                        sens.robot = newRobot;
+                        newRobot.Sensors.Add(s, sens);
+                    }
                     Robots.Add(newRobot.Id, newRobot);
                 }
             }
