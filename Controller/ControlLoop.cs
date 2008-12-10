@@ -106,8 +106,13 @@ namespace CS266.SimCon.Controller
                 }
             }
 
+            //A hack until Angela adds sensors and an algorithm to the newly added robot
+            int j = 0;
+
             foreach (Robot r in Robots.Values)
             {
+                j++;
+                if (j == 3) break;
                 foreach (SensorInput sensor in r.Sensors.Values)
                 {
                     
@@ -121,8 +126,13 @@ namespace CS266.SimCon.Controller
         //Iterate through list of robots, and all their algorithm's execute function
         private void RunAlgorithms()
         {
+            //Another hack until angela add the sensor/algo stuff
+
+            int j = 0;
             foreach (Robot r in Robots.Values)
             {
+                j++;
+                if (j == 3) break;
                 r.CurrentAlgorithm.Execute();
             }
         }
