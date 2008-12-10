@@ -88,15 +88,18 @@ namespace CS266.SimCon.Controller
 
             Console.WriteLine("*****Number of objects in the world: " +worldState.physobjects.Count + "*******");
             //update robot orientation and location
-            foreach (Robot r in Robots.Values)
+
+            foreach (Robot z in worldState.robots)
             {
-                foreach (Robot z in worldState.robots)
+                if (Robots.ContainsKey(z.Id))
                 {
-                    if (r.Id == z.Id)
-                    {
-                        r.Orientation = z.Orientation;
-                        r.Location = z.Location;
-                    }
+                    r.Orientation = z.Orientation;
+                    r.Location = z.Location;
+                }
+                else
+                {
+                    // create a new robot
+                    Robot newRobot = new Robot(z.Id, z.Name, z.Location, z.Orientation, 7, 7);
                 }
             }
 
