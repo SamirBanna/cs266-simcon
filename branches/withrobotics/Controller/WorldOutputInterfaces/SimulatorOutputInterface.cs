@@ -46,7 +46,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             else
             {
                 counter++;
-
+                if (counter == 1) os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { 1, 1, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
                 if (action.ActionType == PhysicalActionType.MoveForward)
                 {
                     CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
