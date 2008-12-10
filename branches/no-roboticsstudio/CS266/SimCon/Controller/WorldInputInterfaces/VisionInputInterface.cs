@@ -73,13 +73,13 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     if(s.id == 10){
 
                         Console.WriteLine("CAMERA SENSES food***************************************");
-                        Food f = new Food(s.id, s.shapetype, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
-                        FoodList.Add(f);
-                        //PhysObjList.Add(f);
+                        Food f = new Food(s.id, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                        //FoodList.Add(f);
+                        PhysObjList.Add(f);
 
                     }
 
-                    Robot r = new Robot(s.id, s.shapetype, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                    Robot r = new Robot(s.id, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
 
                     bool flag = false;
                     foreach (Robot x in RobotList)
@@ -106,7 +106,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 }
                 else if (s.shapetype == "boundary")
                 {
-                    PhysObject phy = new Obstacle(objcount++, s.shapetype, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                    PhysObject phy = new Obstacle(objcount++, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);
                     
                 }
