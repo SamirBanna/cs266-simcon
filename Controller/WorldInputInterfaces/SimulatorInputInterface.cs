@@ -57,22 +57,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             foreach (CS266.SimCon.Simulator.ObjectState obj in simWS.objects)
             {
-                int i = 0;
                 if (obj.type == "robot")
                 {
                     Console.WriteLine("Making ROBOTS");
                     Console.WriteLine(obj.position.X);
                     Console.WriteLine(obj.position.Y);
-                    //RobotList.Add(new Robot(x++, obj.name, new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0,0));
-                    if (i < 1)
-                    {
-                        RobotList.Add(new Robot(x++, obj.name, new Coordinates(5, 5), obj.degreesfromx, 0, 0));
-                        i++;
-                    }
-                    else
-                    {
-                        RobotList.Add(new Robot(x++, obj.name, new Coordinates(4, 5), obj.degreesfromx, 0, 0));
-                    }
+                    RobotList.Add(new Robot(x++, obj.name, new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0,0));
 
                 }
                 else if (obj.type == "obstacle" || obj.type == "Wall")
