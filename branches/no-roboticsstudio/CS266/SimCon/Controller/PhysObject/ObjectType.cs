@@ -1,4 +1,4 @@
 ﻿namespace CS266.SimCon.Controller
 {
-    public enum ObjectType { Unknown, Obstactle, Robot, Food };
+    public enum ObjectType { Unknown, Obstacle, Robot, Food };
 }
