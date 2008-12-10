@@ -37,7 +37,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             setupInitialState();
             
-            return new ControllerWorldState(RobotList, PhysObjList);
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList);
 
         }
 
@@ -49,11 +49,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
 
             setupInitialState();
-            return new ControllerWorldState(RobotList, PhysObjList);;
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList);;
         }
 
         public override void setupInitialState()
         {
+            
             
             List<shape> cameraData;
             cameraData = getCameraData();
@@ -69,7 +70,14 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (s.shapetype == "robot")
                 {
-                    //Console.WriteLine("Making a new robot");
+                    if(s.id == 10){
+
+                        Console.WriteLine("CAMERA SENSES food***************************************");
+                        Food f = new Food(s.id, s.shapetype, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                        FoodList.Add(f);
+                        //PhysObjList.Add(f);
+
+                    }
 
                     Robot r = new Robot(s.id, s.shapetype, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
 
@@ -132,23 +140,24 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 connected = true;
             }
             
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImageLarge.robo"))
                 Console.WriteLine("Program didn't run.\n");
-   
 
+            
 
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlackStuff_test.robo"))
-                Console.WriteLine("Black Program didn't run.\n");
-           
-            while (rr.getVariable("Program") != "1")
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge.robo"))
+                Console.WriteLine("Blue Program didn't run.\n");
+
+            
+            while (rr.getVariable("BProgram") != "1")
             {
                 Thread.Sleep(5);
             }
             
-            sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Black.out");
+            sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue.out");
             s = "";
-            
-            
+
+            System.Console.WriteLine("hey");
             while ((s = sr.ReadLine()) != null)
             {
                 // print out for testing
@@ -160,7 +169,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
             sr.Close();
 
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_test.robo"))
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge.robo"))
                 Console.WriteLine("Red Program didn't run.\n");
 
             while (rr.getVariable("RProgram") != "1")
@@ -223,15 +232,25 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
                 sh.x = float.Parse(line[2]) + (float.Parse(line[3]) - float.Parse(line[2])) / 2;
                 sh.y = float.Parse(line[4]) + (float.Parse(line[5]) - float.Parse(line[4])) / 2;
+                sh.x -= 100;
+                sh.y -= 280;
 
                 sh.confidence = float.Parse(line[0]);
 
                 // need to update this once there are more shapes
-                if (line[6] == "square") {
+                if (line[6] == "square")
+                {
                     sh.shapetype = "boundary";
                     sh.id = 0;
-                } else {
-                    Console.WriteLine("++++++++++++++Line 6:" +line[6]);
+                }
+                else if (line[6] == "food")
+                {
+                    sh.shapetype = "food";
+                    sh.id = 8;
+                }
+                else
+                {
+                    Console.WriteLine("++++++++++++++Line 6:" + line[6]);
                     sh.shapetype = "robot";
                     try
                     {
