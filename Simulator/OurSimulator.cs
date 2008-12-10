@@ -104,41 +104,11 @@ namespace CS266.SimCon.Simulator
                 //Wrong orientation when negative
                 double y = -(this.RobotList[i].State.Pose.Orientation.Z / Math.Sqrt(1 - this.RobotList[i].State.Pose.Orientation.W * this.RobotList[i].State.Pose.Orientation.W));
 
-                Console.WriteLine(this.RobotList[i].Rotation);
+                //Console.WriteLine(this.RobotList[i].Rotation);
 
-                newdegreesfromx = (this.RobotList[i].Rotation.Y);
-
-                //THe problem is that W == 1! What do we do in that corner case. Otherwise all is okay!!
                 
-                if (x == 0)
-                {
-                    if (y > 0)
-                    {
-                        newdegreesfromx = 90;
-                    }
-                    else
-                    {
-                        //Need to be -90?
-                        newdegreesfromx = 270;
-                    }
-                }
-                else
-                {
-                    double radians = Math.Atan(y / x);
-                    newdegreesfromx = radians * (180 / Math.PI);
-                    if (y > 0 && x < 0)
-                    {
-                        newdegreesfromx = newdegreesfromx + 180;
-                    }
-                    else if (y < 0 && x < 0)
-                    {
-                        newdegreesfromx = newdegreesfromx + 180;
-                    }
-                }
-
                 //This is correct!!!
                 newdegreesfromx = (this.RobotList[i].Rotation.Y + 90);
-                //Thread.Sleep(5000);
 
                 ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
                 Console.WriteLine("Orientation is: " + newdegreesfromx);
@@ -456,13 +426,7 @@ namespace CS266.SimCon.Simulator
 
         public WorldState RobotsAct(RobotActions actions_vector)
         {
-            //NEW!!!!!!!!!!
-            if (actions_vector == null)
-            {
-                Thread.Sleep(15000);
-                return null;
-            }
-
+           
             //Iterate over the robots and the actions 
             for (int i = 0; i < this.RobotList.Count; i++)
             {
@@ -483,6 +447,7 @@ namespace CS266.SimCon.Simulator
 
                         //Drive the correct distance
                         this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 2f);
+                        Thread.Sleep(5000);
                         break;
                     }
                 }
