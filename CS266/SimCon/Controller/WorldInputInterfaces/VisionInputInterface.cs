@@ -17,6 +17,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public static Boolean connected = false;
         private RR_API rr = new RR_API();
 
+        public double worldHeight = 90;
+        public double worldWidth = 200;
+
         override public List<Robot> GetRobots()
         {
             return RobotList;
@@ -36,8 +39,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
 
             setupInitialState();
-            
-            return new ControllerWorldState(RobotList, PhysObjList, FoodList);
+
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
 
         }
 
@@ -49,7 +52,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
 
             setupInitialState();
-            return new ControllerWorldState(RobotList, PhysObjList, FoodList);;
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
         }
 
         public override void setupInitialState()
@@ -79,7 +82,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
                     }
 
-                    Robot r = new Robot(s.id, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                    Robot r = new Robot(s.id, ObjectType.Robot, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
 
                     bool flag = false;
                     foreach (Robot x in RobotList)
@@ -122,10 +125,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
          * Also processes camera data into data structures for the WorldOutputInterface
          * 
          * */
+
+        public List<shape> oldShapeList = new List<shape>();    
+
         private List<shape> getCameraData()
         {
-            
-            
+
             List<shape> shapeList = new List<shape>();
             System.IO.StreamReader sr;
             string s;
@@ -140,7 +145,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 connected = true;
             }
             
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImageLarge.robo"))
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
                 Console.WriteLine("Program didn't run.\n");
 
             
@@ -161,6 +166,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             while ((s = sr.ReadLine()) != null)
             {
                 // print out for testing
+                System.Console.WriteLine("blue shapes");
                 System.Console.WriteLine(s);
 
                 shape sh = parseShapes(s);
@@ -168,6 +174,37 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     shapeList.Add(sh);
             }
             sr.Close();
+
+
+            //Start blob processing
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_blobs.robo"))
+                Console.WriteLine("Blue Program didn't run.\n");
+
+
+            while (rr.getVariable("RProgram") != "1")
+            {
+                Thread.Sleep(5);
+            }
+            System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blobs.out");
+            int[] Blobx = new int[100];
+            int[] Bloby = new int[100];
+
+            s = "";
+            int bcount = 0;
+            while ((s = sblob.ReadLine()) != null)
+            {
+                string[] toks = s.Split(' ');
+                
+                Blobx[bcount] = int.Parse(toks[0]);
+                Bloby[bcount] = int.Parse(toks[1]);
+
+                bcount ++;
+            }
+
+
+            //End blob processing
+
+
 
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge.robo"))
                 Console.WriteLine("Red Program didn't run.\n");
@@ -213,6 +250,45 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             //}
 
             sr.Close();
+
+            List<shape> anOldshapeList = shapeList;
+
+            int[] foundb = new int[bcount];
+            for(int i = 0; i < bcount; i++)
+                foundb[i] = -1;
+
+            int foundcount = 0;
+            
+            for(int i = 0; i < bcount; i++) {
+                int found = -1;
+                
+                foreach (shape sh in shapeList)
+                {
+                  if ((Blobx[i] - 15 <= sh.x && Blobx[i] + 15 >= sh.x) &&
+                      (Bloby[i] - 15 <= sh.y && Bloby[i] + 15 >= sh.y))
+                    {
+                      found = 1;
+                    }
+                }
+
+                if(found != 1) {
+                 shape myShape = new shape();
+                 double distance = -1;
+                 foreach (shape sh in oldShapeList){
+                     double mydistance = Math.Sqrt( ((Blobx[i] - sh.x)*(Blobx[i] - sh.x)) + ((Bloby[i] - sh.y)*(Bloby[i] - sh.y)));
+                     if(distance == -1 || mydistance < distance) {
+                         distance = mydistance;
+                         myShape = sh;
+                     }
+                 }
+                    if(distance < 300)
+                     shapeList.Add(myShape);
+                }
+
+
+            }
+
+            oldShapeList = anOldshapeList;
             return shapeList;
         }
 
