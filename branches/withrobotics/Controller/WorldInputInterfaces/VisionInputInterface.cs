@@ -16,6 +16,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
     {
         public static Boolean connected = false;
         private RR_API rr = new RR_API();
+        public double worldWidth = 200;
+        public double worldHeight = 90;
 
         override public List<Robot> GetRobots()
         {
