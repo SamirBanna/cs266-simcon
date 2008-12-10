@@ -42,6 +42,11 @@ namespace CS266.SimCon.Simulator
             this.dimension.Z = dimension[2];
 
         }
+
+        public void SetNewDegreesFromX(double angle)
+        {
+            this.degreesfromx = (float)angle;
+        }
     }
 
 }
