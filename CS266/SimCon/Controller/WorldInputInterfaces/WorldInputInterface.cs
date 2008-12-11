@@ -11,13 +11,18 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
         protected List<Robot> RobotList;
         protected List<PhysObject> PhysObjList;
+        protected List<Food> FoodList;
         public ControllerWorldState ws;
+
 
         public WorldInputInterface()
         {
             RobotList = new List<Robot>();
             PhysObjList = new List<PhysObject>();
-            ws = new ControllerWorldState(RobotList, PhysObjList);
+            FoodList = new List<Food>();
+            int x = 0;
+            int y = 0;
+            ws = new ControllerWorldState(RobotList, PhysObjList, FoodList,x,y);
         }
 
         public void SetRunLoopDelegate(RunLoopDelegate del)
