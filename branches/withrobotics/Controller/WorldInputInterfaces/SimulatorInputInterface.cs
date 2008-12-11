@@ -63,6 +63,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     Console.WriteLine(obj.position.X);
                     Console.WriteLine(obj.position.Y);
                     RobotList.Add(new Robot(x++, obj.name, new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0,0));
+                    
+                    // USE this line for DFSExperiment:
+                    //RobotList.Add(new Robot(x++, obj.name, new Coordinates(DFSExperiment.doorX, DFSExperiment.doorY), obj.degreesfromx, 0, 0));
 
                 }
                 else if (obj.type == "obstacle" || obj.type == "Wall")
