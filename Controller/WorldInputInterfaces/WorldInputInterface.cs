@@ -12,12 +12,14 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         protected List<Robot> RobotList;
         protected List<PhysObject> PhysObjList;
         public ControllerWorldState ws;
+        public double worldWidth = 20;
+        public double worldHeight = 9;
 
         public WorldInputInterface()
         {
             RobotList = new List<Robot>();
             PhysObjList = new List<PhysObject>();
-            ws = new ControllerWorldState(RobotList, PhysObjList);
+            ws = new ControllerWorldState(RobotList, PhysObjList,worldWidth, worldHeight );
         }
 
         public void SetRunLoopDelegate(RunLoopDelegate del)

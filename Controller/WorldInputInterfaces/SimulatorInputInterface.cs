@@ -8,8 +8,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
     public class SimulatorInputInterface:WorldInputInterface
     {
         CS266.SimCon.Simulator.OurSimulator os;
-        public double worldWidth = 200;
-        public double worldHeight = 90;
+        public double worldWidth = 20;
+        public double worldHeight = 9;
 
         public SimulatorInputInterface(CS266.SimCon.Simulator.OurSimulator os)
             : base()
@@ -34,7 +34,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             setupInitialState();
 
-            return new ControllerWorldState(RobotList, PhysObjList);
+            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
         }
 
         public override CS266.SimCon.Controller.ControllerWorldState getWorldState()
@@ -46,7 +46,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             //this.os.Finished();
             
             setupInitialState();
-            return new ControllerWorldState(RobotList, PhysObjList);
+            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
         }
 
         public override void setupInitialState()

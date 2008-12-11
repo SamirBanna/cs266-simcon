@@ -31,7 +31,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
         public override void DoActions(PhysicalRobotAction action)
         {
 
-            Console.WriteLine("SEnding action to simulator");
+            Console.WriteLine("Sending action to simulator");
             Random rng = new Random();
 
             if (counter >= 100)
@@ -66,7 +66,9 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
                 else if (action.ActionType == PhysicalActionType.CreateRobot)
                 {
                     Coordinates location = ControlLoop.robotGrid.getCenterOfCell(1, 1);
-                    os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { location.X, location.Y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                    //os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { location.X, location.Y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                    os.AddNewRobot(new ObjectState("N1", "robot", new float[3] { DFSExperiment.doorX, DFSExperiment.doorY, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+         
                 }
                 else if (action.ActionType == PhysicalActionType.SetSpeed) { }
                 //System.Threading.Thread.Sleep(500);
