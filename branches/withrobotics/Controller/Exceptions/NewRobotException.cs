@@ -6,5 +6,10 @@ namespace CS266.SimCon.Controller
 {
     public class NewRobotException : System.Exception
     {
+        Robot robot;
+
+        public NewRobotException(Robot newRobot){
+            this.robot = newRobot;
+        }
     }
 }
