@@ -17,6 +17,7 @@ namespace CS266.SimCon.Controller
         // Checks all physObjects and sees if it is food
         public override void UpdateSensor()
         {
+            Console.WriteLine("OBSTACLE SENSOR ENTERED******************************************");
             detectObject = false;    
              bool detect = false;
              
@@ -25,6 +26,7 @@ namespace CS266.SimCon.Controller
                     detect = senseObstacle(objectSensingAngle, objectSensingDist, this.robot, obj);
                     if (detect)
                     {
+                        Console.WriteLine("SENSING A PHYSICAL OBSTACLE***************************");
                         detectObject = true;
                         return;
                     }
