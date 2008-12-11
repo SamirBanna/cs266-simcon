@@ -49,7 +49,7 @@ namespace CS266.SimCon.Controller
                     break;
 
                 case "DFSSensor":
-                    sensor = new DFSSensor(50, 50);
+                    sensor = new DFSSensor();
                     break;
 
                 case "GridSensor":
