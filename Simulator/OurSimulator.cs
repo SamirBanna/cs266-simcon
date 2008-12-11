@@ -151,8 +151,8 @@ namespace CS266.SimCon.Simulator
         public void AddNewRobot(ObjectState Robot)
         {
             NewRobotCount++;
-            //Name as N0, N1, N2. . .
-            Robot.name = "N" + NewRobotCount.ToString();
+            //Do NOT name as N0, N1, N2. . .!
+            Robot.name = NewRobotCount.ToString();
             this.RobotList.Add(AddRobot(Robot));
             this.GetWorldState();
         }
