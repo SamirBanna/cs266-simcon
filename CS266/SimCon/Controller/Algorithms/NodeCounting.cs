@@ -35,12 +35,12 @@ namespace CS266.SimCon.Controller
         int degInterval = 15; // assumes divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
-        double moveDistance = 50.0;
+        double moveDistance = 100.0;
 
         public override void Execute()
         {
             ControlLoop.robotGrid.GridUpdate(this.robot);
-
+            Console.WriteLine("Updated grid already");
             // Get all sensor information
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
@@ -88,6 +88,8 @@ namespace CS266.SimCon.Controller
             {
                 // Initiate avoidance
                 // In this state until we have moved in some random direction
+                Console.WriteLine("Facing obstacle");
+
                 int howManyIntervals = (int)(360 / degInterval);
                 turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
 
@@ -130,6 +132,24 @@ namespace CS266.SimCon.Controller
                 int rowIndexOfSmallest = 0;
                 int colIndexOfSmallest = 0;
 
+                bool found = false;
+                for (rowIndexOfSmallest = 0; rowIndexOfSmallest < 3; rowIndexOfSmallest++)
+                {
+                    for(colIndexOfSmallest = 0; colIndexOfSmallest < 3; colIndexOfSmallest++)
+                    {
+                        if (directionalvalues[rowIndexOfSmallest, colIndexOfSmallest] >= 0)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found == true)
+                    {
+                        break;
+                    }
+                }
+
+
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
@@ -150,7 +170,7 @@ namespace CS266.SimCon.Controller
                     }
                 }
 
-
+                Console.WriteLine("Node counting says Moving to " + rowIndexOfSmallest + ", " + colIndexOfSmallest);
                 // get base direction (angles from -180 to 180 for the agent to go in)
                 double angle = getBaseDirection(rowIndexOfSmallest, colIndexOfSmallest);
 
