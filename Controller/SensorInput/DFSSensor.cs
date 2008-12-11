@@ -6,14 +6,11 @@ namespace CS266.SimCon.Controller
 {
     public class DFSSensor : SensorInput
     {
-        int doorX; // in grid coordinates
-        int doorY; // in grid coordinates
+
 
         // assume grid coordinates are passed in, e.g., (0,0)
-        public DFSSensor(int doorX, int doorY)
+        public DFSSensor()
         {
-            this.doorX = doorX;
-            this.doorY = doorY;
         }
 
    
@@ -98,14 +95,14 @@ namespace CS266.SimCon.Controller
   
         public void addRobotToList(Robot newRobot){
             // add robot to world state
-            worldState.robots.Add(newRobot);
+            //ControlLoop..robots.Add(newRobot);
             
         }
 
   
         public Coordinates getDoor()
         {
-            return ControlLoop.robotGrid.getCenterOfCell(doorX, doorY);
+            return new Coordinates(DFSExperiment.doorX, DFSExperiment.doorY);
         }
 
 
