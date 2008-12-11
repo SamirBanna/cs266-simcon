@@ -108,7 +108,16 @@ namespace CS266.SimCon.Controller
         public void GridUpdate(Robot robot)
         {
             // Take out robot from locations of where robot is in the grid
-            findObj(robot).objectsInSquare.Remove(robot);
+            GridData data = findObj(robot);
+            if (data != null)
+            {
+                List<PhysObject> location = (List<PhysObject>)data.objectsInSquare;
+                if (location != null)
+                {
+                    location.Remove(robot);
+                }
+            }
+            
 
             // Add robot
             getGridLoc(robot.Location).objectsInSquare.Add(robot);
