@@ -99,52 +99,25 @@ namespace CS266.SimCon.Controller
 
             foreach (Robot z in worldState.robots)
             {
-                if (!Robots.ContainsKey(z.Id)) Robots.Add(z.Id, z);
+                if (Robots.ContainsKey(z.Id))
+                {
+                    Robots[z.Id].Orientation = z.Orientation;
+                    Robots[z.Id].Location = z.Location;
+                }
             }
-            //foreach (Robot z in worldState.robots)
-            //{
-            //    //if we already know about this robot, then update parametes; otherwise create and add
-            //    if (Robots.ContainsKey(z.Id))
-            //    {
-            //        Robots[z.Id].Orientation = z.Orientation;
-            //        Robots[z.Id].Location = z.Location;
-            //    }
-            //    else
-            //    {
-            //        // create a new robot. TODO: should 7,7 be z.width and z.height?
-            //        Robot newRobot = new Robot(z.Id, z.Name, z.Location, z.Orientation, 7, 7);
-                    
-            //        // copy algorithm and action
-            //        newRobot.CurrentAction = z.CurrentAction;
-            //        newRobot.CurrentAlgorithm = z.CurrentAlgorithm;
-                    
-                    //code from DFSExperiment to deepcopy the sensors over
-                    //foreach (String s in z.Sensors.Keys)
-                    //{
-                    //    SensorInput sens = SensorList.makeSensor(s);
-                    //    ControllerWorldState ws = Wii.ws;
-                    //    sens.UpdateWorldState(ws);
-                    //    sens.robot = newRobot;
-                    //    newRobot.Sensors.Add(s, sens);
-                    //}
-                    
-            //        //code from DFSExperiment to deepcopy the sensors over
-            //        foreach (String s in z.Sensors.Keys)
-            //        {
-            //            SensorInput sens = SensorList.makeSensor(s);
-            //            ControllerWorldState ws = Wii.ws;
-            //            sens.UpdateWorldState(ws);
-            //            sens.robot = newRobot;
-            //            newRobot.Sensors.Add(s, sens);
-            //        }
-            //        Robots.Add(newRobot.Id, newRobot);
-            //    }
-            //}
+            
 
-            //A hack until Angela adds sensors and an algorithm to the newly added robot
-            //int j = 0;
-
-
+            foreach (Robot r in Robots.Values)
+            {
+                
+                foreach (SensorInput sensor in r.Sensors.Values)
+                {
+                    
+                    sensor.UpdateWorldState(worldState);
+                  //  Console.WriteLine("SENSOR AFTER WORLD STATE UPDATE: " + sensor.worldState.robots[0].Orientation);
+                    sensor.UpdateSensor();
+                }
+            }
         }
 
         //Iterate through list of robots, and all their algorithm's execute function
