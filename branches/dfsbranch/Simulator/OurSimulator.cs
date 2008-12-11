@@ -152,7 +152,7 @@ namespace CS266.SimCon.Simulator
         {
             NewRobotCount++;
             //Name as N0, N1, N2. . .
-            Robot.name = "N" + NewRobotCount.ToString();
+            Robot.name = "" + NewRobotCount.ToString();
             this.RobotList.Add(AddRobot(Robot));
             this.GetWorldState();
         }
@@ -253,12 +253,12 @@ namespace CS266.SimCon.Simulator
                 //string name = "robot" + i.ToString();
                 string name = i.ToString();
                 //Make have random location
-                o.Add(new ObjectState(name, "robot", new float[3] { (float)position_x, (float)position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
-                //if (i < 1)
-                //    o.Add(new ObjectState(name, "robot", new float[3] { 5, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
-                //else
-                //    o.Add(new ObjectState(name, "robot", new float[3] { 4, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
 
+                //o.Add(new ObjectState(name, "robot", new float[3] { (float)position_x, (float)position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                if (i < 1)
+                    o.Add(new ObjectState(name, "robot", new float[3] { DFSExperiment.doorX, DFSExperiment.doorY, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                else
+                    o.Add(new ObjectState(name, "robot", new float[3] { 4, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
             }
 
             total_objects -= num_robots;
@@ -286,7 +286,6 @@ namespace CS266.SimCon.Simulator
                         x_vol = rng.Next(1, (int)(xdim - 1));
                     }
                     //objects oriented along the x axis
-                    //The first ".5f" was x_vol
                     o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
                 }
                 else
@@ -297,8 +296,8 @@ namespace CS266.SimCon.Simulator
                         y_vol = rng.Next(1, (int)(ydim - 1));
                     }
                     //objects oriented along the y axis
-                    //The "-.5f" was y_vol
                     o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
+
                 }
             }
 
