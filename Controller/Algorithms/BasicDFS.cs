@@ -38,9 +38,14 @@ namespace CS266.SimCon.Controller
             this.moveRandom = moveRandom;
             this.isActive = true;
             this.isTurnPhase = true;
+            this.isTail = true;
         }
 
          public override void Execute(){
+            Console.WriteLine("****************DFS Output*********************");
+            Console.WriteLine("x robot    = " + this.robot.Location.X);
+            Console.WriteLine("y robot    = " + this.robot.Location.Y);
+            Console.WriteLine("orientation robot = " + robot.Orientation);
 
             if (isActive)
             {
@@ -65,15 +70,21 @@ namespace CS266.SimCon.Controller
                     if (foundFood == true)
                         Finished();
 
-                    //if leader has no moves, it must assign leadership to follower
+                    //if leader has no moves, it must assign leadership to successor
                     if (possibleMoves.Count == 0)
                     {
                         if (isTurnPhase) // also, must be in Turn phase
                         {
                             robot.Stop();
-                            ((BasicDFS)succ.CurrentAlgorithm).isLeader = true;
-                            //changes status active and leadership
-                            isActive = false;
+                            if (succ != null)
+                            {
+                                ((BasicDFS)succ.CurrentAlgorithm).isLeader = true;
+                                //changes status active and leadership
+                                isActive = false;
+                            }
+                            else
+                                Finished();
+                        
                         }
                     }
                     
