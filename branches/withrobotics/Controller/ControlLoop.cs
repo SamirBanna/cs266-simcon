@@ -144,18 +144,7 @@ namespace CS266.SimCon.Controller
             //A hack until Angela adds sensors and an algorithm to the newly added robot
             //int j = 0;
 
-            foreach (Robot r in Robots.Values)
-            {
-                //j++;
-                //if (j == 3) break;
-                foreach (SensorInput sensor in r.Sensors.Values)
-                {
-                    
-                    sensor.UpdateWorldState(worldState);
-                  //  Console.WriteLine("SENSOR AFTER WORLD STATE UPDATE: " + sensor.worldState.robots[0].Orientation);
-                    sensor.UpdateSensor();
-                }
-            }
+
         }
 
         //Iterate through list of robots, and all their algorithm's execute function
