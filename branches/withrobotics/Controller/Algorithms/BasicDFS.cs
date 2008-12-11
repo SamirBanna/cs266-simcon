@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-using CS266.SimCon.Controller.Exceptions;
-
 namespace CS266.SimCon.Controller
 {
     //This DFS algorithm assumes a grid cell structure. 
@@ -46,6 +44,7 @@ namespace CS266.SimCon.Controller
             Console.WriteLine("x robot    = " + this.robot.Location.X);
             Console.WriteLine("y robot    = " + this.robot.Location.Y);
             Console.WriteLine("orientation robot = " + robot.Orientation);
+            Console.WriteLine("robot " + robot.Id + ": turnPhase = " + isTurnPhase);
 
             if (isActive)
             {
@@ -53,6 +52,7 @@ namespace CS266.SimCon.Controller
               
                 //sensors all robots need
                 float moveDistance = ((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
+                
                 
                 //LEADER behavior
                 if (isLeader){
@@ -68,7 +68,10 @@ namespace CS266.SimCon.Controller
 
                     //assume that only the leader can find food
                     if (foundFood == true)
+                    {
+                        Console.WriteLine("*******DFS found food!******");
                         Finished();
+                    }
 
                     //if leader has no moves, it must assign leadership to successor
                     if (possibleMoves.Count == 0)
@@ -83,8 +86,9 @@ namespace CS266.SimCon.Controller
                                 isActive = false;
                             }
                             else
+                            {
                                 Finished();
-                        
+                            }
                         }
                     }
                     
@@ -119,6 +123,10 @@ namespace CS266.SimCon.Controller
                                 else if (possibleMoves[i] == -90)
                                     right = true;
                             }
+
+                            //if (((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject) forward = false;
+
+
                             if (!forward)
                             {
                                 if (left)
@@ -148,7 +156,8 @@ namespace CS266.SimCon.Controller
                 }
                 else
                 {
-                    robot.MoveForward(moveDistance);
+                    //if (!((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject)
+                        robot.MoveForward(moveDistance);
                 }
             }
 
@@ -164,8 +173,9 @@ namespace CS266.SimCon.Controller
                 Robot nextRobot = clone(id);
                 ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
 
-                //this exception tells the simulator not to overwrite previous action with "createNewRobot"      
-                throw new NewRobotException();               
+                //this exception tells the simulator not to overwrite previous action with "createNewRobot"  
+                isTurnPhase = !isTurnPhase;
+                throw new NewRobotException(nextRobot);               
             }          
         }
             // switch Turn phase <-> Move phase
