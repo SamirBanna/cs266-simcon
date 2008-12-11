@@ -38,8 +38,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
 
             setupInitialState();
-            
-            return new ControllerWorldState(RobotList, PhysObjList);
+
+            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
 
         }
 
@@ -51,7 +51,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
 
             setupInitialState();
-            return new ControllerWorldState(RobotList, PhysObjList);;
+            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight); ;
         }
 
         public override void setupInitialState()
