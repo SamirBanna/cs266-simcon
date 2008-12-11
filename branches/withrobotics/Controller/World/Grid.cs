@@ -25,7 +25,7 @@ namespace CS266.SimCon.Controller
         public int NumSquaresY;
 
         // Previous location of robot. Only exists if robot has continuous markings on
-        public Dictionary<Robot, Coordinates> prevLocations;
+        public Dictionary<Robot, Coordinates> prevLocations = new Dictionary<Robot,Coordinates>();
 
         // constructor gets a reference to the world state
         public Grid(ControllerWorldState ws, double WorldWidth, double WorldHeight, int numX, int numY)
@@ -195,12 +195,24 @@ namespace CS266.SimCon.Controller
         /// <returns></returns>
         public GridData getGridLoc(Coordinates location)
         {
-            // Get grid coordinates. Round down
-            int gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
-            int gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
+            int gridX;
+            int gridY;
+
+            // Get grid coordinates. Round down. 
+            // Account for special far edge cases
+            if (location.X == WorldWidth)
+                gridX = NumSquaresX - 1;
+            else
+                gridX = (int)Math.Floor((NumSquaresX-1) * location.X / WorldWidth);
+
+            if (location.Y == WorldHeight)
+                gridY = NumSquaresY - 1;
+            else
+                gridY = (int)Math.Floor((NumSquaresY-1) * location.Y / WorldHeight);
 
             return gridData[gridX, gridY];
         }
+
 
         public GridData getGridLoc(int gridX, int gridY)
         {
