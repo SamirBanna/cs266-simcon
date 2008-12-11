@@ -8,10 +8,10 @@ namespace CS266.SimCon.Controller
     public class ProximitySensor : SensorInput
     {
         //Was 45
-        public double objectSensingAngle = 120; // angle at which it can sense obstacle objects
+        public double objectSensingAngle = 110; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction
         //Was 100
-        public double objectSensingDist = 5; // distance at which obstacles can be sensed
+        public double objectSensingDist = 1.5; // distance at which obstacles can be sensed
         
         public bool detectObject;
         
@@ -42,7 +42,7 @@ namespace CS266.SimCon.Controller
                 Coordinates objectLocation = obj.Location;
                 Coordinates robotLocation = robot.Location;
 
-                Console.WriteLine("OTHER ROBOT?======== " + obj.Name);
+                //Console.WriteLine("OTHER ROBOT?======== " + obj.Name);
                 
                 //System.Threading.Thread.Sleep(5000);
                 
@@ -50,6 +50,9 @@ namespace CS266.SimCon.Controller
                 double distance = Math.Sqrt(
 	            (objectLocation.X - robotLocation.X)*(objectLocation.X - robotLocation.X) + 
 	            (objectLocation.Y - robotLocation.Y)*(objectLocation.Y - robotLocation.Y));
+
+                if(obj.GetType() != typeof(Food))
+                    distance = distance - .8f;
 
                 Console.WriteLine("==================Proximity Sensor===========================");
                 Console.WriteLine("x other = " + objectLocation.X);
@@ -62,6 +65,7 @@ namespace CS266.SimCon.Controller
                 Console.WriteLine("DISTANCE = " + distance);
                 Console.WriteLine("maxdistance =");
                 System.Console.WriteLine(maxdistance);
+                Console.WriteLine("MAX ANGLE = " + maxangle);
 
                 if (distance > maxdistance)
                 {
@@ -81,6 +85,7 @@ namespace CS266.SimCon.Controller
                 double angle = radians * (180/Math.PI); // from -180 to 180
 
                 Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
+                
 
                 // assume orientation is defined from -180 to 180
                 // TODO: Is the above true?
@@ -108,9 +113,9 @@ namespace CS266.SimCon.Controller
                 Console.WriteLine("ANGLE DIFFERENCE = " + angleDifference);
                 Console.WriteLine("=============================================");
                 if(angleDifference < maxangle){
-                    //Console.WriteLine("max angle:" + maxangle);
-                    //Console.WriteLine("Actual angle: " + angle);
-                    //Console.WriteLine("Angle difference is less than max angle");
+                    Console.WriteLine("max angle:" + maxangle);
+                    Console.WriteLine("Actual angle: " + angle);
+                    Console.WriteLine("Angle difference is less than max angle");
                     return true;    
                 }
                 //Console.WriteLine("before last false");
