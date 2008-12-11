@@ -94,7 +94,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
@@ -111,7 +111,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
@@ -128,7 +128,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
@@ -145,7 +145,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
