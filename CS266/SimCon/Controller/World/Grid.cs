@@ -26,10 +26,13 @@ namespace CS266.SimCon.Controller
 
         // Previous location of robot. Only exists if robot has continuous markings on
         public Dictionary<Robot, Coordinates> prevLocations;
+        public Dictionary<Robot, Coordinates> prevLocationsForMark;
 
         // constructor gets a reference to the world state
         public Grid(ControllerWorldState ws, double WorldWidth, double WorldHeight, int numX, int numY)
         {
+            this.prevLocations = new Dictionary<Robot, Coordinates>();
+            this.prevLocationsForMark = new Dictionary<Robot, Coordinates>();
             this.ws = ws;
             this.WorldWidth = WorldWidth;
             this.WorldHeight = WorldHeight;
@@ -49,59 +52,101 @@ namespace CS266.SimCon.Controller
         public void Mark(Robot robot, bool continuous){
 
             
-            if(!continuous || !prevLocations.ContainsKey(robot)){
+            if(!continuous || !prevLocationsForMark.ContainsKey(robot)){
                   getGridLoc(robot.Location).pheromoneLevel++;
                   return;
             }
             Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
-            Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
-            Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+            Coordinates prevLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
+            Coordinates curLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
 
             // Mark continuously with interpolation
             // Assume previous location is already marked
+            //Console.WriteLine("In Mark:: new location is for " + newLoc.X + ", " + newLoc.Y);
             GridData finalSpot = getGridLoc(newLoc);
+            //Console.WriteLine("In Mark:: destination grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
+
+            //Console.WriteLine("In Mark: Getting grid loc current spot for " + curLoc.X + "," + curLoc.Y);
             GridData curSpot = getGridLoc(curLoc);
+            //Console.WriteLine("In Mark:: old grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
 
+            if (finalSpot.row == curSpot.row && finalSpot.col == curSpot.col)
+            {
+                // don't mark anything
+                return;
+            }
+            float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+            float dX = robot.Location.X - prevLocationsForMark[robot].X;
+            float dY = robot.Location.Y - prevLocationsForMark[robot].Y;
 
-             float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
-                float dX = robot.Location.X - prevLocations[robot].X;
-                float dY = robot.Location.Y - prevLocations[robot].Y;
-                float incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
-                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY); 
-                
-                
-                
+            float incrX;
+            float incrY;
+
+            if (dX != 0 || dY != 0)
+            {
+                incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
+                incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY);
+            }
+            else
+            {
+                // 0 distance
+                incrX = 0;
+                incrY = 0;
+            }
+            Console.WriteLine("Incrx is " + incrX + " and incrY is " + incrY);
                 do
                 {
                     GridData nextSpot;
+
+                    //Console.WriteLine("In Mark: Before incrementing, we were at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
+                    //Console.WriteLine("In Mark: We are at grid location " + curSpot.row + ", " + curSpot.col + " trying to reach " + finalSpot.row + ", " + finalSpot.col);
                     // Increment X and Y
                     curLoc.X += incrX;
                     curLoc.Y += incrY;
 
-                    // Get next grid spot
-                    nextSpot = getGridLoc(curLoc);
+                    //Console.WriteLine("In Mark: After incrementing, we are at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
 
+                    // Get next grid spot
+                    
+                    nextSpot = getGridLoc(curLoc);
+                    //Console.WriteLine("In Mark: current grid loc is now " + nextSpot.row + "," + nextSpot.col);
                     // If different mark it
                     if (nextSpot != curSpot)
                     {
                         nextSpot.pheromoneLevel++;
                         curSpot = nextSpot;
                     }
-                } while (curSpot != finalSpot);
+                } while (curSpot.row != finalSpot.row || curSpot.col != finalSpot.col);
 
                 
                 return;
         }
     
         public void GridUpdate(Robot robot){
+
+            Console.WriteLine(robot.Id);
+            
+
             // Take out robot from locations of where robot is in the grid
-            findObj(robot).objectsInSquare.Remove(robot);
+            GridData location = findObj(robot);
+            if (location != null)
+            {
+                location.objectsInSquare.Remove(robot);
+            }
 
             // Add robot
             getGridLoc(robot.Location).objectsInSquare.Add(robot);
 
             Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+            //Console.WriteLine("Final spot: Getting grid loc for " + newLoc.X + "," + newLoc.Y);
             GridData finalSpot = getGridLoc(newLoc);
+
+
+            // Update prevLocationsForMark so that they're synchronized. This assume that Mark is called AFTER GridUpdate
+            foreach (Robot r in prevLocations.Keys)
+            {
+                prevLocationsForMark[r] = new Coordinates(prevLocations[r].X, prevLocations[r].Y);
+            }
 
             if(!prevLocations.ContainsKey(robot)){    
                 prevLocations[robot] = newLoc;
@@ -109,11 +154,14 @@ namespace CS266.SimCon.Controller
                  return;
             }
 
+
+
             Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
             Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
+            //Console.WriteLine("Getting grid loc for " + curLoc.X + "," + curLoc.Y);
             GridData curSpot = getGridLoc(curLoc);
 
-            if(finalSpot == curSpot){
+            if(finalSpot.row == curSpot.row && finalSpot.col == curSpot.col){
                 // don't mark anything
                 return;
             }
@@ -122,10 +170,10 @@ namespace CS266.SimCon.Controller
                 float dX = robot.Location.X - prevLocations[robot].X;
                 float dY = robot.Location.Y - prevLocations[robot].Y;
                 float incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
-                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY); 
-                
-                
-                
+                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY);
+
+
+                //Console.WriteLine("Prev location is " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
                 do
                 {
                     GridData nextSpot;
@@ -133,6 +181,7 @@ namespace CS266.SimCon.Controller
                     curLoc.X += incrX;
                     curLoc.Y += incrY;
 
+                    //Console.WriteLine("After incrementing, getting grid loc for " + curLoc.X + "," + curLoc.Y);
                     // Get next grid spot
                     nextSpot = getGridLoc(curLoc);
 
@@ -142,8 +191,8 @@ namespace CS266.SimCon.Controller
                         nextSpot.numTimesVisited++;
                         curSpot = nextSpot;
                     }
-                } while (curSpot != finalSpot);
-
+                    //} while (curSpot != finalSpot);
+                } while (curSpot.row != finalSpot.row || curSpot.col != finalSpot.col);
                 prevLocations[robot] = curLoc;
                 return;
         }
@@ -170,10 +219,28 @@ namespace CS266.SimCon.Controller
          */ 
         public GridData getGridLoc(Coordinates location)
         {
-            // Get grid coordinates. Round down
-            int gridX = (int) Math.Floor(NumSquaresX * location.X / WorldWidth);
-            int gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
 
+            int gridX;
+            int gridY;
+            // Get grid coordinates. Round down
+            if (location.X >= WorldWidth)
+                gridX = NumSquaresX - 1;
+            //else if (location.X < 0)
+            //    gridX = 0;
+            else if (location.X < 0 && location.X > -50)
+                gridX = 0;
+            else
+                gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
+   
+            if (location.Y >= WorldHeight)
+                gridY = NumSquaresY - 1;
+            //else if (location.Y < 0)
+             //   gridY = 0;
+            else if (location.Y < 0 && location.Y > -50)
+                gridY = 0;
+            else
+                gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
+            
             return gridData[gridX, gridY];
         }
 
