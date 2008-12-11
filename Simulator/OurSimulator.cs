@@ -109,7 +109,7 @@ namespace CS266.SimCon.Simulator
                 
                 //This is correct!!!
                 newdegreesfromx = (this.RobotList[i].Rotation.Y + 90);
-
+                if (newdegreesfromx > 180) newdegreesfromx = 360 - newdegreesfromx;
                 ObjectState o = new ObjectState(name, type, position, orientation, velocity, dimension);
                 Console.WriteLine("Orientation is: " + newdegreesfromx);
                 o.SetNewDegreesFromX(newdegreesfromx);
@@ -253,11 +253,11 @@ namespace CS266.SimCon.Simulator
                 //string name = "robot" + i.ToString();
                 string name = i.ToString();
                 //Make have random location
-                //o.Add(new ObjectState(name, "robot", new float[3] { (float)position_x, (float)-position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
-                if (i < 1)
-                    o.Add(new ObjectState(name, "robot", new float[3] { 5, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
-                else
-                    o.Add(new ObjectState(name, "robot", new float[3] { 4, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                o.Add(new ObjectState(name, "robot", new float[3] { (float)position_x, (float)position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                //if (i < 1)
+                //    o.Add(new ObjectState(name, "robot", new float[3] { 5, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+                //else
+                //    o.Add(new ObjectState(name, "robot", new float[3] { 4, 5, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
 
             }
 
@@ -286,7 +286,8 @@ namespace CS266.SimCon.Simulator
                         x_vol = rng.Next(1, (int)(xdim - 1));
                     }
                     //objects oriented along the x axis
-                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { x_vol, -.5f, .8f }));
+                    //The first ".5f" was x_vol
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
                 }
                 else
                 {
@@ -296,7 +297,8 @@ namespace CS266.SimCon.Simulator
                         y_vol = rng.Next(1, (int)(ydim - 1));
                     }
                     //objects oriented along the y axis
-                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -y_vol, .8f }));
+                    //The "-.5f" was y_vol
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
                 }
             }
 
@@ -438,17 +440,21 @@ namespace CS266.SimCon.Simulator
                     //If the name of the robot and the particular action matchup
                     if (this.RobotList[i].State.Name == actions_vector.actions[j].name)
                     {
-                        if (actions_vector.actions[j].newdegreesfromx != 0)
+                        if (actions_vector.actions[j].newdegreesfromx > .5)
                         {
+                            Console.WriteLine("ROBOT TURN ANGLE IS EQUAL TO: " + actions_vector.actions[j].newdegreesfromx);
                             //Rotate by the stated number of degrees
-                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, 10000000f);
-                            Thread.Sleep(2200);
+                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, 2f);
+                            Thread.Sleep(2500);
                         }
-
-                        //Drive the correct distance
-                        this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 2f);
-                        Thread.Sleep(5000);
-                        break;
+                        if (actions_vector.actions[j].distance > .1)
+                        {
+                            //Drive the correct distance
+                            Console.WriteLine("ROBOT DRIVE DISTANCE IS EQUAL TO: " + actions_vector.actions[j].distance);
+                            this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 2f);
+                            Thread.Sleep(1500);
+                            break;
+                        }
                     }
                 }
             }
