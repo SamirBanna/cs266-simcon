@@ -99,6 +99,7 @@ namespace CS266.SimCon.Controller
         public void addRobotToList(Robot newRobot){
             // add robot to world state
             worldState.robots.Add(newRobot);
+            
         }
 
   
