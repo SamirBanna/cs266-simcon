@@ -15,8 +15,13 @@ namespace CS266.SimCon.Controller
      * 
      * 
      * */
+
+
     public class DFSExperiment:Experiment
     {
+
+        public static float doorX = 2.5f;
+        public static float doorY = 2.5f;
         private bool moveRandom = false; // whether or not the leader should move randomly
 
         public DFSExperiment( 
@@ -31,6 +36,7 @@ namespace CS266.SimCon.Controller
             //sensorNames.Add("RobotSensor");
             sensorNames.Add("DFSSensor");
             sensorNames.Add("GridSensor");
+            //sensorNames.Add("BoundarySensor");
         }
 
         //Setup all the intial values for the experiment

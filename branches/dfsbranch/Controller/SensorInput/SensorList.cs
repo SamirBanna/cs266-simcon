@@ -31,6 +31,9 @@ namespace CS266.SimCon.Controller
                 case "ProximitySensor":
                     sensor = new ProximitySensor();
                     break;
+                case "BoundarySensor":
+                    sensor = new BoundarySensor();
+                    break;
 
                 case "FoodSensor":
                     sensor = new FoodSensor();
@@ -49,7 +52,7 @@ namespace CS266.SimCon.Controller
                     break;
 
                 case "DFSSensor":
-                    sensor = new DFSSensor(50, 50);
+                    sensor = new DFSSensor();
                     break;
 
                 case "GridSensor":

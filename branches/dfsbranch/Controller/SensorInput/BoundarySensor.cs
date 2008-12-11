@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller
     {
         public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
                                                 // assumed symmetric for + or - direction
-        public double objectSensingDist = 80; // distance at which obstacles can be sensed
+        public double objectSensingDist = 1; // distance at which obstacles can be sensed
         
         public bool detectObject;
         
@@ -75,8 +75,8 @@ namespace CS266.SimCon.Controller
          
             public override void UpdateSensor()
             {
-                detectObject = false;    
-                bool detect = false;
+                detectObject = senseObject(robot, 0, 0, worldState.maxX, worldState.maxY); 
+                //bool detect = false;
 
                     /// TODO: get information from the world state
                     /// 

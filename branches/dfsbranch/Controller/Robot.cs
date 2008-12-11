@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller
         public Robot(int id, String name, Coordinates location, float orientation, float width, float height) :
             base(id, name, location, orientation, width, height)
         {
-            Stop();
+            //Stop();
         }
 
         bool CanMoveForward = true;

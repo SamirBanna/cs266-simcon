@@ -8,9 +8,13 @@ namespace CS266.SimCon.Controller
     {
         public List<Robot> robots;
         public List<PhysObject> physobjects;
+        public double maxX;
+        public double maxY;
 
-        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects)
+        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects, double maxX, double maxY)
         {
+            this.maxX = maxX;
+            this.maxY = maxY;
             this.robots = robots;
             this.physobjects = physobjects;
         }
