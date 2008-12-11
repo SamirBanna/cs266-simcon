@@ -28,7 +28,7 @@ namespace CS266.SimCon.Controller
             //However it can easily be extended to read from a Configuration File from the disk
             sensorNames = new List<string>();
             
-            sensorNames.Add("RobotSensor");
+            //sensorNames.Add("RobotSensor");
             sensorNames.Add("DFSSensor");
             sensorNames.Add("GridSensor");
         }
