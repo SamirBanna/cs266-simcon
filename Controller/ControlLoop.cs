@@ -129,7 +129,7 @@ namespace CS266.SimCon.Controller
                 try
                 {
                     r.CurrentAlgorithm.Execute();
-                }catch(Exceptions.NewRobotException)
+                }catch(NewRobotException)
                 {
                     break;
                 }
