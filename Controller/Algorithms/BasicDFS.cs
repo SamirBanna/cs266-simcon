@@ -52,6 +52,7 @@ namespace CS266.SimCon.Controller
               
                 //sensors all robots need
                 float moveDistance = ((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
+                Console.WriteLine("move distance = " + moveDistance);
                 
                 
                 //LEADER behavior
