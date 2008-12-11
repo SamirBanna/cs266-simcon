@@ -47,6 +47,17 @@ namespace CS266.SimCon.Controller
                 case "SpeedSensor":
                     sensor = new SpeedSensor();
                     break;
+
+                case "DFSSensor":
+                    sensor = new DFSSensor(50, 50);
+                    break;
+
+                case "GridSensor":
+                    sensor = new GridSensor();
+                    break;
+                default:
+                    throw new System.Exception("No sensor created.");
+               
                 
             }
 
