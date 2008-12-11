@@ -92,10 +92,6 @@ namespace CS266.SimCon.Controller
             
             
             //update robot orientation and location
-            // NOTE: Heather, Jella, and Diana wonder why this is necessary, since robot dictionary contains
-            // actual robot objects??
-            //we propose: delete if-else and just say: 
-            // if (!Robots.ContainsKey(z.Id)) Robots.Add(robot.Id,robot);
 
             foreach (Robot z in worldState.robots)
             {
@@ -130,7 +126,13 @@ namespace CS266.SimCon.Controller
             {
                 //j++;
                 //if (j == 3) break;
-                r.CurrentAlgorithm.Execute();
+                try
+                {
+                    r.CurrentAlgorithm.Execute();
+                }catch(Exceptions.NewRobotException)
+                {
+                    break;
+                }
             }
         }
 
