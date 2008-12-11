@@ -20,7 +20,8 @@ namespace CS266.SimCon.Controller
                  
              bool detect = false;
 
-                foreach (PhysObject obj in worldState.physobjects)
+                //Was physobject instead of foodlist
+                foreach (PhysObject obj in worldState.foodlist)
                 {
                     detect = senseFood(objectSensingAngle, objectSensingDist, this.robot, obj);
                     if (detect)
