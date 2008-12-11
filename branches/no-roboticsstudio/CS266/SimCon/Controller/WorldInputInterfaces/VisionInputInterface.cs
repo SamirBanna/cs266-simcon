@@ -17,8 +17,14 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public static Boolean connected = false;
         private RR_API rr = new RR_API();
 
-        public double worldHeight = 90;
-        public double worldWidth = 200;
+        public double worldHeight = 50;
+        public double worldWidth =  50;
+
+        //110
+        //232
+
+        //90
+        //200
 
         override public List<Robot> GetRobots()
         {
@@ -73,16 +79,19 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (s.shapetype == "robot")
                 {
-                    if(s.id == 10){
+                    float robotx = (s.x / 5) + 15;
+                    float roboty = (s.y / 5) + 15;
+                    
+                    if(s.id == 8){
 
                         Console.WriteLine("CAMERA SENSES food***************************************");
-                        Food f = new Food(s.id, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                        Food f = new Food(s.id, new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
                         //FoodList.Add(f);
                         PhysObjList.Add(f);
 
                     }
 
-                    Robot r = new Robot(s.id, ObjectType.Robot, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+                    Robot r = new Robot(s.id, ObjectType.Robot, new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
 
                     bool flag = false;
                     foreach (Robot x in RobotList)
@@ -109,7 +118,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 }
                 else if (s.shapetype == "boundary")
                 {
-                    PhysObject phy = new Obstacle(objcount++, new Coordinates(s.x, s.y), s.orientation, s.width, s.height);
+
+                    float robotx = (s.x / 5) + 15;
+                    float roboty = (s.y / 5) + 15;
+                    
+                    PhysObject phy = new Obstacle(objcount++, new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);
                     
                 }
@@ -126,7 +139,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
          * 
          * */
 
-        public List<shape> oldShapeList = new List<shape>();    
+        public List<shape> oldShapeList = new List<shape>();
 
         private List<shape> getCameraData()
         {
@@ -144,21 +157,21 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 }
                 connected = true;
             }
-            
+
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
                 Console.WriteLine("Program didn't run.\n");
 
-            
+
 
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge.robo"))
                 Console.WriteLine("Blue Program didn't run.\n");
 
-            
+
             while (rr.getVariable("BProgram") != "1")
             {
                 Thread.Sleep(5);
             }
-            
+
             sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue.out");
             s = "";
 
@@ -176,9 +189,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             sr.Close();
 
 
-            //Start blob processing
+            /*Start blob processing
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_blobs.robo"))
-                Console.WriteLine("Blue Program didn't run.\n");
+                Console.WriteLine("Red Blobs Program didn't run.\n");
 
 
             while (rr.getVariable("RProgram") != "1")
@@ -202,7 +215,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
 
 
-            //End blob processing
+            End blob processing*/
 
 
 
@@ -213,7 +226,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 Thread.Sleep(5);
             }
-            
+
             sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red.out");
             s = "";
             while ((s = sr.ReadLine()) != null)
@@ -222,7 +235,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 System.Console.WriteLine("Printing red");
                 System.Console.WriteLine(s);
                 shape sh = parseShapes(s);
-                if(sh != null)
+                if (sh != null)
                     shapeList.Add(sh);
             }
 
@@ -250,7 +263,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             //}
 
             sr.Close();
-
+        
+            /*
             List<shape> anOldshapeList = shapeList;
 
             int[] foundb = new int[bcount];
@@ -288,10 +302,10 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             }
 
-            oldShapeList = anOldshapeList;
+            oldShapeList = anOldshapeList; */
             return shapeList;
         }
-
+            
         private shape parseShapes(string s)
         {
 
@@ -321,7 +335,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 }
                 else if (line[6] == "food")
                 {
-                    sh.shapetype = "food";
+                    //Console.WriteLine("DSLFKJS:DLFKJS:DLFKJS:DLFKJS SAW FOOD");
+                    sh.shapetype = "robot";
                     sh.id = 8;
                 }
                 else
