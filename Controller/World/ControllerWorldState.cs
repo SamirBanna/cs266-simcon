@@ -8,7 +8,7 @@ namespace CS266.SimCon.Controller
     {
         public List<Robot> robots;
         public List<PhysObject> physobjects;
-        public List<PhysObject> foodlist;
+        public List<Food> foodlist;
         public double maxX;
         public double maxY;
 
