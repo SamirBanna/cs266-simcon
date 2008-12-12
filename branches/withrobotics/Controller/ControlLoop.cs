@@ -69,7 +69,7 @@ namespace CS266.SimCon.Controller
             this.GetInput();
             //Console.WriteLine("got input");
             Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
-            System.Threading.Thread.Sleep(1500);
+            System.Threading.Thread.Sleep(100);
 
             this.RunAlgorithms();
             
