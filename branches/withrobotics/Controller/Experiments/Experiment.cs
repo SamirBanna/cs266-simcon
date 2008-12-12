@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Exception;
 
 namespace CS266.SimCon.Controller
 {
@@ -56,7 +57,30 @@ namespace CS266.SimCon.Controller
                 catch (AlgorithmFinishedException e)
                 {
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
+                    // Check for batch mode
+                    if (Wii.GetType() == typeof(SimulatorInputInterface))
+                    {
+                        CS266.SimCon.Simulator.OurSimulator osNew = ((SimulatorInputInterface)Wii).getOurSimulator().Finished();
+                        if (osNew == null)
+                        {
+                            // We're done
+                            break;
+                        }
+                        else
+                        {
+                            Wii = new SimulatorInputInterface(osNew);
+                            Woi = new SimulatorOutputInterface(osNew);
+                            SetupExperiment();
+                            runExperiment();
+                            break;
+                        }
+                    }
                 }
+                catch (GlobalAlgorithmFinishedException e)
+                {
+                    Console.WriteLine("Experiment Finished globally");
+                }
+
                 //Thread.Sleep(100);
             }
         }
