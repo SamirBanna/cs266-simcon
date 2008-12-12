@@ -993,7 +993,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 bw.Write(buffer, 0, width * height * 3);
                 bw.Close();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Console.WriteLine(e.ToString());
                 return false;
@@ -1019,7 +1019,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     }
                     sb.Append((char)c);
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
                     Console.WriteLine(e.ToString());
                     return null;
@@ -1052,7 +1052,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 br.Read(buffer, 0, width * height * 3);
                 br.Close();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Console.WriteLine(e.ToString());
                 return null;
