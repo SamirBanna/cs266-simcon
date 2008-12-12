@@ -5,7 +5,6 @@ using System.Text;
 
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
-using CS266.SimCon.Controller.Algorithms;
 
 namespace CS266.SimCon.Controller
 {
@@ -52,6 +51,13 @@ namespace CS266.SimCon.Controller
             {
                 WorldObjects.Add(obj.Id, obj);
             }
+            // Assume default for now. Experiment class can change after
+            globalAlgorithm = new DefaultGlobalAlgorithm();
+        }
+
+        public void setGlobalAlgorithm(GlobalAlgorithm alg)
+        {
+            this.globalAlgorithm = alg;
         }
 
         /// <summary>
