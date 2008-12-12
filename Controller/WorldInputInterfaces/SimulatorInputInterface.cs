@@ -16,7 +16,17 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         {
             this.os = os;
         }
-        
+
+        public CS266.SimCon.Simulator.OurSimulator getOurSimulator()
+        {
+            return os;
+        }
+
+        public void setOurSimulator(CS266.SimCon.Simulator.OurSimulator osNew)
+        {
+            this.os = osNew;
+        }
+
         public override List<CS266.SimCon.Controller.Robot> GetRobots()
         {
             return RobotList;
@@ -26,15 +36,21 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         {
             return PhysObjList;
         }
+
+        public override List<CS266.SimCon.Controller.Food> GetFood()
+        {
+            return FoodList;
+        }
+
         public override ControllerWorldState getNewWorldState()
         {
             Console.WriteLine("Making new world state");
             RobotList.Clear();
             PhysObjList.Clear();
-
+            FoodList.Clear();
             setupInitialState();
 
-            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldWidth, worldHeight);
         }
 
         public override CS266.SimCon.Controller.ControllerWorldState getWorldState()
@@ -42,11 +58,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             RobotList.Clear();
             PhysObjList.Clear();
+            FoodList.Clear();
             
             //this.os.Finished();
             
             setupInitialState();
-            return new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldWidth, worldHeight);
         }
 
         public override void setupInitialState()
@@ -62,15 +79,19 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     Console.WriteLine("Making ROBOTS");
                     Console.WriteLine(obj.position.X);
                     Console.WriteLine(obj.position.Y);
-                    RobotList.Add(new Robot(x++, obj.name, new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0,0));
+                    RobotList.Add(new Robot(x++, obj.name, new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 7,7));
                     
                     // USE this line for DFSExperiment:
                     //RobotList.Add(new Robot(x++, obj.name, new Coordinates(DFSExperiment.doorX, DFSExperiment.doorY), obj.degreesfromx, 0, 0));
 
                 }
+                else if (obj.type == "food")
+                {
+                    FoodList.Add(new Food(y++, "", new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0, 0));
+                }
                 else if (obj.type == "obstacle" || obj.type == "Wall")
                 {
-                    PhysObjList.Add(new Obstacle(y++, "", new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 0, 0));
+                    PhysObjList.Add(new Obstacle(y++, "", new Coordinates(obj.position.X, obj.position.Y), obj.degreesfromx, 12, 12));
                 }
                 
             }
