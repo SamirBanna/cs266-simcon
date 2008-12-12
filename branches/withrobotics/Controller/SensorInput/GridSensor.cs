@@ -93,8 +93,7 @@ namespace CS266.SimCon.Controller
                         if (turnDegrees > 180) turnDegrees = turnDegrees - 360;
                         possibleMoves.Add(turnDegrees);
                     }
-                }
-                catch (Exception)
+                }catch(System.Exception)
                 {
                 }
             }
@@ -111,7 +110,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                 }
             }
@@ -128,7 +127,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                 }
             }
@@ -145,7 +144,7 @@ namespace CS266.SimCon.Controller
                         possibleMoves.Add(turnDegrees);
                     }
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                 }
             }
