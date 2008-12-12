@@ -55,6 +55,11 @@ namespace CS266.SimCon.Controller
                 case "GridSensor":
                     sensor = new GridSensor();
                     break;
+
+                case "BoundarySensor":
+                    sensor = new BoundarySensor();
+                    break;
+
                 default:
                     throw new System.Exception("No sensor created.");
                
