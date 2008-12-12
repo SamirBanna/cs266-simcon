@@ -102,6 +102,7 @@ namespace CS266.SimCon.Controller
 
             foreach (Robot z in worldState.robots)
             {
+                
                 if (Robots.ContainsKey(z.Id))
                 {
                     Robots[z.Id].Orientation = z.Orientation;
@@ -136,8 +137,9 @@ namespace CS266.SimCon.Controller
                 try
                 {
                     r.CurrentAlgorithm.Execute();
-                }catch(NewRobotException)
+                }catch(NewRobotException e)
                 {
+                    Robots.Add(e.robot.Id, e.robot);
                     break;
                 }
             }
