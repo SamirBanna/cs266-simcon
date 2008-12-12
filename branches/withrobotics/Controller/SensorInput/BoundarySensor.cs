@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller
     {
         public double objectSensingAngle = 110; // angle at which it can sense obstacle objects
         // assumed symmetric for + or - direction
-        public double objectSensingDist = 1.5; // distance at which obstacles can be sensed
+        public double objectSensingDist = 3.0; // distance at which obstacles can be sensed
 
         public bool detectObject;
 
@@ -62,9 +62,9 @@ namespace CS266.SimCon.Controller
             Coordinates endLocation = new Coordinates((float)(robotLocation.X + objectSensingDist * Math.Cos(angle)),
                                                        (float)(robotLocation.Y + objectSensingDist * Math.Sin(angle)));
 
-            //Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
-            //Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
-            //Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
+            Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
+            Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
+            Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
 
             if (isInside(endLocation.X, endLocation.Y, minx, miny, maxx, maxy))
             {

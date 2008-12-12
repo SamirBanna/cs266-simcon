@@ -30,7 +30,7 @@ namespace CS266.SimCon.Controller
             int predy = predLoc[1];
 
             // get my orientation
-            float orientation = this.robot.Orientation;
+            float orientation = calcClosestOrientation(this.robot.Orientation);
 
             // if pred is in north cell
             if (x == predx && y == (predy - 1))
@@ -105,6 +105,18 @@ namespace CS266.SimCon.Controller
             return new Coordinates(DFSExperiment.doorX, DFSExperiment.doorY);
         }
 
+        public float calcClosestOrientation(float actual) {
+            if (actual > 45 && actual <= 135)
+                return 90;
+            else if (actual > 135 && (actual <= 180 || actual < -135))
+                return 180;
+            else if (actual < -45 && actual >= -135)
+                return -90;
+            else if (actual <= 45 && actual >= -45)
+                return 0;
+            else
+                return actual;
+        }
 
         public override void UpdateSensor()
         {
