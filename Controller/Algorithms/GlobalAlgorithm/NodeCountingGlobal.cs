@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller.Algorithms
         public NodeCountingGlobal() : base()
         {
         }
-        public void Execute()
+        public override void Execute()
         {
             bool allCovered = true;
             // Check the global grid

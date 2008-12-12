@@ -4,10 +4,8 @@ using System.Text;
 
 namespace CS266.SimCon.Controller.Algorithms
 {
-    public class GlobalAlgorithm
+    public abstract class GlobalAlgorithm
     {
-        public GlobalAlgorithm()
-        {
-        }
+        public abstract void Execute();
     }
 }
