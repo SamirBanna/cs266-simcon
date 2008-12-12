@@ -16,6 +16,7 @@ namespace CS266.SimCon.Controller
     {
         //algorithm to be used for this experiment
         public Algorithm algName;
+        public GlobalAlgorithm globalAlg = null;
         //sensors required for this experiment
         public Dictionary<String, SensorInput> sensor;
         //List of the sensors that will be created for this experiment
@@ -46,7 +47,8 @@ namespace CS266.SimCon.Controller
         {
             
             ControlLoop cl = new ControlLoop(Wii, Woi);
-            
+            if(globalAlg != null)
+                cl.setGlobalAlgorithm(globalAlg);
             while (true)
             {
                 try
