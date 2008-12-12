@@ -31,7 +31,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
         public override void DoActions(PhysicalRobotAction action)
         {
 
-            Console.WriteLine("SEnding action to simulator");
+            //Console.WriteLine("Sending action to simulator");
             Random rng = new Random();
 
             if (counter >= 100)
