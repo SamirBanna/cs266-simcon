@@ -5,6 +5,7 @@ using System.Text;
 
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Algorithms;
 
 namespace CS266.SimCon.Controller
 {
@@ -18,12 +19,12 @@ namespace CS266.SimCon.Controller
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
+        GlobalAlgorithm globalAlgorithm;
 
         /// <summary>
         /// Robot grid. This should be instantiated in Experiments with a reference to worldState, and dimensions
         /// </summary>
         public static Grid robotGrid;
-
         
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
@@ -66,7 +67,7 @@ namespace CS266.SimCon.Controller
 
             this.RunAlgorithms();
             
-            this.RunActionQueue(); ;
+            this.RunActionQueue();
         }
 
 
@@ -134,6 +135,7 @@ namespace CS266.SimCon.Controller
                     break;
                 }
             }
+            globalAlgorithm.Execute();
         }
 
     }
