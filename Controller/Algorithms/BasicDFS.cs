@@ -124,9 +124,13 @@ namespace CS266.SimCon.Controller
                                 else if (possibleMoves[i] == -90)
                                     right = true;
                             }
+                            Console.WriteLine("===================================Forward =: " + forward);
+                            if (((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject) forward = false;
 
-                            //if (((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject) forward = false;
-
+                            Console.WriteLine("===================================AFTER BOUNDARY SENSOR Forward =: " + forward);
+                            Console.WriteLine("robot id: " + this.robot.Id);
+                            Console.WriteLine("left is equal to: " + left);
+                            Console.WriteLine("right is equal to: " + right);
 
                             if (!forward)
                             {
@@ -154,6 +158,7 @@ namespace CS266.SimCon.Controller
                     //this function returns the turnDegrees the robot must turn to in order to do next move
                     float angleForNextMove = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDirectionPred();
                     robot.Turn(angleForNextMove);
+                    Console.WriteLine("DFS: Robot " + robot.Id + " turning " + angleForNextMove);
                 }
                 else
                 {
