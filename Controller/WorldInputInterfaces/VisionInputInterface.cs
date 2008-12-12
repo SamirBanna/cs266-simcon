@@ -256,5 +256,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 return sh;
     
         }
+        // Just for compilation
+
+        public override List<Food> GetFood()
+        {
+            
+            throw new NotImplementedException();
+        }
     }
 }
