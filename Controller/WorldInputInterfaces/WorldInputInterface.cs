@@ -11,7 +11,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
         protected List<Robot> RobotList;
         protected List<PhysObject> PhysObjList;
-        protected List<PhysObject> FoodList;
+        protected List<Food> FoodList;
         public ControllerWorldState ws;
         public double worldWidth;
         public double worldHeight;
@@ -21,7 +21,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             RobotList = new List<Robot>();
             PhysObjList = new List<PhysObject>();
             FoodList = new List<Food>();
-            ws = new ControllerWorldState(RobotList, PhysObjList, worldWidth, worldHeight);
+            ws = new ControllerWorldState(RobotList, PhysObjList, FoodList, worldWidth, worldHeight);
         }
 
         public void SetRunLoopDelegate(RunLoopDelegate del)
