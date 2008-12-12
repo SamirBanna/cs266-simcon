@@ -12,12 +12,13 @@ namespace CS266.SimCon.Controller
         public double maxX;
         public double maxY;
 
-        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects, double maxX, double maxY)
+        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects, List<Food> foodlist, double maxX, double maxY)
         {
             this.maxX = maxX;
             this.maxY = maxY; 
             this.robots = robots;
             this.physobjects = physobjects;
+            this.foodlist = foodlist;
         }
 
     }
