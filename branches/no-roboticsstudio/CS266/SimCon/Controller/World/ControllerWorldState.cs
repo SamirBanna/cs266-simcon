@@ -9,10 +9,10 @@ namespace CS266.SimCon.Controller
         public List<Robot> robots;
         public List<PhysObject> physobjects;
         public List<Food> foodlist;
-        public int maxX;
-        public int maxY;
+        public double maxX;
+        public double maxY;
 
-        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects, List<Food> foodlist, int maxY, int maxX)
+        public ControllerWorldState(List<Robot> robots, List<PhysObject> physobjects, List<Food> foodlist, double maxY, double maxX)
         {
             this.robots = robots;
             this.physobjects = physobjects;
