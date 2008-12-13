@@ -35,7 +35,7 @@ namespace CS266.SimCon.Controller
             }
 
             if (allCovered)
-                throw new Exception.GlobalAlgorithmFinishedException();
+                throw new Exceptions.GlobalAlgorithmFinishedException();
 
         }
     }
