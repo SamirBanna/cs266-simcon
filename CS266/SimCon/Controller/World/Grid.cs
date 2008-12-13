@@ -121,8 +121,22 @@ namespace CS266.SimCon.Controller
                 
                 return;
         }
-    
-        public void GridUpdate(Robot robot){
+
+        public void PrintGrid()
+        {
+            for (int i = 0; i < NumSquaresY; i++)
+            {
+                for (int j = 0; j < NumSquaresX; j++)
+                {
+                    Console.Write(gridData[i, j].numTimesVisited +" ");
+                }
+                Console.WriteLine();
+            }
+
+
+        }
+        public void GridUpdate(Robot robot)
+        {
 
             Console.WriteLine(robot.Id);
             
@@ -138,9 +152,10 @@ namespace CS266.SimCon.Controller
             getGridLoc(robot.Location).objectsInSquare.Add(robot);
 
             Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
-            //Console.WriteLine("Final spot: Getting grid loc for " + newLoc.X + "," + newLoc.Y);
+            
             GridData finalSpot = getGridLoc(newLoc);
-
+            Console.WriteLine("Robot location -- " + newLoc.X + "," + newLoc.Y);
+            Console.WriteLine("Grid location -- " + finalSpot.row + ", " + finalSpot.col);
 
             // Update prevLocationsForMark so that they're synchronized. This assume that Mark is called AFTER GridUpdate
             foreach (Robot r in prevLocations.Keys)
