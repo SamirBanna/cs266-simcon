@@ -5,6 +5,7 @@ using System.Text;
 using CS266.SimCon.Controller.PolygonIntersection;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Exceptions;
 
 namespace CS266.SimCon.Controller
 {
