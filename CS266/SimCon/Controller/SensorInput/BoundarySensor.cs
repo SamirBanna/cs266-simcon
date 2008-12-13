@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller
     {
         public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
         // assumed symmetric for + or - direction
-        public double objectSensingDist = 10; // distance at which obstacles can be sensed
+        public double objectSensingDist = 10; // distance at which obstacles can be sensed [cm]
 
         public bool detectObject;
 
@@ -49,8 +49,13 @@ namespace CS266.SimCon.Controller
         {
 
             Coordinates robotLocation = robot.Location;
-
+            
             double angle = robot.Orientation;
+
+            Console.WriteLine("********************************************************************************");
+            Console.WriteLine("ROBOT ANGLE = " + angle);
+            Console.WriteLine("********************************************************************************");
+
             if (angle < 0)
             {
                 // convert to [0, 360]
