@@ -7,8 +7,13 @@ namespace CS266.SimCon.Controller
 {
     public class Robot : PhysObject
     {
+//<<<<<<< .mine
+//        public Robot(int id, ObjectType type, Coordinates location, float orientation, float width, float height) :
+//            base(id, type, location, orientation, width, height)
+//=======
         public Robot(int id, Coordinates location, float orientation, float width, float height) :
             base(id, ObjectType.Robot, location, orientation, width, height)
+
         {
             Stop();
         }
