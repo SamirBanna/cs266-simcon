@@ -40,6 +40,13 @@ namespace CS266.SimCon.Controller
         public override void Execute()
         {
             ControlLoop.robotGrid.GridUpdate(this.robot);
+            if (ControlLoop.robotGrid.gridVisited())
+            {
+                Console.WriteLine("COVERED BABY - boots with the fur");
+                isFinished = true;
+                Finished();
+                return;
+            }
             Console.WriteLine("Updated grid already");
             // Get all sensor information
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
@@ -52,7 +59,7 @@ namespace CS266.SimCon.Controller
             double speed;
             float turnDegrees;
 
-
+            ControlLoop.robotGrid.PrintGrid();
             if (this.robot.Sensors.ContainsKey("SpeedSensor"))
             {
                 speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;
@@ -65,6 +72,7 @@ namespace CS266.SimCon.Controller
 
             if (isFinished)
             {
+                robot.Turn(180);
                 return;
             }
 
@@ -73,6 +81,7 @@ namespace CS266.SimCon.Controller
             {
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)
                 Finished();
+                return;
             }
             else if (isMoving == true && faceObstacle == false) // won't be here if speed = 0
             {

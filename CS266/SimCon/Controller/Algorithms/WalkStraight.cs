@@ -16,8 +16,9 @@ namespace CS266.SimCon.Controller
         public override void Execute()
         {
             x++;
-            robot.Turn(200);
-            robot.MoveForward(300);
+            //robot.Turn(200);
+            robot.MoveForward(100);
+            
         }
     }
 }
