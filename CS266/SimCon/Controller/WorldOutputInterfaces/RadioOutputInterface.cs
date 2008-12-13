@@ -31,6 +31,8 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             setupSerialPort();
         }
 
+        
+
         internal void setupSerialPort()
         {
             serialPort = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.Two);
@@ -44,7 +46,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             byte [] cmdBytes = encoding.GetBytes(cmd);
             serialPort.Write(cmdBytes, 0, cmdBytes.Length);
             Console.WriteLine("Sending command to robot " + cmd);
-            Thread.Sleep(300);
+            Thread.Sleep(100);
         }
 
         internal void wheelCountReset(int id)
@@ -61,6 +63,16 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
         }
 
         internal void rotateDegree(int id, int degree)
+        {
+            int degree1 = degree * 6;
+            int degree2 = -degree1;
+
+            wheelCountReset(id);
+            sendCommand("*" + id.ToString());
+            sendCommand("C," + degree1.ToString() + "," + degree2.ToString());
+        }
+
+        public  void testSpin(int id, int degree)
         {
             int degree1 = degree * 6;
             int degree2 = -degree1;
