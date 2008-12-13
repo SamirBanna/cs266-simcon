@@ -18,10 +18,9 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>False</DelaySign>
     <SignAssembly>True</SignAssembly>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>CS266.SimCon.Controller.Program</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
