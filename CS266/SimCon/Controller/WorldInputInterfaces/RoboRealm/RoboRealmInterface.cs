@@ -1068,12 +1068,12 @@ public class shape
 {
     public int id;
     public string shapetype;
-    public float x;
-    public float y;
-    public float orientation;
-    public float width;
-    public float height;
-    public float confidence;
+    public double x;
+    public double y;
+    public double orientation;
+    public double width;
+    public double height;
+    public double confidence;
 }
 
 

@@ -15,8 +15,14 @@ namespace CS266.SimCon.Controller
      * 
      * 
      * */
+
+
     public class DFSExperiment:Experiment
     {
+
+        public static float doorX = 9.5f;
+        public static float doorY = 4.5f;
+        private bool moveRandom = true; // whether or not the leader should move randomly
 
         public DFSExperiment( 
             WorldInputInterface Wii, 
@@ -27,11 +33,10 @@ namespace CS266.SimCon.Controller
             //However it can easily be extended to read from a Configuration File from the disk
             sensorNames = new List<string>();
             
-            sensorNames.Add("RobotSensor");
-            //sensorNames.Add("ObstacleSensor");
-            //sensorNames.Add("FoodSensor");
+            //sensorNames.Add("RobotSensor");
             sensorNames.Add("DFSSensor");
             sensorNames.Add("GridSensor");
+            sensorNames.Add("BoundarySensor");
         }
 
         //Setup all the intial values for the experiment
@@ -43,28 +48,42 @@ namespace CS266.SimCon.Controller
         {
             Wii.setupInitialState();
             robots = Wii.GetRobots();
+            //NOTE: look at SimulatorInputInterface for info on where/how many robots are created
             
+            // Create grid           
+            double width = ((SimulatorInputInterface)Wii).worldWidth; // world width in cm
+            double height = ((SimulatorInputInterface)Wii).worldHeight; // world height in cm
+            int numXCells = 20; // TODO: what should these values be?
+            int numYCells = 9;
+            ControlLoop.robotGrid = new Grid(Wii.ws, width, height, numXCells, numYCells);
+
+            // Add food, obstacles, robots to grid
+            List<PhysObject> objectList = Wii.GetPhysObjects();
+            List<Robot> robotList = Wii.GetRobots();
+            foreach (PhysObject obj in objectList)
+            {
+                ControlLoop.robotGrid.getGridLoc(obj.Location).objectsInSquare.Add(obj);
+            }
+            foreach (Robot r in robotList)
+            {
+                ControlLoop.robotGrid.getGridLoc(r.Location).objectsInSquare.Add(r);
+            }
+
+            // Experimenter class creates one robot (the leader)
             foreach (Robot r in robots)
             {
-                r.CurrentAlgorithm = new randWalk(r);
+                r.CurrentAlgorithm = new BasicDFS(r, true, moveRandom); // starting robot is leader
                 r.Sensors = new Dictionary<string, SensorInput>();
-
-                
+               
                 foreach (String s in sensorNames)
                 {
                     SensorInput sens = SensorList.makeSensor(s);
-                    //Console.WriteLine(s);
                     ControllerWorldState ws = Wii.ws;
-                    //Console.WriteLine("getting ws");
                     sens.UpdateWorldState(ws);
                     sens.robot = r;
                     r.Sensors.Add(s, sens);
                 }
             }
-
-            //Console.WriteLine("finish setup experiment");
         }
     }
-
-
 }

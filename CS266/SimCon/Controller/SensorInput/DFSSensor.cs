@@ -6,20 +6,17 @@ namespace CS266.SimCon.Controller
 {
     public class DFSSensor : SensorInput
     {
-        int doorX; // in grid coordinates
-        int doorY; // in grid coordinates
+
 
         // assume grid coordinates are passed in, e.g., (0,0)
-        public DFSSensor(int doorX, int doorY)
+        public DFSSensor()
         {
-            this.doorX = doorX;
-            this.doorY = doorY;
         }
 
    
-        public float getDirectionPred()
+        public double getDirectionPred()
         {
-            float turnDegrees = 0;
+            double turnDegrees = 0;
 
             // get my grid coordinates
             int[] myLoc = ControlLoop.robotGrid.getLocObj(this.robot);
@@ -33,7 +30,7 @@ namespace CS266.SimCon.Controller
             int predy = predLoc[1];
 
             // get my orientation
-            float orientation = this.robot.Orientation;
+            double orientation = calcClosestOrientation(this.robot.Orientation);
 
             // if pred is in north cell
             if (x == predx && y == (predy - 1))
@@ -98,15 +95,28 @@ namespace CS266.SimCon.Controller
   
         public void addRobotToList(Robot newRobot){
             // add robot to world state
-            worldState.robots.Add(newRobot);
+            //ControlLoop..robots.Add(newRobot);
+            
         }
 
   
         public Coordinates getDoor()
         {
-            return ControlLoop.robotGrid.getCenterOfCell(doorX, doorY);
+            return new Coordinates(DFSExperiment.doorX, DFSExperiment.doorY);
         }
 
+        public double calcClosestOrientation(double actual) {
+            if (actual > 45 && actual <= 135)
+                return 90;
+            else if (actual > 135 && (actual <= 180 || actual < -135))
+                return 180;
+            else if (actual < -45 && actual >= -135)
+                return -90;
+            else if (actual <= 45 && actual >= -45)
+                return 0;
+            else
+                return actual;
+        }
 
         public override void UpdateSensor()
         {

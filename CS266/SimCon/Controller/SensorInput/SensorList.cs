@@ -25,9 +25,6 @@ namespace CS266.SimCon.Controller
 
             switch (name)
             {
-                //case "DFSSensor":
-                //    sensor = new DFSSensor();
-                //    break;
 
                 case "ProximitySensor":
                     sensor = new ProximitySensor();
@@ -49,6 +46,14 @@ namespace CS266.SimCon.Controller
                     sensor = new SpeedSensor();
                     break;
 
+                case "DFSSensor":
+                    sensor = new DFSSensor();
+                    break;
+
+                case "GridSensor":
+                    sensor = new GridSensor();
+                    break;
+
                 case "BoundarySensor":
                     sensor = new BoundarySensor();
                     break;
@@ -56,7 +61,9 @@ namespace CS266.SimCon.Controller
                 case "LocalGridSensor":
                     sensor = new LocalGridSensor();
                     break;
-                
+
+                default:
+                    throw new System.Exception("No sensor created.");
             }
 
             return sensor;

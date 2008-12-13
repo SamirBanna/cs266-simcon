@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
-    class AlgorithmFinishedException:Exception
+    class AlgorithmFinishedException : Exception
     {
         public int robotid;
         

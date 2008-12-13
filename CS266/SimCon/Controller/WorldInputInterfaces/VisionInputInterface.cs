@@ -7,49 +7,31 @@ using System.Text;
 
 namespace CS266.SimCon.Controller.WorldInputInterfaces
 {   
-    /**
-     * 
-     * Class to transform data from the camera into data structures for the control loop
-     * 
-     * */
+    ///
+    ///<summary>Class to transform data from the camera into data structures for the control loop</summary>
+    ///
     public class VisionInputInterface : WorldInputInterface
     {
         public static Boolean connected = false;
         private RR_API rr = new RR_API();
 
-        public double worldHeight = 20;
-        public double worldWidth =  20;
 
-        //110
-        //232
-
-        //90
-        //200
-
-        override public List<Robot> GetRobots()
+        public VisionInputInterface()
         {
-            return RobotList;
+            worldHeight = 20;
+            worldWidth = 20;
+
+            //110
+            //232
+
+            //90
+            //200
         }
 
-        override public List<PhysObject> GetPhysObjects()
-        {
-            return PhysObjList;
-        }
-
-
-        public  ControllerWorldState getNewWorldState()
-        {
-
-            Console.WriteLine("Making new world state");
-            RobotList.Clear();
-            PhysObjList.Clear();
-
-            setupInitialState();
-
-            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
-
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override ControllerWorldState getWorldState()
         {
             
@@ -79,20 +61,20 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (s.shapetype == "robot")
                 {
-                    float robotx = (s.x / 5) + 15;
-                    float roboty = (s.y / 5) + 15;
+                    double robotx = (s.x / 5) + 15;
+                    double roboty = (s.y / 5) + 15;
                     
                     if(s.id == 8){
 
                         Console.WriteLine("CAMERA SENSES food***************************************");
-                        Food f = new Food(s.id, new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
+                        Food f = new Food(s.id, "food", new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
                         FoodList.Add(f);
                         //PhysObjList.Add(f);
                         continue;
 
                     }
 
-                    Robot r = new Robot(s.id, ObjectType.Robot, new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
+                    Robot r = new Robot(s.id, "robot", new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
 
                     bool flag = false;
                     foreach (Robot x in RobotList)
@@ -120,10 +102,10 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 else if (s.shapetype == "boundary")
                 {
 
-                    float robotx = (s.x / 5) + 15;
-                    float roboty = (s.y / 5) + 15;
+                    double robotx = (s.x / 5) + 15;
+                    double roboty = (s.y / 5) + 15;
                     
-                    PhysObject phy = new Obstacle(objcount++, new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
+                    PhysObject phy = new Obstacle(objcount++, "obstactle", new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);
                     
                 }
@@ -140,6 +122,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
          * 
          * */
 
+        
         public List<shape> oldShapeList = new List<shape>();
 
         private List<shape> getCameraData()
@@ -163,7 +146,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 Console.WriteLine("Program didn't run.\n");
 
 
-
+			// TODO: Make the location of the vision output VARIABLE!
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge.robo"))
                 Console.WriteLine("Blue Program didn't run.\n");
 
@@ -317,16 +300,16 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
                 shape sh = new shape();
 
-                sh.orientation = (450+float.Parse(line[1]))%360;
+                sh.orientation = (450+double.Parse(line[1]))%360;
                 if (sh.orientation > 180)
                     sh.orientation -= 360;
 
-                sh.x = float.Parse(line[2]) + (float.Parse(line[3]) - float.Parse(line[2])) / 2;
-                sh.y = float.Parse(line[4]) + (float.Parse(line[5]) - float.Parse(line[4])) / 2;
+                sh.x = double.Parse(line[2]) + (double.Parse(line[3]) - double.Parse(line[2])) / 2;
+                sh.y = double.Parse(line[4]) + (double.Parse(line[5]) - double.Parse(line[4])) / 2;
                 sh.x -= 100;
                 sh.y -= 280;
 
-                sh.confidence = float.Parse(line[0]);
+                sh.confidence = double.Parse(line[0]);
 
                 // need to update this once there are more shapes
                 if (line[6] == "square")
@@ -365,7 +348,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 //System.Console.WriteLine("ymax" + line[5]);
                 //System.Console.WriteLine(sh.x);
                 //System.Console.WriteLine(sh.y);
-                //System.Console.WriteLine("orientation unfixed" + float.Parse(line[1]));
+                //System.Console.WriteLine("orientation unfixed" + double.Parse(line[1]));
                 //System.Console.WriteLine("orientation"+sh.orientation);
                 //System.Console.WriteLine(sh.width);
                 //System.Console.WriteLine(sh.height);
@@ -374,5 +357,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 return sh;
     
         }
+
+
     }
 }

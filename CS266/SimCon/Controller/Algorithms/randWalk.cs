@@ -20,7 +20,7 @@ namespace CS266.SimCon.Controller
 
         }
 
-        public randWalk(Robot r, int degInterval, float probTurn, float moveDistance)
+        public randWalk(Robot r, int degInterval, double probTurn, double moveDistance)
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
@@ -32,7 +32,7 @@ namespace CS266.SimCon.Controller
         int degInterval = 15; // assume divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
-        float moveDistance = 100;    // 100 mm = 10 cm
+        double moveDistance = 100;    // 100 mm = 10 cm
 
          
         public override void Execute()
@@ -90,7 +90,7 @@ namespace CS266.SimCon.Controller
                 else
                 { // turn in random direction at interval
                     int howManyIntervals = (int)(360 / degInterval);
-                    float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                    double turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
                     
                     if (turnDegrees > 180)
                     {
@@ -99,7 +99,7 @@ namespace CS266.SimCon.Controller
 
                     while (Math.Abs(turnDegrees) < 60)
                     {
-                        turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                        turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 
                         if (turnDegrees > 180)
                         {
@@ -114,7 +114,7 @@ namespace CS266.SimCon.Controller
             else { // face obstacle and isn't moving
                 Console.WriteLine("Facing obstacle and not moving");
                 int howManyIntervals = (int)(360 / degInterval);
-                float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                double turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 
                 if (turnDegrees > 180)
                 {
@@ -123,7 +123,7 @@ namespace CS266.SimCon.Controller
 
                 while (Math.Abs(turnDegrees) < 60)
                 {
-                    turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                    turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 
                     if (turnDegrees > 180)
                     {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using System.Text;
-using CS266.SimCon.Controller.PolygonIntersection;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
 using CS266.SimCon.Controller.Exceptions;
@@ -19,8 +18,11 @@ namespace CS266.SimCon.Controller
         WorldInputInterface Wii;
         WorldOutputInterface Woi;
         ControllerWorldState worldState;
+        GlobalAlgorithm globalAlgorithm;
 
-        // Robot grid. This should be instantiated in Experiments with a reference to worldState, and dimensions
+        /// <summary>
+        /// Robot grid. This should be instantiated in Experiments with a reference to worldState, and dimensions
+        /// </summary>
         public static Grid robotGrid;
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
@@ -48,6 +50,13 @@ namespace CS266.SimCon.Controller
             {
                 WorldObjects.Add(obj.Id, obj);
             }
+            // Assume default for now. Experiment class can change after
+            globalAlgorithm = new DefaultGlobalAlgorithm();
+        }
+
+        public void setGlobalAlgorithm(GlobalAlgorithm alg)
+        {
+            this.globalAlgorithm = alg;
         }
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace CS266.SimCon.Controller
 
             this.RunAlgorithms();
             
-            this.RunActionQueue(); ;
+            this.RunActionQueue(); 
         }
 
 
@@ -74,26 +83,27 @@ namespace CS266.SimCon.Controller
             ActionQueue.Clear();
         }
     
-        // Updates the states of robots and objects with new information
-        //1. Get's the world state from the world input interface
-        //2. update each robot's local view by updating that robots' sensors
+
+        /// <summary>
+        /// Updates the states of robots and objects with new information
+        /// 1. Get's the world state from the world input interface
+        /// 2. update each robot's local view by updating that robots' sensors
+        /// </summary>
         private void GetInput()
         {
-            worldState = ((VisionInputInterface)Wii).getNewWorldState();
+            worldState = Wii.getWorldState();
           //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
            // Console.WriteLine("controloop con");
 
             Console.WriteLine("*****Number of objects in the world: " +worldState.physobjects.Count + "*******");
             //update robot orientation and location
-            foreach (Robot r in Robots.Values)
+            foreach (Robot z in worldState.robots)
             {
-                foreach (Robot z in worldState.robots)
+                
+                if (Robots.ContainsKey(z.Id))
                 {
-                    if (r.Id == z.Id)
-                    {
-                        r.Orientation = z.Orientation;
-                        r.Location = z.Location;
-                    }
+                    Robots[z.Id].Orientation = z.Orientation;
+                    Robots[z.Id].Location = z.Location;
                 }
             }
 
@@ -112,19 +122,21 @@ namespace CS266.SimCon.Controller
         //Iterate through list of robots, and all their algorithm's execute function
         private void RunAlgorithms()
         {
-
             foreach (Robot r in Robots.Values)
             {
                 try
                 {
                     r.CurrentAlgorithm.Execute();
-                }catch (NewRobotException e)
+                }
+                catch (NewRobotException e)
                 {
-                 
+                    Robots.Add(e.robot.Id, e.robot);
                     break;
                 }
             }
-        }
+            globalAlgorithm.Execute();
 
+        }
     }
 }
+

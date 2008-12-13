@@ -7,13 +7,8 @@ namespace CS266.SimCon.Controller
 {
     public class Robot : PhysObject
     {
-//<<<<<<< .mine
-//        public Robot(int id, ObjectType type, Coordinates location, float orientation, float width, float height) :
-//            base(id, type, location, orientation, width, height)
-//=======
-        public Robot(int id, Coordinates location, float orientation, float width, float height) :
-            base(id, ObjectType.Robot, location, orientation, width, height)
-
+        public Robot(int id, String desc, Coordinates location, double orientation, double width, double height) :
+            base(id, desc, location, orientation, width, height)
         {
             Stop();
         }
@@ -35,7 +30,7 @@ namespace CS266.SimCon.Controller
 
       
 
-        public void MoveForward(float distance)
+        public void MoveForward(double distance)
         {
             if (CanMoveForward)
             {
@@ -43,7 +38,7 @@ namespace CS266.SimCon.Controller
             }
         }
 
-        public void MoveBackward(float distance)
+        public void MoveBackward(double distance)
         {
             if (CanMoveBackward)
             {
@@ -56,22 +51,33 @@ namespace CS266.SimCon.Controller
             ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Stop));
         }
 
-        //public void ChangeSpeed(float speed)
+        //public void ChangeSpeed(double speed)
         //{
         //    ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.SetSpeed, speed));
         //}
 
-        public void Turn(float degrees)
+        public void Turn(double degrees)
         {
             ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Turn, degrees));
+        }
+
+
+        public void SendMessage(int id, Message msg)
+        {
+            // TODO
+        }
+
+        public void SendMessage(Message msg)
+        {
+            // TODO
         }
 
 
          public void createNewRobot(int IdOfNewRobot)
         {
             //what is the value we should pass here? Maybe the door position?
-            float value = 90;
-            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(IdOfNewRobot, PhysicalActionType.CreateRobot, value ));
+            double value = 90;
+            ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(IdOfNewRobot, PhysicalActionType.CreateRobot, value));
 
         }
 
