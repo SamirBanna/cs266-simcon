@@ -32,7 +32,7 @@ namespace CS266.SimCon.Controller
         int degInterval = 15; // assume divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
-        float moveDistance = 50;
+        float moveDistance = 100;    // 100 mm = 10 cm
 
          
         public override void Execute()
@@ -42,10 +42,10 @@ namespace CS266.SimCon.Controller
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
             bool detectRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
             bool detectBoundary = false;
-            if(this.robot.Sensors.ContainsKey("BoundarySensor"){
+            if(this.robot.Sensors.ContainsKey("BoundarySensor")){
                 detectBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
             }
-            
+
             bool faceObstacle = detectObstacle || detectRobot || detectBoundary;
             bool isMoving = false;
             double speed;
@@ -65,6 +65,7 @@ namespace CS266.SimCon.Controller
             
             if (senseFood == true)
             {
+                Console.WriteLine("FOUND FOOD ON THE BOARD*********************88");
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)
                 Finished();
             }
