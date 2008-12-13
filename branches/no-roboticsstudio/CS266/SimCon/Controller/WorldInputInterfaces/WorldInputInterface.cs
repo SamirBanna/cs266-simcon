@@ -13,7 +13,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         protected List<PhysObject> PhysObjList;
         protected List<Food> FoodList;
         public ControllerWorldState ws;
-
+        public double worldWidth;
+        public double worldHeight;
 
         public WorldInputInterface()
         {
@@ -22,20 +23,26 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             FoodList = new List<Food>();
             int x = 0;
             int y = 0;
-            ws = new ControllerWorldState(RobotList, PhysObjList, FoodList,x,y);
+            ws = new ControllerWorldState(RobotList, PhysObjList, FoodList, y, x);
         }
 
-        public void SetRunLoopDelegate(RunLoopDelegate del)
+
+        public List<Robot> GetRobots()
         {
-            runLoopDelegate = del;
+            return RobotList;
         }
-        public abstract List<Robot> GetRobots();
-        public abstract List<PhysObject> GetPhysObjects();
-        public RunLoopDelegate runLoopDelegate;
+
+        public List<PhysObject> GetPhysObjects()
+        {
+            return PhysObjList;
+        }
+
+        public List<Food> GetFood()
+        {
+            return FoodList;
+        }
+
         public abstract ControllerWorldState getWorldState();
         public abstract void setupInitialState();
-
-        public double worldWidth;
-        public double worldHeight;
     }
 }

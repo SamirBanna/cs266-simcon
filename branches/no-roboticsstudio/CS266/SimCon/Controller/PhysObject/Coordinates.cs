@@ -7,15 +7,15 @@ namespace CS266.SimCon.Controller
 {
     public class Coordinates
     {
-        public Coordinates(float x, float y)
+        public Coordinates(double x, double y)
         {
             this.X = x;
             this.Y = y;
         }
 
         // No good reason not to make these public
-        public float X;
-        public float Y;
+        public double X;
+        public double Y;
 
     }
 }

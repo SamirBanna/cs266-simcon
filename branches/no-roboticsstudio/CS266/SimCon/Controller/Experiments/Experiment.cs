@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Exceptions;
 
 namespace CS266.SimCon.Controller
 {
@@ -15,6 +16,7 @@ namespace CS266.SimCon.Controller
     {
         //algorithm to be used for this experiment
         public Algorithm algName;
+        public GlobalAlgorithm globalAlg = null;
         //sensors required for this experiment
         public Dictionary<String, SensorInput> sensor;
         //List of the sensors that will be created for this experiment
@@ -45,18 +47,41 @@ namespace CS266.SimCon.Controller
         {
             
             ControlLoop cl = new ControlLoop(Wii, Woi);
-            
+            if(globalAlg != null)
+                cl.setGlobalAlgorithm(globalAlg);
             while (true)
             {
                 try
                 {
                     Console.WriteLine("Running Control Loop");
                     cl.RunLoop();
-                    Thread.Sleep(1000);
+                    //Thread.Sleep(1000);
                 }
                 catch (AlgorithmFinishedException e)
                 {
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
+                    // Check for batch mode
+                    if (Wii.GetType() == typeof(SimulatorInputInterface))
+                    {
+                        CS266.SimCon.Simulator.OurSimulator osNew = ((SimulatorInputInterface)Wii).getOurSimulator().Finished();
+                        if (osNew == null)
+                        {
+                            // We're done
+                            break;
+                        }
+                        else
+                        {
+                            Wii = new SimulatorInputInterface(osNew);
+                            Woi = new SimulatorOutputInterface(osNew);
+                            SetupExperiment();
+                            runExperiment();
+                            break;
+                        }
+                    }
+                }
+                catch (GlobalAlgorithmFinishedException e)
+                {
+                    Console.WriteLine("Experiment Finished globally");
                 }
                 //Thread.Sleep(100);
             }

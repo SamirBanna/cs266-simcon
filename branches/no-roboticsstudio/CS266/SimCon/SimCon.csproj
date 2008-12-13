@@ -18,7 +18,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>False</DelaySign>
     <SignAssembly>True</SignAssembly>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -30,7 +30,8 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>C:\Microsoft Robotics Studio (1.5)\bin\</OutputPath>
+    <OutputType>Exe</OutputType>
+    <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -52,7 +53,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>C:\Microsoft Robotics Studio (1.5)\bin\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -74,27 +75,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Simulator|AnyCPU' ">
-    <OutputPath>bin\Simulator\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;INSTRUMENTED SIMULATED</DefineConstants>
+    <OutputPath>..\..\..\..\..\..\Microsoft Robotics Studio %281.5%29\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;INSTRUMENTED</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Camera|AnyCPU' ">
-    <OutputPath>bin\Camera\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DssRuntime">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft_Xna_Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Microsoft Robotics Studio (1.5)\bin\Microsoft_Xna_Framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
@@ -136,33 +131,38 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Controller\Algorithms\Algorithm.cs" />
     <Compile Include="Controller\Algorithms\AlgorithmFinishedException.cs" />
     <Compile Include="Controller\Algorithms\AlgorithmList.cs" />
+    <Compile Include="Controller\Algorithms\BasicDFS.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\DefaultGlobalAlgorithm.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\GlobalAlgorithm.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\NodeCountingGlobal.cs" />
+    <Compile Include="Controller\Algorithms\NodeCounting.cs" />
     <Compile Include="Controller\Algorithms\randWalk.cs" />
     <Compile Include="Controller\Algorithms\WalkStraight.cs" />
     <Compile Include="Controller\ControlLoop.cs" />
     <Compile Include="Controller\Driver\Driver.cs" />
     <Compile Include="Controller\Driver\Program.cs" />
     <Compile Include="Controller\Driver\RobotTest.cs" />
+    <Compile Include="Controller\Exceptions\GlobalAlgorithmFinishedException.cs" />
+    <Compile Include="Controller\Exceptions\NewRobotException.cs" />
+    <Compile Include="Controller\Experiments\DFSExperiment.cs" />
     <Compile Include="Controller\Experiments\Experiment.cs" />
+    <Compile Include="Controller\Experiments\NodeCountingExperiment.cs" />
     <Compile Include="Controller\Experiments\RandomWalkExperiment.cs" />
     <Compile Include="Controller\Experiments\WalkStraightExperiment.cs" />
     <Compile Include="Controller\Message.cs" />
-    <Compile Include="Controller\Networking\AsynchronousSocketListener.cs" />
-    <Compile Include="Controller\Networking\StateObject.cs" />
     <Compile Include="Controller\PhysicalRobotAction.cs" />
     <Compile Include="Controller\PhysObject\Coordinates.cs" />
     <Compile Include="Controller\PhysObject\Obstacle.cs" />
     <Compile Include="Controller\PhysObject\Food.cs" />
-    <Compile Include="Controller\PhysObject\ObjectType.cs" />
     <Compile Include="Controller\PhysObject\PhysObject.cs" />
-    <Compile Include="Controller\PolygonCollision\Collision.cs" />
-    <Compile Include="Controller\PolygonCollision\CollisionDetector.cs" />
-    <Compile Include="Controller\PolygonCollision\Polygon.cs" />
-    <Compile Include="Controller\PolygonCollision\Vector.cs" />
     <Compile Include="Controller\Robot.cs" />
+    <Compile Include="Controller\SensorInput\BoundarySensor.cs" />
+    <Compile Include="Controller\SensorInput\DFSSensor.cs" />
+    <Compile Include="Controller\SensorInput\GridSensor.cs" />
+    <Compile Include="Controller\SensorInput\LocalGridSensor.cs" />
     <Compile Include="Controller\SensorInput\SpeedSensor.cs" />
     <Compile Include="Controller\SensorInput\RobotSensor.cs" />
     <Compile Include="Controller\SensorInput\ObstacleSensor.cs" />
@@ -173,31 +173,54 @@
     <Compile Include="Controller\SensorInput\SensorList.cs" />
     <Compile Include="Controller\World.cs" />
     <Compile Include="Controller\WorldInputInterfaces\RoboRealm\RoboRealmInterface.cs" />
+    <Compile Include="Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\VisionInputInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\WorldInputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\RadioOutputInterface.cs" />
+    <Compile Include="Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs" />
     <Compile Include="Controller\WorldOutputInterfaces\WorldOutputInterface.cs" />
     <Compile Include="Controller\World\ControllerWorldState.cs" />
     <Compile Include="Controller\World\Grid.cs" />
     <Compile Include="Controller\World\GridData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulator\AssemblyInfo.cs" />
+    <Compile Include="Simulator\DFS.cs" />
+    <Compile Include="Simulator\GenAlgorithm.cs" />
+    <Compile Include="Simulator\ObjectState.cs" />
+    <Compile Include="Simulator\OurSimulator.cs" />
+    <Compile Include="Simulator\RobotAction.cs" />
+    <Compile Include="Simulator\RobotActions.cs" />
+    <Compile Include="Simulator\SimulationService.cs" />
+    <Compile Include="Simulator\WorldDimensions.cs" />
+    <Compile Include="Simulator\WorldPair.cs" />
+    <Compile Include="Simulator\WorldState.cs" />
+    <Compile Include="Simulator\WorldStateParser.cs" />
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram2.cd" />
     <None Include="Controller\ClassDiagram1.cd" />
-    <None Include="Controller\RobotController_TemporaryKey.pfx" />
+    <None Include="RunRobotics.bat" />
+    <None Include="Simulator\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controller\WorldInputInterfaces\NewFolder1\" />
-    <Folder Include="Properties\" />
+    <Content Include="Simulator\CS266SimCon.manifest.xml" />
+    <Content Include="Simulator\Game Parameters.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup Condition="'$(DelaySign)'!=''">
     <ProxyDelaySign>/delaysign+</ProxyDelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>"C:\Microsoft Robotics Studio (1.5)\bin\DssProxy.exe" /dll:"$(TargetPath)" /proxyprojectpath:"$(ProjectDir)Proxy " /keyfile:"$(AssemblyOriginatorKeyFile)" $(ProxyDelaySign) $(CompactFrameworkProxyGen) /binpath:". " @(ReferencePath->'/referencepath:"%(RootDir)%(Directory) "', ' ')</PostBuildEvent>
+    <PreBuildEvent>IF NOT  $(ConfigurationName) == Simulator GOTO end
+
+copy /Y "$(ProjectDir)Simulator\Game Parameters.txt" "$(TargetDir)"
+copy /Y "$(ProjectDir)Simulator\CS266SimCon.manifest.xml" "$(TargetDir)"
+
+:end</PreBuildEvent>
+    <PostBuildEvent>IF NOT  $(ConfigurationName) == Simulator GOTO end
+
+"C:\Microsoft Robotics Studio (1.5)\bin\DssProxy.exe" /dll:"$(TargetPath)" /proxyprojectpath:"$(ProjectDir)Proxy " /keyfile:"$(AssemblyOriginatorKeyFile)" $(ProxyDelaySign) $(CompactFrameworkProxyGen) /binpath:". " @(ReferencePath->'/referencepath:"%25(RootDir)%25(Directory) "', ' ')
+
+:end</PostBuildEvent>
   </PropertyGroup>
 </Project>

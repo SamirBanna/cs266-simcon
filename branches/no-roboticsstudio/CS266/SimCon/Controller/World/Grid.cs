@@ -75,17 +75,17 @@ namespace CS266.SimCon.Controller
                 // don't mark anything
                 return;
             }
-            float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
-            float dX = robot.Location.X - prevLocationsForMark[robot].X;
-            float dY = robot.Location.Y - prevLocationsForMark[robot].Y;
+            double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+            double dX = robot.Location.X - prevLocationsForMark[robot].X;
+            double dY = robot.Location.Y - prevLocationsForMark[robot].Y;
 
-            float incrX;
-            float incrY;
+            double incrX;
+            double incrY;
 
             if (dX != 0 || dY != 0)
             {
-                incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
-                incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY);
+                incrX = incr * dX / (double)Math.Sqrt(dX * dX + dY * dY);
+                incrY = incr * dY / (double)Math.Sqrt(dX * dX + dY * dY);
             }
             else
             {
@@ -181,11 +181,11 @@ namespace CS266.SimCon.Controller
                 return;
             }
 
-             float incr = (float)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
-                float dX = robot.Location.X - prevLocations[robot].X;
-                float dY = robot.Location.Y - prevLocations[robot].Y;
-                float incrX = incr * dX / (float)Math.Sqrt(dX * dX + dY * dY);
-                float incrY = incr * dY / (float)Math.Sqrt(dX * dX + dY * dY);
+             double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+                double dX = robot.Location.X - prevLocations[robot].X;
+                double dY = robot.Location.Y - prevLocations[robot].Y;
+                double incrX = incr * dX / (double)Math.Sqrt(dX * dX + dY * dY);
+                double incrY = incr * dY / (double)Math.Sqrt(dX * dX + dY * dY);
 
 
                 //Console.WriteLine("Prev location is " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
@@ -297,19 +297,19 @@ namespace CS266.SimCon.Controller
         // returns the coordinates to the center of a grid cell
         public Coordinates getCenterOfCell(int gridX, int gridY)
         {
-            float x = ((float)gridX + (float).5) * getLengthGridX();
-            float y = ((float)gridY + (float).5) * getLengthGridY();
+            double x = ((double)gridX + (double).5) * getLengthGridX();
+            double y = ((double)gridY + (double).5) * getLengthGridY();
             return new Coordinates(x, y);
         }
 
-        public float getLengthGridX()
+        public double getLengthGridX()
         {
-            return (float)WorldWidth / (float)NumSquaresX;
+            return (double)WorldWidth / (double)NumSquaresX;
         }
 
-        public float getLengthGridY()
+        public double getLengthGridY()
         {
-            return (float)WorldHeight / (float)NumSquaresY;
+            return (double)WorldHeight / (double)NumSquaresY;
         }
 
         public List<PhysObject> getObjectsInCell(int x, int y)

@@ -64,8 +64,8 @@ namespace CS266.SimCon.Controller
             // Convert to radians
             angle = angle * Math.PI / 180;
 
-            Coordinates endLocation = new Coordinates((float)(robotLocation.X + objectSensingDist * Math.Cos(angle)),
-                                                       (float)(robotLocation.Y + objectSensingDist * Math.Sin(angle)));
+            Coordinates endLocation = new Coordinates((robotLocation.X + objectSensingDist * Math.Cos(angle)),
+                                                       (robotLocation.Y + objectSensingDist * Math.Sin(angle)));
 
             Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
             Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);

@@ -13,9 +13,9 @@ namespace CS266.SimCon.Controller
 
         public int RobotId;
         public PhysicalActionType ActionType;
-        public float ActionValue;
+        public double ActionValue;
 
-        public PhysicalRobotAction(int id, PhysicalActionType actionType, float value)
+        public PhysicalRobotAction(int id, PhysicalActionType actionType, double value)
         {
             this.RobotId = id;
             this.ActionType = actionType;

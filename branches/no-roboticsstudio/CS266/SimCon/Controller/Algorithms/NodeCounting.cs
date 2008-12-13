@@ -57,7 +57,7 @@ namespace CS266.SimCon.Controller
             bool faceObstacle = detectObstacle || detectRobot || detectBoundary;
             bool isMoving = false;
             double speed;
-            float turnDegrees;
+            double turnDegrees;
 
             ControlLoop.robotGrid.PrintGrid();
             if (this.robot.Sensors.ContainsKey("SpeedSensor"))
@@ -100,7 +100,7 @@ namespace CS266.SimCon.Controller
                 Console.WriteLine("Facing obstacle");
 
                 int howManyIntervals = (int)(360 / degInterval);
-                turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 
                 if (turnDegrees > 180)
                 {
@@ -112,7 +112,7 @@ namespace CS266.SimCon.Controller
 
             if (finishedTurning && !faceObstacle){
                // if direction is chosen and legal, just move.
-               robot.MoveForward((float)moveDistance);
+               robot.MoveForward((double)moveDistance);
 
                // robot only moves here. Before moving, mark your spot
                ControlLoop.robotGrid.Mark(robot, true);
@@ -187,7 +187,7 @@ namespace CS266.SimCon.Controller
                 double orientation = this.robot.Orientation;
 
                 // Figure out how many angles to get the robot to turn, 
-                turnDegrees = (float)(angle - orientation);
+                turnDegrees = (double)(angle - orientation);
 
                 // turnDegrees is between 0 and 360, try to turn on short edge s.t. range is [-180,180]
                 if (Math.Abs(turnDegrees) > 180)
