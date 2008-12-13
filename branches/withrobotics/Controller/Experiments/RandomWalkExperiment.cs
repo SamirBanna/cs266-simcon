@@ -30,6 +30,7 @@ namespace CS266.SimCon.Controller
             sensorNames.Add("RobotSensor");
             sensorNames.Add("ObstacleSensor");
             sensorNames.Add("FoodSensor");
+            sensorNames.Add("BoundarySensor");
         }
 
         //Setup all the intial values for the experiment

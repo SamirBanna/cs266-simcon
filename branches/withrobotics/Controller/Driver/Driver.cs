@@ -26,11 +26,21 @@ namespace CS266.SimCon.Controller.Driver
             WorldOutputInterface woi = new SimulatorOutputInterface(os);
 
             // Here we need to check for os.Algo type!!!!
+            if (os.Algo.name == "DFS")
+            {
+                DFSExperiment exp = new DFSExperiment(wii, woi);
+                exp.SetupExperiment();
+                exp.runExperiment();
+            }
+            else
+            {
+                RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
+                exp.SetupExperiment();
+                exp.runExperiment();
+            }
 
-            //RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
-            DFSExperiment exp = new DFSExperiment(wii, woi);
-            exp.SetupExperiment();
-            exp.runExperiment();
+            //exp.SetupExperiment();
+            //exp.runExperiment();
         }
 
         public static void Run(String experimentType)
@@ -63,6 +73,7 @@ namespace CS266.SimCon.Controller.Driver
             {
                 
             }
+
 
             //roboRealmProcess.Close();
         }

@@ -77,6 +77,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft_Xna_Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Microsoft Robotics Studio (1.5)\bin\Microsoft_Xna_Framework.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -116,6 +120,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Algorithms\BasicDFS.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\DefaultGlobalAlgorithm.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\GlobalAlgorithm.cs" />
+    <Compile Include="Controller\Algorithms\GlobalAlgorithm\NodeCountingGlobal.cs" />
+    <Compile Include="Controller\Exceptions\GlobalAlgorithmFinishedException.cs" />
     <Compile Include="Controller\Exceptions\NewRobotException.cs" />
     <Compile Include="Controller\Experiments\DFSExperiment.cs" />
     <Compile Include="Controller\SensorInput\BoundarySensor.cs" />
@@ -184,6 +192,7 @@
     <AppDesigner Include="Properties" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="RunRobotics.bat" />
     <None Include="Simulator\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
