@@ -17,8 +17,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         public static Boolean connected = false;
         private RR_API rr = new RR_API();
 
-        public double worldHeight = 50;
-        public double worldWidth =  50;
+        public double worldHeight = 20;
+        public double worldWidth =  20;
 
         //110
         //232
@@ -86,8 +86,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
                         Console.WriteLine("CAMERA SENSES food***************************************");
                         Food f = new Food(s.id, new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
-                        //FoodList.Add(f);
-                        PhysObjList.Add(f);
+                        FoodList.Add(f);
+                        //PhysObjList.Add(f);
+                        continue;
 
                     }
 
