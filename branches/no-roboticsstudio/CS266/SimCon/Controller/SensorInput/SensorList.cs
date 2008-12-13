@@ -25,9 +25,9 @@ namespace CS266.SimCon.Controller
 
             switch (name)
             {
-                case "DFSSensor":
-                    sensor = new DFSSensor();
-                    break;
+                //case "DFSSensor":
+                //    sensor = new DFSSensor();
+                //    break;
 
                 case "ProximitySensor":
                     sensor = new ProximitySensor();

@@ -9,7 +9,7 @@ namespace CS266.SimCon.Controller
     {
         public double objectSensingAngle = 45; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction
-        public double objectSensingDist = 80; // distance at which obstacles can be sensed
+        public double objectSensingDist = 20; // distance at which obstacles can be sensed [cm]
         
         public bool detectObject;
         
@@ -74,7 +74,7 @@ namespace CS266.SimCon.Controller
                                                                                      // vision
                 double angle = radians * (180/Math.PI); // convert to from -180 to 180
 
-                Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
+                //Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
 
                 // assume orientation is defined from -180 to 180
                 // TODO: Is the above true?
