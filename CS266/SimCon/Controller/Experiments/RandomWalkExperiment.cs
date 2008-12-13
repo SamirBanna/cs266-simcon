@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
@@ -30,6 +31,7 @@ namespace CS266.SimCon.Controller
             sensorNames.Add("RobotSensor");
             sensorNames.Add("ObstacleSensor");
             sensorNames.Add("FoodSensor");
+            sensorNames.Add("BoundarySensor");
         }
 
         //Setup all the intial values for the experiment

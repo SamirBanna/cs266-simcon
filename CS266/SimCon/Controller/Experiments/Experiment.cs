@@ -52,6 +52,7 @@ namespace CS266.SimCon.Controller
                 {
                     Console.WriteLine("Running Control Loop");
                     cl.RunLoop();
+                    Thread.Sleep(1000);
                 }
                 catch (AlgorithmFinishedException e)
                 {
