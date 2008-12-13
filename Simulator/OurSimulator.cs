@@ -167,7 +167,7 @@ namespace CS266.SimCon.Simulator
         //NEW!!!!! Changed!
         public void ExecuteActions(RobotActions ActionsVector)
         {
-            Console.WriteLine("SEND RECEIVED ACTION");
+            //Console.WriteLine("SEND RECEIVED ACTION");
             this.W = this.RobotsAct(ActionsVector);
         }
 
@@ -178,7 +178,7 @@ namespace CS266.SimCon.Simulator
             //Place this separate if-else in another function!
             if (DelimitedParameters[0] == "GenAlgorithm")
             {
-                return new GenAlgorithm(
+                return new GenAlgorithm("GenAlgorithm",
                     new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
                     new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
@@ -187,7 +187,7 @@ namespace CS266.SimCon.Simulator
             }
             else if (DelimitedParameters[0] == "DFS")
             {
-                return new GenAlgorithm(
+                return new GenAlgorithm("DFS",
                     new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
                     new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
@@ -196,7 +196,7 @@ namespace CS266.SimCon.Simulator
             }
             else
             {
-                return new GenAlgorithm(
+                return new GenAlgorithm("GenAlgorithm",
                     new float[] { (float)System.Convert.ToSingle(DelimitedParameters[0]), (float)System.Convert.ToSingle(DelimitedParameters[1]) },
                     new int[] { Int32.Parse(DelimitedParameters[2]), Int32.Parse(DelimitedParameters[3]) },
                     new int[] { Int32.Parse(DelimitedParameters[4]), Int32.Parse(DelimitedParameters[5]) },
@@ -231,6 +231,99 @@ namespace CS266.SimCon.Simulator
         }
         #endregion
         #region RANDOM BOARD
+        public WorldPair DFSBoard(int[] robots, int[] barriers, int[] food, float[] dim)
+        {
+            Random rng = new Random();
+            WorldPair MyWorld;
+            List<ObjectState> o = new List<ObjectState>();
+
+            //Make return a random float
+            float xdim = dim[0];
+            float ydim = dim[1];
+
+
+            int total_objects = (int)(xdim - 2) * (int)(ydim - 2);
+            //Make random number bounded by total_objects
+            int num_robots = rng.Next(robots[0], robots[1]);
+
+            for (int i = 0; i < num_robots; i++)
+            {
+                //This position needs to be based on another argument passed in like door.x and door.y
+                float position_x = 9.5f;
+                float position_y = 4.5f;
+
+                //string name = "robot" + i.ToString();
+                string name = i.ToString();
+                //Make have random location
+                o.Add(new ObjectState(name, "robot", new float[3] { (float)position_x, (float)position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));               
+
+            }
+
+            total_objects -= num_robots;
+            //Make random number bounded by total_objects
+            int num_obstacles = rng.Next(barriers[0], barriers[1]);
+
+            for (int j = 0; j < num_obstacles; j++)
+            {
+                string name = "Obstacle" + j.ToString();
+
+
+                //Make Random or standard?
+                //Both vols were 2
+                float x_vol = rng.Next(1, (int)(xdim - 1));
+                float y_vol = rng.Next(1, (int)(ydim - 1));
+                int position_x = rng.Next(1, (int)(xdim - 1));
+                int position_y = rng.Next(1, (int)(ydim - 1));
+
+                //Consider making z-oriented obstacles
+                if (rng.NextDouble() < .5) //probability .5
+                {
+                    //Limits the width/length of the barrier so we do not collide with the boundaries
+                    while ((x_vol / 2) + (float)position_x >= xdim || (float)position_x - (x_vol / 2) <= 0)
+                    {
+                        x_vol = rng.Next(1, (int)(xdim - 1));
+                    }
+                    //objects oriented along the x axis
+                    //The first ".5f" was x_vol
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
+                }
+                else
+                {
+                    //Limits the width/length of the barrier so so we don't collide with the boundaries
+                    while ((y_vol / 2) + (float)position_y >= ydim || (float)position_y - (y_vol / 2) <= 0)
+                    {
+                        y_vol = rng.Next(1, (int)(ydim - 1));
+                    }
+                    //objects oriented along the y axis
+                    //The "-.5f" was y_vol
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
+                }
+            }
+
+            total_objects -= num_obstacles;
+            //Make random number bounded by total objects
+            int num_food = rng.Next(food[0], food[1]);
+            for (int k = 0; k < num_food; k++)
+            {
+                string name = "FoodUnit" + k.ToString();
+                int position_x = rng.Next(1, (int)(xdim - 1));
+                int position_y = rng.Next(1, (int)(ydim - 1));
+                //make have random location
+                o.Add(new ObjectState(name, "food", new float[3] { (float)position_x, (float)position_y, 0 }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+            }
+
+            o.Add(new ObjectState("RightWall", "Wall", new float[3] { dim[0], (dim[1] / 2f), .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+            o.Add(new ObjectState("TopWall", "Wall", new float[3] { (dim[0] / 2f), 0, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+            o.Add(new ObjectState("BottomWall", "Wall", new float[3] { (dim[0] / 2f), dim[1], .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0 }));
+            o.Add(new ObjectState("LeftWall", "Wall", new float[3] { 0, (dim[1] / 2f), .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { 0, 0, 0, }));
+
+
+            MyWorld = new WorldPair(new WorldDimensions(xdim, ydim), new WorldState(o));
+            return MyWorld;
+
+        }
+        
+
         public WorldPair RandomBoard(int[] robots, int[] barriers, int[] food, float[] dim)
         {
             Random rng = new Random();
@@ -434,8 +527,8 @@ namespace CS266.SimCon.Simulator
             {
                 for (int j = 0; j < actions_vector.size; j++)
                 {
-                    Console.WriteLine("A******" + this.RobotList[i].State.Name);
-                    Console.WriteLine("B******" + actions_vector.actions[j].name);
+                    //Console.WriteLine("A******" + this.RobotList[i].State.Name);
+                    //Console.WriteLine("B******" + actions_vector.actions[j].name);
 
                     //If the name of the robot and the particular action matchup
                     if (this.RobotList[i].State.Name == actions_vector.actions[j].name)

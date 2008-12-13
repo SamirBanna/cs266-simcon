@@ -6,14 +6,16 @@ namespace CS266.SimCon.Simulator
 {
     public class GenAlgorithm
     {
+        public string name;
         public int[] robots = new int[2];
         public int[] barriers = new int[2];
         public int[] food = new int[2];
         public float[] dim = new float[2];
         public float GridSquareSize;
 
-        public GenAlgorithm(float[] d, int[] r, int[] b, int[] f)
+        public GenAlgorithm(string n, float[] d, int[] r, int[] b, int[] f)
         {
+            this.name = n;
             this.dim = d;
             this.robots = r;
             this.barriers = b;
@@ -21,8 +23,9 @@ namespace CS266.SimCon.Simulator
             this.GridSquareSize = 1;
         }
 
-        public GenAlgorithm(float[] d, int[] r, int[] b, int[] f, float g)
+        public GenAlgorithm(string n, float[] d, int[] r, int[] b, int[] f, float g)
         {
+            this.name = n;
             this.dim = d;
             this.robots = r;
             this.barriers = b;

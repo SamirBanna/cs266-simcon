@@ -89,13 +89,18 @@ namespace CS266.SimCon.Controller
                 { // turn in random direction at interval
                     int howManyIntervals = (int)(360 / degInterval);
                     float turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+
+                    while (turnDegrees < -90 || turnDegrees > 90)
+                    {
+                        turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
+                    }
                     
                     if (turnDegrees > 180)
                     {
                         turnDegrees = turnDegrees - 360;
                     }
 
-                    while (Math.Abs(turnDegrees) < 60)
+                    while (Math.Abs(turnDegrees) < 15)
                     {
                         turnDegrees = (float)(new Random().Next(0, howManyIntervals)) * degInterval;
 
