@@ -40,8 +40,8 @@ namespace CS266.SimCon.Controller
             // Create grid           
             double width = worldstate.maxX; // world width in cm
             double height = worldstate.maxY; // world height in cm
-            int numXCells = 5; // TODO: what should these values be?
-            int numYCells = 5;
+            int numXCells = 2; // TODO: what should these values be?
+            int numYCells = 2;
             ControlLoop.robotGrid = new Grid(Wii.ws, width, height, numXCells, numYCells);
 
             // Add food, obstacles, robots to grid
