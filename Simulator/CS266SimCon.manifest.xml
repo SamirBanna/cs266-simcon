@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Manifest xmlns:service="http://schemas.tempuri.org/2006/06/html" xmlns:this="urn:uuid:323ce461-4421-45bf-8840-265cbb1ae068" xmlns:dssp="http://schemas.microsoft.com/xw/2004/10/dssp.html" xmlns="http://schemas.microsoft.com/xw/2004/10/manifest.html">
+  <CreateServiceList>
+    <ServiceRecordType>
+      <dssp:Contract>http://schemas.tempuri.org/2006/06/html</dssp:Contract>
+      <dssp:PartnerList />
+      <Name>this:CS266SimulationService</Name>
+    </ServiceRecordType>
+  </CreateServiceList>
+</Manifest>
