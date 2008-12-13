@@ -37,6 +37,16 @@ namespace CS266.SimCon.Controller.Driver
                 exp.SetupExperiment();
                 exp.runExperiment();
             }
+            else if (experimentType == "NodeCounting")
+            {
+                Console.WriteLine("Setting up Wii and Woi");
+                WorldInputInterface wii = new VisionInputInterface();
+                WorldOutputInterface woi = new RadioOutputInterface();
+
+                NodeCountingExperiment exp = new NodeCountingExperiment(wii, woi);
+                exp.SetupExperiment();
+                exp.runExperiment();
+            }
 
             //roboRealmProcess.Close();
         }
