@@ -15,6 +15,7 @@ namespace CS266.SimCon.Controller
             if (obj.GetType() == typeof(Food))
             {
                 Console.WriteLine("THIS IS A FOOD OBJECT");
+                
             }
             return (base.senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Food)));
         }

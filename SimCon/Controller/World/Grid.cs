@@ -49,99 +49,143 @@ namespace CS266.SimCon.Controller
             }
         }
 
-        public void Mark(Robot robot, bool continuous){
+//        public void Mark(Robot robot, bool continuous){
 
             
-            if(!continuous || !prevLocationsForMark.ContainsKey(robot)){
-                  getGridLoc(robot.Location).pheromoneLevel++;
-                  return;
-            }
-            Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
-            Coordinates prevLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
-            Coordinates curLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
+//            if(!continuous || !prevLocationsForMark.ContainsKey(robot)){
+//                  getGridLoc(robot.Location).pheromoneLevel++;
+//                  return;
+//            }
+//            Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
+//            Coordinates prevLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
+//            Coordinates curLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
+//            Coordinates startLoc = new Coordinates(prevLocationsForMark[robot].X, prevLocations[robot].Y);
 
-            // Mark continuously with interpolation
-            // Assume previous location is already marked
-            //Console.WriteLine("In Mark:: new location is for " + newLoc.X + ", " + newLoc.Y);
-            GridData finalSpot = getGridLoc(newLoc);
-            //Console.WriteLine("In Mark:: destination grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
+//            // Mark continuously with interpolation
+//            // Assume previous location is already marked
+//            //Console.WriteLine("In Mark:: new location is for " + newLoc.X + ", " + newLoc.Y);
+//            GridData finalSpot = getGridLoc(newLoc);
+//            GridData startSpot = getGridLoc(startLoc);
+//            //Console.WriteLine("In Mark:: destination grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
 
-            //Console.WriteLine("In Mark: Getting grid loc current spot for " + curLoc.X + "," + curLoc.Y);
-            GridData curSpot = getGridLoc(curLoc);
-            //Console.WriteLine("In Mark:: old grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
+//            //Console.WriteLine("In Mark: Getting grid loc current spot for " + curLoc.X + "," + curLoc.Y);
+//            GridData curSpot = getGridLoc(curLoc);
+//            //Console.WriteLine("In Mark:: old grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
 
-            if (finalSpot.row == curSpot.row && finalSpot.col == curSpot.col)
-            {
-                // don't mark anything
-                return;
-            }
-            double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
-            double dX = robot.Location.X - prevLocationsForMark[robot].X;
-            double dY = robot.Location.Y - prevLocationsForMark[robot].Y;
+//            if (finalSpot.row == curSpot.row && finalSpot.col == curSpot.col)
+//            {
+//                // don't mark anything
+//                return;
+//            }
 
-            double incrX;
-            double incrY;
+//            double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 5.0;
+//            double dX = robot.Location.X - prevLocationsForMark[robot].X;
+//            double dY = robot.Location.Y - prevLocationsForMark[robot].Y;
 
-            if (dX != 0 || dY != 0)
-            {
-                incrX = incr * dX / (double)Math.Sqrt(dX * dX + dY * dY);
-                incrY = incr * dY / (double)Math.Sqrt(dX * dX + dY * dY);
-            }
-            else
-            {
-                // 0 distance
-                incrX = 0;
-                incrY = 0;
-            }
-            Console.WriteLine("Incrx is " + incrX + " and incrY is " + incrY);
-                do
-                {
-                    GridData nextSpot;
+//            double incrX;
+//            double incrY;
 
-                    //Console.WriteLine("In Mark: Before incrementing, we were at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
-                    //Console.WriteLine("In Mark: We are at grid location " + curSpot.row + ", " + curSpot.col + " trying to reach " + finalSpot.row + ", " + finalSpot.col);
-                    // Increment X and Y
-                    curLoc.X += incrX;
-                    curLoc.Y += incrY;
+//            if (dX != 0 || dY != 0)
+//            {
+//                incrX = incr * dX / (double)Math.Sqrt(dX * dX + dY * dY);
+//                incrY = incr * dY / (double)Math.Sqrt(dX * dX + dY * dY);
+//            }
+//            else
+//            {
+//                // 0 distance
+//                incrX = 0;
+//                incrY = 0;
+//            }
+//            //Console.WriteLine("Incrx is " + incrX + " and incrY is " + incrY);
+            
+////            Console.WriteLine("Start spot: " + curSpot.col + " " + curSpot.row);
+// //           Console.WriteLine("End spot: " + finalSpot.col + " " + finalSpot.row);
+//            do
+//                {
+//                    GridData nextSpot;
 
-                    //Console.WriteLine("In Mark: After incrementing, we are at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
+//                    //Console.WriteLine("In Mark: Before incrementing, we were at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
+//                    //Console.WriteLine("In Mark: We are at grid location " + curSpot.row + ", " + curSpot.col + " trying to reach " + finalSpot.row + ", " + finalSpot.col);
+//                    // Increment X and Y
+//                    curLoc.X += incrX;
+//                    curLoc.Y += incrY;
 
-                    // Get next grid spot
+//                    //Console.WriteLine("In Mark: After incrementing, we are at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
+
+//                    // Get next grid spot
                     
-                    nextSpot = getGridLoc(curLoc);
-                    //Console.WriteLine("In Mark: current grid loc is now " + nextSpot.row + "," + nextSpot.col);
-                    // If different mark it
-                    if (nextSpot != curSpot)
-                    {
-                        nextSpot.pheromoneLevel++;
-                        curSpot = nextSpot;
-                    }
-                } while (curSpot.row != finalSpot.row || curSpot.col != finalSpot.col);
+//                    nextSpot = getGridLoc(curLoc);
+//                   // Console.WriteLine("Current spot: " + nextSpot.col + " " + nextSpot.row);
+
+//                    // If different mark it
+//                    if (nextSpot != curSpot)
+//                    {
+//                        nextSpot.pheromoneLevel++;
+//                        curSpot = nextSpot;
+//                    }
+
+//                    //if (!inBounds(curSpot, startSpot, finalSpot))
+//                    //{
+//                    //    break;
+//                    //}
+//                } while (curSpot.row != finalSpot.row || curSpot.col != finalSpot.col);
 
                 
-                return;
+//                return;
+//        }
+
+        public bool inBounds(GridData currentLocation, GridData startLocation, GridData finalLocation)
+        {
+            int px = currentLocation.col;
+            int py = currentLocation.row;
+            int maxx = Math.Max(startLocation.col, finalLocation.col);
+            int maxy = Math.Max(startLocation.row, finalLocation.row);
+
+            int minx = Math.Min(startLocation.col, finalLocation.col);
+            int miny = Math.Min(startLocation.row, finalLocation.row);
+            
+            return (px <= maxx && px >= minx && py <= maxy && py >= miny);
+
         }
 
         public void PrintGrid()
         {
-            for (int i = 0; i < NumSquaresY; i++)
+            for (int j = NumSquaresY - 1; j >= 0; j--)
             {
-                for (int j = 0; j < NumSquaresX; j++)
+                for (int i = 0; i < NumSquaresX; i++)
                 {
-                    Console.Write(gridData[i, j].numTimesVisited +" ");
+                    Console.Write(gridData[i, j].numTimesVisited + " ");
+                }
+                Console.WriteLine();
+            }
+
+          
+        }
+
+        public void PrintPheromoneGrid()
+        {
+            for (int j = NumSquaresY - 1; j >= 0; j--)
+            {
+                for (int i = 0; i < NumSquaresX; i++)
+                {
+                    Console.Write(gridData[i, j].pheromoneLevel + " ");
                 }
                 Console.WriteLine();
             }
 
 
         }
+
+
         public void GridUpdate(Robot robot)
         {
 
-            Console.WriteLine(robot.Id);
-            
+           // Console.WriteLine(robot.Id);
 
+            Console.WriteLine("ROBOT's X in gridupdate : " + robot.Location.X);
+            Console.WriteLine("ROBOT's Y in gridupdate : " + robot.Location.Y);
             // Take out robot from locations of where robot is in the grid
+ 
             GridData location = findObj(robot);
             if (location != null)
             {
@@ -154,8 +198,7 @@ namespace CS266.SimCon.Controller
             Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
             
             GridData finalSpot = getGridLoc(newLoc);
-            Console.WriteLine("Robot location -- " + newLoc.X + "," + newLoc.Y);
-            Console.WriteLine("Grid location -- " + finalSpot.row + ", " + finalSpot.col);
+            
 
             // Update prevLocationsForMark so that they're synchronized. This assume that Mark is called AFTER GridUpdate
             foreach (Robot r in prevLocations.Keys)
@@ -173,22 +216,23 @@ namespace CS266.SimCon.Controller
 
             Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
             Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
-            //Console.WriteLine("Getting grid loc for " + curLoc.X + "," + curLoc.Y);
+           
             GridData curSpot = getGridLoc(curLoc);
+            GridData startSpot = getGridLoc(curLoc);
 
             if(finalSpot.row == curSpot.row && finalSpot.col == curSpot.col){
                 // don't mark anything
                 return;
             }
 
-             double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 2;
+             double incr = (double)Math.Min((WorldHeight / NumSquaresY), (WorldWidth / NumSquaresX)) / 5.0;
                 double dX = robot.Location.X - prevLocations[robot].X;
                 double dY = robot.Location.Y - prevLocations[robot].Y;
                 double incrX = incr * dX / (double)Math.Sqrt(dX * dX + dY * dY);
                 double incrY = incr * dY / (double)Math.Sqrt(dX * dX + dY * dY);
 
 
-                //Console.WriteLine("Prev location is " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
+              //  Console.WriteLine("Prev location is " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
                 do
                 {
                     GridData nextSpot;
@@ -196,9 +240,10 @@ namespace CS266.SimCon.Controller
                     curLoc.X += incrX;
                     curLoc.Y += incrY;
 
-                    //Console.WriteLine("After incrementing, getting grid loc for " + curLoc.X + "," + curLoc.Y);
+                    
                     // Get next grid spot
                     nextSpot = getGridLoc(curLoc);
+                 //   Console.WriteLine("Current spot: " + nextSpot.col + " " + nextSpot.row);
 
                     // If different mark it
                     if (nextSpot != curSpot)
@@ -206,6 +251,10 @@ namespace CS266.SimCon.Controller
                         nextSpot.numTimesVisited++;
                         curSpot = nextSpot;
                     }
+                    //if (!inBounds(curSpot, startSpot, finalSpot))
+                    //{
+                    //    break;
+                    //}
                     //} while (curSpot != finalSpot);
                 } while (curSpot.row != finalSpot.row || curSpot.col != finalSpot.col);
                 prevLocations[robot] = curLoc;
@@ -238,24 +287,29 @@ namespace CS266.SimCon.Controller
             int gridX;
             int gridY;
             // Get grid coordinates. Round down
-            if (location.X >= WorldWidth)
-                gridX = NumSquaresX - 1;
-            //else if (location.X < 0)
+            //if (location.X >= WorldWidth)
+            //    gridX = NumSquaresX - 1;
+            ////else if (location.X < 0)
+            ////    gridX = 0;
+            //else if (location.X < 0 && location.X > -50)
             //    gridX = 0;
-            else if (location.X < 0 && location.X > -50)
-                gridX = 0;
-            else
-                gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
-   
-            if (location.Y >= WorldHeight)
-                gridY = NumSquaresY - 1;
-            //else if (location.Y < 0)
-             //   gridY = 0;
-            else if (location.Y < 0 && location.Y > -50)
-                gridY = 0;
-            else
-                gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
-            
+            //else
+
+            //if (location.Y >= WorldHeight)
+            //    gridY = NumSquaresY - 1;
+            ////else if (location.Y < 0)
+            // //   gridY = 0;
+            //else if (location.Y < 0 && location.Y > -50)
+            //    gridY = 0;
+            //else
+               
+           //     Console.WriteLine(".......................................");
+            //    Console.WriteLine("Location:" + location.X + " " + location.Y);
+             //   Console.WriteLine("grid [x, y]:" + gridX + " " + gridY);
+              //  Console.WriteLine(".......................................");
+
+            gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
+            gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
             return gridData[gridX, gridY];
         }
 

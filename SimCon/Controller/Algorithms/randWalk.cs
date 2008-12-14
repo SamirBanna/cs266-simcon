@@ -41,10 +41,9 @@ namespace CS266.SimCon.Controller
             bool senseFood = ((FoodSensor)this.robot.Sensors["FoodSensor"]).detectObject;
             bool detectObstacle = ((ObstacleSensor)this.robot.Sensors["ObstacleSensor"]).detectObject;
             bool detectRobot = ((RobotSensor)this.robot.Sensors["RobotSensor"]).detectObject;
-            bool detectBoundary = false;
-            if(this.robot.Sensors.ContainsKey("BoundarySensor")){
-                detectBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
-            }
+            bool detectBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
+            
+            //Console.WriteLine("Detecting another robot" + 
 
             bool faceObstacle = detectObstacle || detectRobot || detectBoundary;
             bool isMoving = false;
@@ -60,6 +59,7 @@ namespace CS266.SimCon.Controller
               
             if (isFinished)
             {
+                robot.Turn(180);
                 return;
             }
             
@@ -68,6 +68,7 @@ namespace CS266.SimCon.Controller
                 Console.WriteLine("FOUND FOOD ON THE BOARD*********************88");
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)
                 Finished();
+
             }
             else if (isMoving == true && faceObstacle == false) // won't be here if speed = 0
             {

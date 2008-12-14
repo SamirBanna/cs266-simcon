@@ -7,7 +7,7 @@ namespace CS266.SimCon.Controller
 {
     public class ProximitySensor : SensorInput
     {
-        public double objectSensingAngle = 45; // angle at which it can sense obstacle objects
+        public double objectSensingAngle = 55; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction
         public double objectSensingDist = 20; // distance at which obstacles can be sensed [cm]
         
@@ -65,7 +65,7 @@ namespace CS266.SimCon.Controller
                      
                     return false;
                 }
-                //Console.WriteLine("went through");
+                //Console.WriteLine("Object is close to robot");
 
                 // get angle between
                 double radians = Math.Atan2(objectLocation.Y - robotLocation.Y,
@@ -99,12 +99,13 @@ namespace CS266.SimCon.Controller
                     }
                 }
 
-                //Console.WriteLine("ANGLE DIFFERENCE = " + angleDifference);
+                Console.WriteLine("ANGLE DIFFERENCE = " + angleDifference);
                 //Console.WriteLine("=============================================");
                 if(angleDifference < maxangle){
                     //Console.WriteLine("max angle:" + maxangle);
                     //Console.WriteLine("Actual angle: " + angle);
                     //Console.WriteLine("Angle difference is less than max angle");
+                    Console.WriteLine("Colliding with object");
                     return true;    
                 }
                 //Console.WriteLine("before last false");

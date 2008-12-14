@@ -67,19 +67,19 @@ namespace CS266.SimCon.Controller
             Coordinates endLocation = new Coordinates((robotLocation.X + objectSensingDist * Math.Cos(angle)),
                                                        (robotLocation.Y + objectSensingDist * Math.Sin(angle)));
 
-            Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
-            Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
-            Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
+        //    Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
+        //    Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
+        //    Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
 
             if (isInside(endLocation.X, endLocation.Y, minx, miny, maxx, maxy))
             {
                 // doesn't sense boundary; no collision
-                Console.WriteLine("No collision!");
+                Console.WriteLine("In bounds!");
                 return false;
             }
             else
             {
-                Console.WriteLine("collision!");
+                Console.WriteLine("Boundary collision!");
                 return true;
             }
         }

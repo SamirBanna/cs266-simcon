@@ -83,7 +83,7 @@ namespace CS266.SimCon.Controller
                 {
                     Console.WriteLine("Experiment Finished globally");
                 }
-                //Thread.Sleep(100);
+                Thread.Sleep(3000);
             }
         }
 

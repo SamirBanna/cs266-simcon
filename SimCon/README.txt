@@ -10,3 +10,4 @@ To work with the Robotics Studio Simulator Environment:
 1. Choose the Simulator configuration.
 2. Under the SimCon project properties, choose
     Output type:    "Class library"
+

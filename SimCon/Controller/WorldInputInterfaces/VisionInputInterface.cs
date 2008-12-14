@@ -18,8 +18,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
         public VisionInputInterface()
         {
-            worldHeight = 20;
-            worldWidth = 20;
+            worldHeight = 114;
+            worldWidth = 235;
+
+            //114
+            //235
 
             //110
             //232
@@ -38,6 +41,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             //Thread.Sleep(10000);
             RobotList.Clear();
             PhysObjList.Clear();
+            FoodList.Clear();
 
             setupInitialState();
             return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
@@ -63,6 +67,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 {
                     double robotx = (s.x / 5) + 15;
                     double roboty = (s.y / 5) + 15;
+
+
+                    if (robotx > 235 || roboty > 114)
+                        continue;
+                    if (robotx < 0 || roboty < 0)
+                        continue;
                     
                     if(s.id == 8){
 
@@ -86,7 +96,10 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     {// robot hasn't already been inserted
                         
                             RobotList.Add(r);
-                            Console.WriteLine("ROBOT ANGLE!!!!!!!!!!!!!!!!!!!!!: " + r.Orientation);
+                            Console.WriteLine("Robot's X is: " + robotx);
+                            Console.WriteLine("Robot's Y is: " + roboty);
+                            Console.WriteLine("Robot's id is: " + s.id);
+                            //Console.WriteLine("ROBOT ANGLE!!!!!!!!!!!!!!!!!!!!!: " + r.Orientation);
                     }
                     else
                     {
@@ -108,9 +121,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     PhysObject phy = new Obstacle(objcount++, "obstactle", new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);
                     
+                    
                 }
                 
             }
+            Console.WriteLine("Number of physical objects in the world: " + PhysObjList.Count);
+            Console.WriteLine("Number of robots in the world: " + RobotList.Count);
             //ws.physobjects = PhysObjList;
             //ws.robots = RobotList;
         }
@@ -159,12 +175,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue.out");
             s = "";
 
-            System.Console.WriteLine("hey");
+            //System.Console.WriteLine("hey");
             while ((s = sr.ReadLine()) != null)
             {
                 // print out for testing
-                System.Console.WriteLine("blue shapes");
-                System.Console.WriteLine(s);
+                //System.Console.WriteLine("blue shapes");
+                //System.Console.WriteLine(s);
 
                 shape sh = parseShapes(s);
                 if (sh != null)
@@ -173,7 +189,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             sr.Close();
 
 
-            /*Start blob processing
+            ///*Start blob processing
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_blobs.robo"))
                 Console.WriteLine("Red Blobs Program didn't run.\n");
 
@@ -199,7 +215,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
 
 
-            End blob processing*/
+           // End blob processing*/
 
 
 
@@ -216,8 +232,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             while ((s = sr.ReadLine()) != null)
             {
                 // print out for testing
-                System.Console.WriteLine("Printing red");
-                System.Console.WriteLine(s);
+                //System.Console.WriteLine("Printing red");
+                //System.Console.WriteLine(s);
                 shape sh = parseShapes(s);
                 if (sh != null)
                     shapeList.Add(sh);
@@ -325,7 +341,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 }
                 else
                 {
-                    Console.WriteLine("++++++++++++++Line 6:" + line[6]);
+                    //Console.WriteLine("++++++++++++++Line 6:" + line[6]);
                     sh.shapetype = "robot";
                     try
                     {

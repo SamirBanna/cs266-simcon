@@ -43,9 +43,10 @@ namespace CS266.SimCon.Controller
         public override void UpdateSensor()
         {
 
-            GridData[,] grid = CS266.SimCon.Controller.ControlLoop.robotGrid.gridData;
+            Grid grid = CS266.SimCon.Controller.ControlLoop.robotGrid;
 
             GridData robotLocation = ControlLoop.robotGrid.getGridLoc(this.robot.Location);
+            
             int row = robotLocation.row;
             int col = robotLocation.col;
 
@@ -53,11 +54,12 @@ namespace CS266.SimCon.Controller
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    int gridrow = row - 1 + i;
-                    int gridcol = col - 1 + j;
-                    if (0 <= gridrow && 0 <= gridcol && gridrow < grid.GetLength(0) && gridcol < grid.GetLength(1))
+                    int gridcol = col - 1 + i;
+                    int gridrow = row - 1 + j;
+
+                    if (0 <= gridrow && 0 <= gridcol && gridrow < grid.NumSquaresY && gridcol < grid.NumSquaresX)
                     {
-                        localgrid[i, j] = (double)grid[gridrow, gridcol].pheromoneLevel;
+                        localgrid[i, j] = (double)grid.gridData[gridcol, gridrow].numTimesVisited;
                     }
                     else
                     {
@@ -65,6 +67,16 @@ namespace CS266.SimCon.Controller
                     }
                 }
             }
+
+
+            //for (int j = 2; j >= 0; j--)
+            //{
+            //    for (int i = 0; i < 3; i++)
+            //    {
+            //        Console.Write((int)localgrid[i,j]  + " ");
+            //    }
+            //    Console.WriteLine();
+            //}       
         }
     }
 }
