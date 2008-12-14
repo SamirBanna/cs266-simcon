@@ -4,6 +4,10 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
+    /// <summary>
+    /// Exception sometimes thrown to indicate the end of an algorithm's execution.
+    /// Yes, this is atrocious programming style.
+    /// </summary>
     class AlgorithmFinishedException : Exception
     {
         public int robotid;

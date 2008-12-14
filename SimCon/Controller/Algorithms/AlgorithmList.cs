@@ -5,11 +5,10 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
-    /**
-     * 
-     * Class used to create algorithm classes based on the name of the class
-     * 
-     * */
+ 
+    ///
+    /// <summary>Class used to create algorithm classes based on the name of the class</summary>
+    /// 
     class AlgorithmList
     {
         public static Algorithm makeAlgorithm(String name, Robot r)
@@ -18,8 +17,8 @@ namespace CS266.SimCon.Controller
 
             switch (name)
             {
-                case "randWalk":
-                    alg = new randWalk(r);
+                case "RandomWalk":
+                    alg = new RandomWalk(r);
                     break;
 
                 case "WalkStraight":

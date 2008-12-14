@@ -5,20 +5,28 @@ using CS266.SimCon.Controller;
 
 namespace CS266.SimCon.Controller
 {
-    //This DFS algorithm assumes a grid cell structure. 
-    //Each robot can move forward or to the left or to the right.
-    //Robots needs to know which robot is in front (predecessor) and behind (sucessor).
+    /// <summary>
+    /// This DFS algorithm assumes a grid cell structure.
+    /// Each robot can move forward or to the left or to the right.
+    /// Robots needs to know which robot is in front (predecessor) and behind (sucessor).
+    /// </summary>
     class BasicDFS : Algorithm 
     {
 
-        //each robot can be either a leader of a follower. In this basic DFS we assume that there is always exactly only one leader.
+        /// <summary>
+        /// Each robot can be either a leader of a follower. In this basic DFS we assume that there is always exactly only one leader.
+        /// </summary>
         public bool isLeader = false;
+
         public bool isActive;
         public bool isTail;
         public Robot pred;
         public Robot succ;      
         public bool isTurnPhase;
-        //true if leader should move randomly, false, if leader always should move in directions its facing too
+
+        /// <summary>
+        /// True if leader should move randomly, false, if leader always should move in directions its facing too
+        /// </summary>
         bool moveRandom;
 
         //public BasicDFS(Robot r)
@@ -27,8 +35,13 @@ namespace CS266.SimCon.Controller
 
         //}
 
-        // The moveDistance that is passed in should be the length of one grid cell edge
-        //the very first robot created must be a leader
+        /// <summary>
+        /// The moveDistance that is passed in should be the length of one grid cell edge
+        /// the very first robot created must be a leader
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="isLeader"></param>
+        /// <param name="moveRandom"></param>
         public BasicDFS(Robot r, bool isLeader, bool moveRandom)
             : base(r)
         {         
@@ -189,9 +202,14 @@ namespace CS266.SimCon.Controller
         }
 
 
-        //this Clone is only used by the DFS algorithm and therefore includes some specifics!!!!
+
+        /// <summary>
+        /// This <code>clone</code> method is only used by the DFS algorithm and therefore includes some specifics!!!!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Robot clone(int id)
-         {
+        {
              
              //this is for adding the robot to the control loop
              Coordinates coord = ((DFSSensor)this.robot.Sensors["DFSSensor"]).getDoor();

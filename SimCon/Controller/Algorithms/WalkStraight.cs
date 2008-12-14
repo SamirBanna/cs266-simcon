@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CS266.SimCon.Controller
 {
+    /// <summary>
+    /// Simple algorithm that just makes a robot walk straight. No collision detection or anything.
+    /// </summary>
     public class WalkStraight:Algorithm
     {
         public int x = 0;

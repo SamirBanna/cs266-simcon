@@ -13,9 +13,21 @@ namespace CS266.SimCon.Controller
     // - Boundary Sensor
     // - Grid Sensor
     // Checks if robot has speed sensor
+
+    /// <summary>
+    /// Assume the robot has the following sensors:
+    /// - Food sensor
+    /// - Obstacle sensor
+    /// - Boundary Sensor
+    /// - Grid Sensor
+    /// Checks if robot has speed sensor
+    /// </summary>
     class NodeCounting : Algorithm
     {
-        public bool finishedTurning = false; // algorithm is trying to avoid and is in the obstacle avoidance routine
+        /// <summary>
+        /// algorithm is trying to avoid and is in the obstacle avoidance routine
+        /// </summary>
+        public bool finishedTurning = false;
 
         public NodeCounting(Robot r)
             : base(r)
@@ -23,15 +35,22 @@ namespace CS266.SimCon.Controller
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="degInterval">Interval at which to randomize angles. E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360</param>
+        /// <param name="probTurn">Probability of turning when agent isn't moving</param>
+        /// <param name="moveDistance">Distance to move forward if moving</param>
         public NodeCounting(Robot r, int degInterval, double probTurn, double moveDistance)
             : base(r)
         {
-            this.degInterval = degInterval; // interval at which to randomize angles. 
-            // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
-            this.probTurn = probTurn;   // probability of turning when agent isn't moving
-            this.moveDistance = moveDistance; // distance to move forward if moving
+            this.degInterval = degInterval;
+            this.probTurn = probTurn;
+            this.moveDistance = moveDistance;
             
         }
+
         int degInterval = 15; // assumes divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
@@ -218,7 +237,12 @@ namespace CS266.SimCon.Controller
         }
         
 
-        // figure out the direction to move to based on the cell with the largest value
+        /// <summary>
+        /// Figure out the direction to move to based on the cell with the largest value
+        /// </summary>
+        /// <param name="colIndexOfSmallest"></param>
+        /// <param name="rowIndexOfSmallest"></param>
+        /// <returns></returns>
         public double getBaseDirection(int colIndexOfSmallest, int rowIndexOfSmallest)
         {
             
