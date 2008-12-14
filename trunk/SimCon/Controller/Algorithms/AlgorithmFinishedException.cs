@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Algorithms
 {
     /// <summary>
     /// Exception sometimes thrown to indicate the end of an algorithm's execution.

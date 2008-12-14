@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Experiments;
 using CS266.SimCon.Simulator;
 
 
-#region Simulation namespaces
-using Microsoft.Robotics.Simulation;
-using Microsoft.Robotics.Simulation.Engine;
-using engineproxy = Microsoft.Robotics.Simulation.Engine.Proxy;
-using Microsoft.Robotics.Simulation.Physics;
-using Microsoft.Robotics.PhysicalModel;
-using System.ComponentModel;
-using CS266.SimCon.Controller;
-#endregion
-
 namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
-    public class SimulatorOutputInterface:WorldOutputInterface
+    public class SimulatorOutputInterface : WorldOutputInterface
     {
         public static int counter = 0;
         CS266.SimCon.Simulator.OurSimulator os;

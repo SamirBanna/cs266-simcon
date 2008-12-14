@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
-    public class LocalGridSensor : SensorInput
+    public class LocalGridSensor : InputSensor
     {
         public double[,] localgrid;
         int localnumrows = 3;

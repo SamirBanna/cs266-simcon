@@ -6,11 +6,11 @@ using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
 using CS266.SimCon.Controller.Exceptions;
 
+using CS266.SimCon.Controller.Algorithms;
+using CS266.SimCon.Controller.InputSensors;
+
 namespace CS266.SimCon.Controller
 {
-
-    public delegate void RunLoopDelegate();
-
     class ControlLoop
     {
         Dictionary<int, Robot> Robots = new Dictionary<int,Robot>();
@@ -27,9 +27,11 @@ namespace CS266.SimCon.Controller
 
         public static Queue<PhysicalRobotAction> ActionQueue = new Queue<PhysicalRobotAction>();
 
-        //Constructor
-        //Initialize the robots
-        //Initialize the world state
+        /// <summary>
+        /// Constructor. Initialize the robots. Initialize the world state.
+        /// </summary>
+        /// <param name="Wii"></param>
+        /// <param name="Woi"></param>
         public ControlLoop(WorldInputInterface Wii, WorldOutputInterface Woi)
         {
             this.Wii = Wii;
@@ -109,7 +111,7 @@ namespace CS266.SimCon.Controller
 
             foreach (Robot r in Robots.Values)
             {
-                foreach (SensorInput sensor in r.Sensors.Values)
+                foreach (InputSensor sensor in r.Sensors.Values)
                 {
                     
                     sensor.UpdateWorldState(worldState);
@@ -119,7 +121,9 @@ namespace CS266.SimCon.Controller
             }
         }
 
-        //Iterate through list of robots, and all their algorithm's execute function
+        /// <summary>
+        /// Iterate through list of robots, and all their algorithm's execute function
+        /// </summary>
         private void RunAlgorithms()
         {
             foreach (Robot r in Robots.Values)

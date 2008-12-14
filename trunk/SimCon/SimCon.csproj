@@ -86,6 +86,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Microsoft Robotics Studio (1.5)\bin\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft_Xna_Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Microsoft Robotics Studio (1.5)\bin\Microsoft_Xna_Framework.dll</HintPath>
@@ -138,7 +142,7 @@
     <Compile Include="Controller\Algorithms\GlobalAlgorithm\GlobalAlgorithm.cs" />
     <Compile Include="Controller\Algorithms\GlobalAlgorithm\NodeCountingGlobal.cs" />
     <Compile Include="Controller\Algorithms\NodeCounting.cs" />
-    <Compile Include="Controller\Algorithms\randWalk.cs" />
+    <Compile Include="Controller\Algorithms\RandomWalk.cs" />
     <Compile Include="Controller\Algorithms\WalkStraight.cs" />
     <Compile Include="Controller\ControlLoop.cs" />
     <Compile Include="Controller\Driver\Driver.cs" />
@@ -158,18 +162,18 @@
     <Compile Include="Controller\PhysObject\Food.cs" />
     <Compile Include="Controller\PhysObject\PhysObject.cs" />
     <Compile Include="Controller\Robot.cs" />
-    <Compile Include="Controller\SensorInput\BoundarySensor.cs" />
-    <Compile Include="Controller\SensorInput\DFSSensor.cs" />
-    <Compile Include="Controller\SensorInput\GridSensor.cs" />
-    <Compile Include="Controller\SensorInput\LocalGridSensor.cs" />
-    <Compile Include="Controller\SensorInput\SpeedSensor.cs" />
-    <Compile Include="Controller\SensorInput\RobotSensor.cs" />
-    <Compile Include="Controller\SensorInput\ObstacleSensor.cs" />
-    <Compile Include="Controller\SensorInput\FoodSensor.cs" />
-    <Compile Include="Controller\SensorInput\ProximitySensor.cs" />
-    <Compile Include="Controller\SensorInput\RandomWalkSensorInput.cs" />
-    <Compile Include="Controller\SensorInput\SensorInput.cs" />
-    <Compile Include="Controller\SensorInput\SensorList.cs" />
+    <Compile Include="Controller\InputSensors\BoundarySensor.cs" />
+    <Compile Include="Controller\InputSensors\DFSSensor.cs" />
+    <Compile Include="Controller\InputSensors\GridSensor.cs" />
+    <Compile Include="Controller\InputSensors\LocalGridSensor.cs" />
+    <Compile Include="Controller\InputSensors\SpeedSensor.cs" />
+    <Compile Include="Controller\InputSensors\RobotSensor.cs" />
+    <Compile Include="Controller\InputSensors\ObstacleSensor.cs" />
+    <Compile Include="Controller\InputSensors\FoodSensor.cs" />
+    <Compile Include="Controller\InputSensors\ProximitySensor.cs" />
+    <Compile Include="Controller\InputSensors\RandomWalkSensorInput.cs" />
+    <Compile Include="Controller\InputSensors\SensorInput.cs" />
+    <Compile Include="Controller\InputSensors\SensorList.cs" />
     <Compile Include="Controller\World.cs" />
     <Compile Include="Controller\WorldInputInterfaces\RoboRealm\RoboRealmInterface.cs" />
     <Compile Include="Controller\WorldInputInterfaces\SimulatorInputInterface.cs" />

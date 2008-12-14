@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using CS266.SimCon.Controller.Algorithms;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.InputSensors;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Experiments
 {
     class NodeCountingExperiment:Experiment
     {
@@ -62,11 +63,11 @@ namespace CS266.SimCon.Controller
                 
 
                 r.CurrentAlgorithm = new NodeCounting(r, 30, 0.5, 100); // starting robot is leader
-                r.Sensors = new Dictionary<string, SensorInput>();
+                r.Sensors = new Dictionary<string, InputSensor>();
                
                 foreach (String s in sensorNames)
                 {
-                    SensorInput sens = SensorList.makeSensor(s);
+                    InputSensor sens = SensorList.makeSensor(s);
                     ControllerWorldState ws = Wii.ws;
                     sens.UpdateWorldState(ws);
                     sens.robot = r;

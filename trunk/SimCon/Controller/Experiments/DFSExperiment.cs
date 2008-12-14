@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
+using CS266.SimCon.Controller.Algorithms;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
-using CS266.SimCon.Controller;
+using CS266.SimCon.Controller.InputSensors;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Experiments
 {
     /*****
      * 
@@ -17,7 +16,7 @@ namespace CS266.SimCon.Controller
      * */
 
 
-    public class DFSExperiment:Experiment
+    public class DFSExperiment : Experiment
     {
 
         public static float doorX = 9.5f;
@@ -73,11 +72,11 @@ namespace CS266.SimCon.Controller
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new BasicDFS(r, true, moveRandom); // starting robot is leader
-                r.Sensors = new Dictionary<string, SensorInput>();
+                r.Sensors = new Dictionary<string, InputSensor>();
                
                 foreach (String s in sensorNames)
                 {
-                    SensorInput sens = SensorList.makeSensor(s);
+                    InputSensor sens = SensorList.makeSensor(s);
                     ControllerWorldState ws = Wii.ws;
                     sens.UpdateWorldState(ws);
                     sens.robot = r;

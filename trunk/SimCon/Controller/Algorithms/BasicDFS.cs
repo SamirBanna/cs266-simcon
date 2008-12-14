@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
+using CS266.SimCon.Controller.InputSensors;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Algorithms
 {
     /// <summary>
     /// This DFS algorithm assumes a grid cell structure.
@@ -219,9 +220,9 @@ namespace CS266.SimCon.Controller
            
              Robot newRobot = new Robot(id,"", coord, orientation,5,5);
              newRobot.CurrentAlgorithm = new BasicDFS(newRobot,false, moveRandom);
-             newRobot.Sensors = new Dictionary<string, SensorInput>();
+             newRobot.Sensors = new Dictionary<string, InputSensor>();
              foreach (String s in this.robot.Sensors.Keys){
-                 SensorInput sens = SensorList.makeSensor(s);
+                 InputSensor sens = SensorList.makeSensor(s);
                  sens.robot = newRobot;
                  newRobot.Sensors.Add(s, sens);
              }

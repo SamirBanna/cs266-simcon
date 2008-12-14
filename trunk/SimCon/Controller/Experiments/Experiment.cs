@@ -1,32 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
+using CS266.SimCon.Controller.Algorithms;
+using CS266.SimCon.Controller.Exceptions;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
-using CS266.SimCon.Controller.Exceptions;
+using CS266.SimCon.Controller.InputSensors;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Experiments
 {
-    //Running of each algorithm will be represented as an Experiment
-    //The experiment object is reponsible for setting up the WorldInputInterfaces, and WorldOutputInterfaces needed
-    //ie, use VisionInput with SimluatorOutput etc.
-    //This class will also initialize the robot objects and pass in the appropriate Algorithm object and SensorInput objects as needed
+    
+    /// <summary>
+    /// Running of each algorithm will be represented as an Experiment
+    /// The experiment object is reponsible for setting up the WorldInputInterfaces, and WorldOutputInterfaces needed
+    /// ie, use VisionInput with SimluatorOutput etc.
+    /// This class will also initialize the robot objects and pass in the appropriate Algorithm object and InputSensor objects as needed
+    /// </summary>
     public abstract class Experiment
     {
-        //algorithm to be used for this experiment
+        /// <summary>
+        /// Algorithm to be used for this experiment
+        /// </summary>
+        /// 
         public Algorithm algName;
         public GlobalAlgorithm globalAlg = null;
-        //sensors required for this experiment
-        public Dictionary<String, SensorInput> sensor;
-        //List of the sensors that will be created for this experiment
+
+        /// <summary>
+        /// Sensors required for this experiment 
+        /// </summary>
+        public Dictionary<String, InputSensor> sensor;
+
+
+        
+        /// <summary>
+        /// List of the sensors that will be created for this experiment 
+        /// </summary>
         public List<String> sensorNames;
-        //input and ouput interfaces to be used for this experiment
+        
+        /// <summary>
+        /// Input interface to be used for this experiment
+        /// </summary>
         public WorldInputInterface Wii;
+
+        /// <summary>
+        /// Output interface to be used for this experiment
+        /// </summary>
         public WorldOutputInterface Woi;
-        //robots to be used in this experiment;
+
+        /// <summary>
+        /// Robots to be used in this experiment;
+        /// </summary>
         public List<Robot> robots;
+
         public int numRobots;
+
+
         //Boolean used to return whether or not the experiment has finished running
         //Used to tell the control loop to stop looping
         //public Boolean isRunning = true;
@@ -38,9 +66,11 @@ namespace CS266.SimCon.Controller
             //this.numRobots = Wii.GetRobots().Count;
         }
 
-        //Setup Experiment should create the Robot class instantiations
-        //This could be creating robots based on a specific input, ie the camera
-        //The desired implementation is left to the child class
+        /// <summary>
+        /// Setup Experiment should create the Robot class instantiations.
+        /// This could be creating robots based on a specific input, ie the camera
+        /// The desired implementation is left to the child class
+        /// </summary>
         public abstract void SetupExperiment();
 
         public void runExperiment()
