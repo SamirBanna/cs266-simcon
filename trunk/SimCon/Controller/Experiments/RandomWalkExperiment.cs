@@ -46,7 +46,7 @@ namespace CS266.SimCon.Controller
             
             foreach (Robot r in robots)
             {
-                r.CurrentAlgorithm = new randWalk(r);
+                r.CurrentAlgorithm = new RandomWalk(r);
                 r.Sensors = new Dictionary<string, SensorInput>();
 
                 

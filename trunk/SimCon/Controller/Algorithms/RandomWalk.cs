@@ -1,5 +1,5 @@
 // this is the research team's rand walk with obstacle avoidance 
-// FileName randWalk.cs
+// FileName RandomWalk.cs
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,15 +12,15 @@ namespace CS266.SimCon.Controller
     // - Obstacle sensor
     // - Boundary Sensor
     // Checks if robot has speed sensor
-    class randWalk : Algorithm
+    class RandomWalk : Algorithm
     {
-        public randWalk(Robot r)
+        public RandomWalk(Robot r)
             : base(r)
         {
 
         }
 
-        public randWalk(Robot r, int degInterval, double probTurn, double moveDistance)
+        public RandomWalk(Robot r, int degInterval, double probTurn, double moveDistance)
             : base(r)
         {
             this.degInterval = degInterval; // interval at which to randomize angles. 
