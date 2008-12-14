@@ -1,5 +1,0 @@
-C:\Microsoft Robotics Studio (1.5)\bin\SimulationTutorial1.Y2006.M06.dll
-C:\Microsoft Robotics Studio (1.5)\bin\SimulationTutorial1.Y2006.M06.pdb
-C:\Microsoft Robotics Studio (1.5)\samples\SimulationTutorials\Tutorial1\obj\Debug\ResolveAssemblyReference.cache
-C:\Microsoft Robotics Studio (1.5)\samples\SimulationTutorials\Tutorial1\obj\Debug\SimulationTutorial1.Y2006.M06.dll
-C:\Microsoft Robotics Studio (1.5)\samples\SimulationTutorials\Tutorial1\obj\Debug\SimulationTutorial1.Y2006.M06.pdb
