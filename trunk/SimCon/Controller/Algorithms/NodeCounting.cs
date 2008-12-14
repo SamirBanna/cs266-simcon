@@ -30,12 +30,13 @@ namespace CS266.SimCon.Controller
             // E.g. if 30, rand would only give 0, 30, 60, 90, ..., 360
             this.probTurn = probTurn;   // probability of turning when agent isn't moving
             this.moveDistance = moveDistance; // distance to move forward if moving
+            
         }
-
         int degInterval = 15; // assumes divisible by 360
         bool isFinished = false;
         double probTurn = 0.0;
-        double moveDistance = 100.0;
+        double moveDistance = 300.0;
+
 
         public override void Execute()
         {
@@ -60,6 +61,8 @@ namespace CS266.SimCon.Controller
             double turnDegrees;
 
             ControlLoop.robotGrid.PrintGrid();
+            
+            //ControlLoop.robotGrid.Mark(robot, true);
             if (this.robot.Sensors.ContainsKey("SpeedSensor"))
             {
                 speed = ((SpeedSensor)this.robot.Sensors["SpeedSensor"]).speed;
@@ -112,10 +115,11 @@ namespace CS266.SimCon.Controller
 
             if (finishedTurning && !faceObstacle){
                // if direction is chosen and legal, just move.
-               robot.MoveForward((double)moveDistance);
+             //  robot.MoveForward((double)moveDistance);
+                robot.MoveForward(150);
 
                // robot only moves here. Before moving, mark your spot
-               ControlLoop.robotGrid.Mark(robot, true);
+               
 
                finishedTurning = false; // so we choose a direction next time 
                     // TODO: maybe have propensity to just move forward sometimes?
@@ -142,11 +146,11 @@ namespace CS266.SimCon.Controller
                 int colIndexOfSmallest = 0;
 
                 bool found = false;
-                for (rowIndexOfSmallest = 0; rowIndexOfSmallest < 3; rowIndexOfSmallest++)
+                for (colIndexOfSmallest = 0; colIndexOfSmallest < 3; colIndexOfSmallest++)
                 {
-                    for(colIndexOfSmallest = 0; colIndexOfSmallest < 3; colIndexOfSmallest++)
+                    for(rowIndexOfSmallest = 0; rowIndexOfSmallest < 3; rowIndexOfSmallest++)
                     {
-                        if (directionalvalues[rowIndexOfSmallest, colIndexOfSmallest] >= 0)
+                        if (directionalvalues[colIndexOfSmallest, rowIndexOfSmallest] >= 0)
                         {
                             found = true;
                             break;
@@ -171,21 +175,25 @@ namespace CS266.SimCon.Controller
                         {
                             continue;
                         }
-                        if (directionalvalues[i, j] < directionalvalues[rowIndexOfSmallest, colIndexOfSmallest])
+                        if (directionalvalues[i, j] < directionalvalues[colIndexOfSmallest, rowIndexOfSmallest])
                         {
-                            rowIndexOfSmallest = i;
-                            colIndexOfSmallest = j;
+                            colIndexOfSmallest = i;
+                            rowIndexOfSmallest = j;
                         }
                     }
                 }
 
-                Console.WriteLine("Node counting says Moving to " + rowIndexOfSmallest + ", " + colIndexOfSmallest);
+
+
+                Console.WriteLine("Node counting says Moving to " + colIndexOfSmallest + ", " + rowIndexOfSmallest);
                 // get base direction (angles from -180 to 180 for the agent to go in)
-                double angle = getBaseDirection(rowIndexOfSmallest, colIndexOfSmallest);
+                double angle = getBaseDirection(colIndexOfSmallest, rowIndexOfSmallest);
+
+                Console.WriteLine("Angle to go: " + angle);
 
                 // get robot orientation
                 double orientation = this.robot.Orientation;
-
+                
                 // Figure out how many angles to get the robot to turn, 
                 turnDegrees = (double)(angle - orientation);
 
@@ -202,6 +210,7 @@ namespace CS266.SimCon.Controller
                     }
                 }
 
+               // Console.WriteLine("Turn this much: " + turnDegrees);
                 robot.Turn(turnDegrees);
                 finishedTurning = true;
                 return;
@@ -210,40 +219,42 @@ namespace CS266.SimCon.Controller
         
 
         // figure out the direction to move to based on the cell with the largest value
-        public double getBaseDirection(int rowIndexOfSmallest, int colIndexOfSmallest)
+        public double getBaseDirection(int colIndexOfSmallest, int rowIndexOfSmallest)
         {
+            
+
             double basedirection = 0;
 
-            if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 0)
+            if (colIndexOfSmallest == 0 && rowIndexOfSmallest == 2)
             {
                 // go in northwest direction, taking into account current orientation
                 basedirection = 135;
             }
-            else if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 1)
+            else if (colIndexOfSmallest == 1 && rowIndexOfSmallest == 2)
             { // North
                 basedirection = 90;
             }
-            else if (rowIndexOfSmallest == 0 && colIndexOfSmallest == 2)
+            else if (colIndexOfSmallest == 2 && rowIndexOfSmallest == 2)
             { // Northeast
                 basedirection = 45;
             }
-            else if (rowIndexOfSmallest == 1 && colIndexOfSmallest == 0)
+            else if (colIndexOfSmallest == 0 && rowIndexOfSmallest == 1)
             { // West
                 basedirection = 180;
             }
-            else if (rowIndexOfSmallest == 1 && colIndexOfSmallest == 2)
+            else if (colIndexOfSmallest == 2 && rowIndexOfSmallest == 1)
             { // East
                 basedirection = 0;
             }
-            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 0)
+            else if (colIndexOfSmallest == 0 && rowIndexOfSmallest == 0)
             { // Southwest
                 basedirection = -135;
             }
-            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 1)
+            else if (colIndexOfSmallest == 1 && rowIndexOfSmallest == 0)
             { // South
                 basedirection = -90;
             }
-            else if (rowIndexOfSmallest == 2 && colIndexOfSmallest == 2)
+            else if (colIndexOfSmallest == 2 && rowIndexOfSmallest == 0)
             { // Southeast
                 basedirection = -45;
             }

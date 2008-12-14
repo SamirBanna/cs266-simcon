@@ -20,13 +20,14 @@ namespace CS266.SimCon.Controller
             numTimesVisited = 0;
             objectsInSquare = new List<PhysObject>();
         }
-        public GridData(int row, int col)
+        public GridData(int col, int row)
         {
             pheromoneLevel = 0;
             numTimesVisited = 0;
             objectsInSquare = new List<PhysObject>();
-            this.row = row;
             this.col = col;
+            this.row = row;
+            
         }
 
         public GridData(int visited)

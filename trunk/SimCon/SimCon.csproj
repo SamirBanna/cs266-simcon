@@ -202,6 +202,7 @@
     <None Include="Simulator\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="README.txt" />
     <Content Include="Simulator\CS266SimCon.manifest.xml" />
     <Content Include="Simulator\Game Parameters.txt" />
   </ItemGroup>
