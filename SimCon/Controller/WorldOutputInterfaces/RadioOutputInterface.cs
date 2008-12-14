@@ -1,15 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 
-using System.Text;
 using System.IO.Ports;
 using System.Threading;
 
 namespace CS266.SimCon.Controller.WorldOutputInterfaces
 {
+    /// <summary>
+    /// A world output interface that translates robot actions into commands that are sent to robots via the wireless base station,
+    /// through a serial port
+    /// </summary>
     public class RadioOutputInterface : WorldOutputInterface
     {
-        //Translate the RobotActions into real world robot movements serial commands
+        /// <summary>
+        /// Translate the RobotActions into real world robot movements serial commands 
+        /// </summary>
+        /// <param name="action"></param>
         public override void DoActions(PhysicalRobotAction action)
         {
             if (action.ActionType == PhysicalActionType.MoveForward)
@@ -39,6 +44,10 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             serialPort.Open();
         }
 
+        /// <summary>
+        /// Converts the command tring to ASCII and writes it to the serial port.
+        /// </summary>
+        /// <param name="cmd">A string representation of the command to be sent.</param>
         internal void sendCommand(String cmd)
         {
             cmd += '\n';
@@ -49,6 +58,10 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             Thread.Sleep(100);
         }
 
+        /// <summary>
+        /// Sends a command to reset the wheel count. This is necessary before every motion command.
+        /// </summary>
+        /// <param name="id"></param>
         internal void wheelCountReset(int id)
         {
             sendCommand("*" + id.ToString());
