@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using CS266.SimCon.Controller.Algorithms;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.InputSensors;
 
-
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Experiments
 {
-    /**
-     * 
-     * 
-     * Experiment that will just make the robots walk forward
-     * 
-     * */
+    /// <summary>
+    /// Experiment that will just make the robots walk forward
+    /// </summary>
     public class WalkStraightExperiment:Experiment
     {
 
@@ -35,7 +31,7 @@ namespace CS266.SimCon.Controller
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new WalkStraight(r);
-                r.Sensors = new Dictionary<string, SensorInput>();
+                r.Sensors = new Dictionary<string, InputSensor>();
             }
         }
     }

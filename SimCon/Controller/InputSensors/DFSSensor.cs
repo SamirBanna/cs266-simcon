@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using CS266.SimCon.Controller.Algorithms;
+using CS266.SimCon.Controller.Experiments;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
-    public class DFSSensor : SensorInput
+    public class DFSSensor : InputSensor
     {
 
 

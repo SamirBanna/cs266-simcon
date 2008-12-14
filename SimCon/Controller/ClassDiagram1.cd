@@ -42,18 +42,18 @@
       <FileName>Controller\Robot.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CS266.SimCon.Controller.SensorInput" Collapsed="true">
+  <Class Name="CS266.SimCon.Controller.InputSensor" Collapsed="true">
     <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Controller\SensorInput\SensorInput.cs</FileName>
+      <FileName>Controller\InputSensor\InputSensor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.SingleProximityInput" Collapsed="true">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIAAAAAAAAA=</HashCode>
-      <FileName>Controller\SensorInput\SingleProximityInput.cs</FileName>
+      <FileName>Controller\InputSensor\SingleProximityInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.World" Collapsed="true">

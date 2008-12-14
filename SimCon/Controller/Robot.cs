@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 using System.Text;
 
+using CS266.SimCon.Controller.Algorithms;
+using CS266.SimCon.Controller.InputSensors;
+
 namespace CS266.SimCon.Controller
 {
     public class Robot : PhysObject
@@ -19,7 +22,7 @@ namespace CS266.SimCon.Controller
       
         public PhysicalRobotAction CurrentAction;
        
-        public Dictionary<String, SensorInput> Sensors;
+        public Dictionary<String, InputSensor> Sensors;
 
         // Needed
         // A way to determine vision cone, which objects are in it

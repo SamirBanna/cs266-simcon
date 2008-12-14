@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Threading;
 using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
+using CS266.SimCon.Controller.Algorithms;
 using CS266.SimCon.Controller.WorldInputInterfaces;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
-using CS266.SimCon.Controller;
+using CS266.SimCon.Controller.InputSensors;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Experiments
 {
-    /*****
-     * 
-     * Class to represent the Random Walk Experiment.
-     * Initializes robots
-     * 
-     * 
-     * */
+
+    /// <summary>
+    /// Class to represent the Random Walk Experiment.
+    /// Initializes robots.
+    /// </summary>
     public class RandomWalkExperiment:Experiment
     {
 
@@ -34,11 +30,15 @@ namespace CS266.SimCon.Controller
             sensorNames.Add("BoundarySensor");
         }
 
-        //Setup all the intial values for the experiment
-        //Create the robots
-        //Create their sensors
-        //Set their initial coordinates
-        //Place in their algorithms
+        
+
+        /// <summary>
+        /// Setup all the intial values for the experiment.
+        /// Create the robots.
+        /// Create their sensors.
+        /// Set their initial coordinates.
+        /// Place in their algorithms.
+        /// </summary>
         public override void SetupExperiment()
         {
             Wii.setupInitialState();
@@ -47,12 +47,12 @@ namespace CS266.SimCon.Controller
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new RandomWalk(r);
-                r.Sensors = new Dictionary<string, SensorInput>();
+                r.Sensors = new Dictionary<string, InputSensor>();
 
                 
                 foreach (String s in sensorNames)
                 {
-                    SensorInput sens = SensorList.makeSensor(s);
+                    InputSensor sens = SensorList.makeSensor(s);
                     //Console.WriteLine(s);
                     ControllerWorldState ws = Wii.ws;
                     //Console.WriteLine("getting ws");

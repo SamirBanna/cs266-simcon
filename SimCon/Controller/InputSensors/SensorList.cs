@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
     /**
      * 
      *  This class will be used to create Sensors based on their string name
      *  
-     *  Whenever a new SensorInput is written, it should be added here into the switch statement so that
+     *  Whenever a new InputSensor is written, it should be added here into the switch statement so that
      *  when the sensors are initialized by name, they can be found
      *  
      *  Assembly.GetExecutingAssembly could have been used to create the objects based on class name
@@ -19,9 +19,9 @@ namespace CS266.SimCon.Controller
     public class SensorList
     {
 
-        public static SensorInput makeSensor(String name)
+        public static InputSensor makeSensor(String name)
         {
-            SensorInput sensor = null;
+            InputSensor sensor = null;
 
             switch (name)
             {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using System.Text;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
-    public class ProximitySensor : SensorInput
+    public class ProximitySensor : InputSensor
     {
         public double objectSensingAngle = 55; // angle at which it can sense obstacle objects
                                     // assumed symmetric for + or - direction

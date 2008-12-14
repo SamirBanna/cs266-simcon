@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using System.Text;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
-    public class SpeedSensor : SensorInput
+    public class SpeedSensor : InputSensor
     {
         public double speed = 0;
         

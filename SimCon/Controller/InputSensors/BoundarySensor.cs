@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 using System.Text;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.InputSensors
 {
     // This sensor is used to check whether an object is close to a boundary 
-    public class BoundarySensor : SensorInput
+    public class BoundarySensor : InputSensor
     {
         public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
         // assumed symmetric for + or - direction

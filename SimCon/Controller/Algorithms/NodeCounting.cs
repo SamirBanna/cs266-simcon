@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using CS266.SimCon.Controller;
 
-namespace CS266.SimCon.Controller
+using CS266.SimCon.Controller.InputSensors;
+
+namespace CS266.SimCon.Controller.Algorithms
 {
     // Assume the robot has the following sensors:
     // - Food sensor

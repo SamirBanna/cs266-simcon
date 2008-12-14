@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CS266.SimCon.Controller
+namespace CS266.SimCon.Controller.Algorithms
 {
     /// <summary>
     /// Simple algorithm that just makes a robot walk straight. No collision detection or anything.
