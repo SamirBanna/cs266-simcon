@@ -42,7 +42,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             FoodList.Clear();
             setupInitialState();
 
-            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldWidth, worldHeight);
+            return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
+            // fixed params to new convention: height, then width
         }
 
 
