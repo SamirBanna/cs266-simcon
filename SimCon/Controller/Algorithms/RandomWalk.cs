@@ -90,7 +90,7 @@ namespace CS266.SimCon.Controller.Algorithms
                 { // turn in random direction at interval
                     int howManyIntervals = (int)(360 / degInterval);
                     double turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
-                    
+
                     if (turnDegrees > 180)
                     {
                         turnDegrees = turnDegrees - 360;
@@ -106,6 +106,7 @@ namespace CS266.SimCon.Controller.Algorithms
                         }
 
                     }
+
                     robot.Turn(turnDegrees);
                     return;
                 }
@@ -120,7 +121,23 @@ namespace CS266.SimCon.Controller.Algorithms
                     turnDegrees = turnDegrees - 360;
                 }
 
-                while (Math.Abs(turnDegrees) < 60)
+                //while (Math.Abs(turnDegrees) < 60)
+                //{
+                //    turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
+
+                //    if (turnDegrees > 180)
+                //    {
+                //        turnDegrees = turnDegrees - 360;
+                //    }
+
+                //}
+
+                //if (turnDegrees > 180)
+                //{
+                //    turnDegrees = turnDegrees - 360;
+                //}
+
+                while (Math.Abs(turnDegrees) > 90)
                 {
                     turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 

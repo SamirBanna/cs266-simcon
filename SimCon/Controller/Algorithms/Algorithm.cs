@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using CS266.SimCon.Controller.WorldOutputInterfaces;
+using CS266.SimCon.Controller.Experiments;
 
 namespace CS266.SimCon.Controller.Algorithms
 {
@@ -29,7 +30,7 @@ namespace CS266.SimCon.Controller.Algorithms
         public void Finished()
         {
             Console.WriteLine("WE ARE DONE HERE");
-            //throw new AlgorithmFinishedException(robot.Id);
+            throw new AlgorithmFinishedException(robot.Id);
         }
     }
 }

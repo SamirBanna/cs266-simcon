@@ -187,9 +187,9 @@ namespace CS266.SimCon.Simulator
         GenAlgorithm DetermineAlgo(string[] DelimitedParameters)
         {
             //Place this separate if-else in another function!
-            if (DelimitedParameters[0] == "GenAlgorithm")
+            if (DelimitedParameters[0] == "RandomWalk")
             {
-                return new GenAlgorithm("GenAlgorithm",
+                return new GenAlgorithm("RandomWalk",
                     new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
                     new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
@@ -204,6 +204,14 @@ namespace CS266.SimCon.Simulator
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
                     new int[] { Int32.Parse(DelimitedParameters[7]), Int32.Parse(DelimitedParameters[8]) },
                     (float)System.Convert.ToSingle(DelimitedParameters[9]));
+            }
+            else if (DelimitedParameters[0] == "NodeCounting")
+            {
+                return new GenAlgorithm("NodeCounting",
+                    new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
+                    new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
+                    new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
+                    new int[] { Int32.Parse(DelimitedParameters[7]), Int32.Parse(DelimitedParameters[8]) });
             }
             else
             {

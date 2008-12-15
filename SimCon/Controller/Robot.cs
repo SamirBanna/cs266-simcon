@@ -61,6 +61,8 @@ namespace CS266.SimCon.Controller
 
         public void Turn(double degrees)
         {
+            degrees *= -1; // To preserve turn direction such that positive turns from [0. 180] is counterclockwise 
+                        // and negative turns [0, -180] are clockwise
             ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Turn, degrees));
         }
 
