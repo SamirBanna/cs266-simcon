@@ -52,9 +52,9 @@ namespace CS266.SimCon.Controller.InputSensors
             
             double angle = robot.Orientation;
 
-            Console.WriteLine("********************************************************************************");
-            Console.WriteLine("ROBOT ANGLE = " + angle);
-            Console.WriteLine("********************************************************************************");
+            //Console.WriteLine("********************************************************************************");
+            //Console.WriteLine("ROBOT ANGLE = " + angle);
+            //Console.WriteLine("********************************************************************************");
 
             if (angle < 0)
             {
@@ -67,14 +67,14 @@ namespace CS266.SimCon.Controller.InputSensors
             Coordinates endLocation = new Coordinates((robotLocation.X + objectSensingDist * Math.Cos(angle)),
                                                        (robotLocation.Y + objectSensingDist * Math.Sin(angle)));
 
-        //    Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
-        //    Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
-        //    Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
+            //Console.WriteLine("Robot location (x,y): " + robotLocation.X + " " + robotLocation.Y);
+            //Console.WriteLine("End location (x,y): " + endLocation.X + " " + endLocation.Y);
+            //Console.WriteLine("Boundaries (x,y): " +  maxx + " " + maxy);
 
             if (isInside(endLocation.X, endLocation.Y, minx, miny, maxx, maxy))
             {
                 // doesn't sense boundary; no collision
-                Console.WriteLine("In bounds!");
+                //Console.WriteLine("In bounds!");
                 return false;
             }
             else

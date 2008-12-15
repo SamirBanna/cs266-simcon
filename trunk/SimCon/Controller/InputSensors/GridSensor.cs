@@ -82,7 +82,7 @@ namespace CS266.SimCon.Controller.InputSensors
             //we do not check the direction we came from
 
             //check if we can go west
-            if (orientation != 0)
+            if (orientation <= -45 || orientation >= 45)
             {
                 try
                 {
@@ -98,7 +98,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 }
             }
             //check if we can go east
-            if (orientation != 180 && orientation != -180)
+            if (orientation <= 135 && orientation >= -135)
             {
                 try
                 {
@@ -115,7 +115,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 }
             }
             //check if we can go north
-            if (orientation != -90)
+            if (orientation <= -135 || orientation >= -45)
             {
                 try
                 {
@@ -132,7 +132,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 }
             }
             //check if we can go south
-            if (orientation != 90)
+            if (orientation <= 45 || orientation >= 135)
             {
                 try
                 {
