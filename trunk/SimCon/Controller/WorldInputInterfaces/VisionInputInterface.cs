@@ -225,7 +225,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 string[] toks = s.Split(' ');
                 
                 //Blobx[bcount] = int.Parse(toks[0]);
-                //Bloby[bcount] = int.Parse(toks[1]);
+                //Bloby[bcount] = int.Parse(toks[1]);7
 
                 obs.x = double.Parse(toks[0])-100;
                 obs.y = double.Parse(toks[1])-280;
@@ -239,6 +239,43 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
 
            // End blob processing*/
+
+///*Start food processing
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue_blobs.robo"))
+                Console.WriteLine("Blue Blobs Program didn't run.\n");
+
+
+            while (rr.getVariable("FoProgram") != "1")
+            {
+                Thread.Sleep(5);
+            }
+            System.IO.StreamReader sfood = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Food.out");
+            //int[] Blobx = new int[100];
+            //int[] Bloby = new int[100];
+
+            s = "";
+            //int bcount = 0;
+            while ((s = sfood.ReadLine()) != null)
+            {
+                shape food = new shape();
+
+                food.shapetype = "robot";
+                food.id = 8;
+                string[] toks = s.Split(' ');
+
+                //Blobx[bcount] = int.Parse(toks[0]);
+                //Bloby[bcount] = int.Parse(toks[1]);7
+
+                food.x = double.Parse(toks[0]) - 100;
+                food.y = double.Parse(toks[1]) - 280;
+                food.orientation = 0;
+
+                if (food != null)
+                    shapeList.Add(food);
+
+                //bcount ++;
+            }
+// end of food
 
 
             do
@@ -373,8 +410,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 else if (line[6] == "food")
                 {
                     //Console.WriteLine("DSLFKJS:DLFKJS:DLFKJS:DLFKJS SAW FOOD");
-                    sh.shapetype = "robot";
-                    sh.id = 8;
+                    //sh.shapetype = "robot";
+                    //sh.id = 8;
                 }
                 else
                 {

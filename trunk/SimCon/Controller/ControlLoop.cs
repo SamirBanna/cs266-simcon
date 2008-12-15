@@ -66,7 +66,7 @@ namespace CS266.SimCon.Controller
         /// </summary>
         public void RunLoop()
         {
-            Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
+           // Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
             this.GetInput();
             //Console.WriteLine("got input");
 
