@@ -294,6 +294,7 @@ namespace CS266.SimCon.Controller
             //else if (location.X < 0 && location.X > -50)
             //    gridX = 0;
             //else
+            //    gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
 
             //if (location.Y >= WorldHeight)
             //    gridY = NumSquaresY - 1;
@@ -302,11 +303,14 @@ namespace CS266.SimCon.Controller
             //else if (location.Y < 0 && location.Y > -50)
             //    gridY = 0;
             //else
-               
-           //     Console.WriteLine(".......................................");
-            //    Console.WriteLine("Location:" + location.X + " " + location.Y);
-             //   Console.WriteLine("grid [x, y]:" + gridX + " " + gridY);
-              //  Console.WriteLine(".......................................");
+            //    gridY = (int) Math.Floor(NumSquaresY * location.Y / WorldHeight);
+
+            //Console.WriteLine(".......................................");
+            //Console.WriteLine("Location:" + location.X + " " + location.Y);
+            //Console.WriteLine("grid [x, y]:" + gridX + " " + gridY);
+            //Console.WriteLine(".......................................");
+
+            //return gridData[gridX, gridY];
 
             gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
             gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
