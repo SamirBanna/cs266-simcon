@@ -32,9 +32,15 @@ namespace CS266.SimCon.Controller.Driver
                 exp.SetupExperiment();
                 exp.runExperiment();
             }
-            else
+            else if (os.Algo.name == "RandomWalk")
             {
                 RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
+                exp.SetupExperiment();
+                exp.runExperiment();
+            }
+            else if (os.Algo.name == "NodeCounting")
+            {
+                NodeCountingExperiment exp = new NodeCountingExperiment(wii, woi);
                 exp.SetupExperiment();
                 exp.runExperiment();
             }

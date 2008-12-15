@@ -89,6 +89,9 @@ namespace CS266.SimCon.Controller.Experiments
                 }
                 catch (AlgorithmFinishedException e)
                 {
+
+                    //This may need to be cleared out. This is if one robot finds a food source, but we may
+                    //want other stop criterion
                     Console.WriteLine("Experiment Finished by Robot: " + e.robotid);
                     // Check for batch mode
                     if (Wii.GetType() == typeof(SimulatorInputInterface))
@@ -112,6 +115,24 @@ namespace CS266.SimCon.Controller.Experiments
                 catch (GlobalAlgorithmFinishedException e)
                 {
                     Console.WriteLine("Experiment Finished globally");
+                    // Check for batch mode
+                    if (Wii.GetType() == typeof(SimulatorInputInterface))
+                    {
+                        CS266.SimCon.Simulator.OurSimulator osNew = ((SimulatorInputInterface)Wii).getOurSimulator().Finished();
+                        if (osNew == null)
+                        {
+                            // We're done
+                            break;
+                        }
+                        else
+                        {
+                            Wii = new SimulatorInputInterface(osNew);
+                            Woi = new SimulatorOutputInterface(osNew);
+                            SetupExperiment();
+                            runExperiment();
+                            break;
+                        }
+                    }
                 }
                 Thread.Sleep(3000);
             }

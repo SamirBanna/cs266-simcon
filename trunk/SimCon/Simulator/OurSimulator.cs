@@ -176,9 +176,9 @@ namespace CS266.SimCon.Simulator
         GenAlgorithm DetermineAlgo(string[] DelimitedParameters)
         {
             //Place this separate if-else in another function!
-            if (DelimitedParameters[0] == "GenAlgorithm")
+            if (DelimitedParameters[0] == "RandomWalk")
             {
-                return new GenAlgorithm("GenAlgorithm",
+                return new GenAlgorithm("RandomWalk",
                     new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
                     new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
@@ -193,6 +193,14 @@ namespace CS266.SimCon.Simulator
                     new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
                     new int[] { Int32.Parse(DelimitedParameters[7]), Int32.Parse(DelimitedParameters[8]) },
                     (float)System.Convert.ToSingle(DelimitedParameters[9]));
+            }
+            else if (DelimitedParameters[0] == "NodeCounting")
+            {
+                return new GenAlgorithm("NodeCounting",
+                    new float[] { (float)System.Convert.ToSingle(DelimitedParameters[1]), (float)System.Convert.ToSingle(DelimitedParameters[2]) },
+                    new int[] { Int32.Parse(DelimitedParameters[3]), Int32.Parse(DelimitedParameters[4]) },
+                    new int[] { Int32.Parse(DelimitedParameters[5]), Int32.Parse(DelimitedParameters[6]) },
+                    new int[] { Int32.Parse(DelimitedParameters[7]), Int32.Parse(DelimitedParameters[8]) });
             }
             else
             {
@@ -535,17 +543,17 @@ namespace CS266.SimCon.Simulator
                     {
                         if (actions_vector.actions[j].newdegreesfromx > .5)
                         {
-                            Console.WriteLine("ROBOT TURN ANGLE IS EQUAL TO: " + actions_vector.actions[j].newdegreesfromx);
+                            //Console.WriteLine("ROBOT TURN ANGLE IS EQUAL TO: " + actions_vector.actions[j].newdegreesfromx);
                             //Rotate by the stated number of degrees
-                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, 2f);
+                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, .1f);
                             Thread.Sleep(2500);
                         }
                         if (actions_vector.actions[j].distance > .1)
                         {
                             //Drive the correct distance
-                            Console.WriteLine("ROBOT DRIVE DISTANCE IS EQUAL TO: " + actions_vector.actions[j].distance);
-                            this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 2f);
-                            Thread.Sleep(1500);
+                            //Console.WriteLine("ROBOT DRIVE DISTANCE IS EQUAL TO: " + actions_vector.actions[j].distance);
+                            this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 1f);
+                            Thread.Sleep(1100);
                             break;
                         }
                     }

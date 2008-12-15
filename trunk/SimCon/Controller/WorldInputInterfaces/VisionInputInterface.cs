@@ -18,8 +18,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
         public VisionInputInterface()
         {
-            worldHeight = 114;
-            worldWidth = 235;
+            worldHeight = 90;//114;
+            worldWidth = 200;// 235;
 
             //114
             //235
@@ -65,9 +65,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (s.shapetype == "robot")
                 {
-                    double robotx = (s.x / 5) + 15;
-                    double roboty = (s.y / 5) + 15;
-
+                    Console.WriteLine("Vision before Victor: " + s.x + " " + s.y);
+                    double robotx = (s.x / 5);// +15;
+                    //This conversion scale requires a +2
+                    double roboty = (s.y / 5);// +15;
+                    Console.WriteLine("Vision after Victor: " + robotx + " " + roboty);
 
                     //if (robotx > 235 || roboty > 114)
                     //    continue;
@@ -115,8 +117,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 else if (s.shapetype == "boundary")
                 {
 
-                    double robotx = (s.x / 5) + 15;
-                    double roboty = (s.y / 5) + 15;
+                    double robotx = (s.x / 5);// + 15;
+                    double roboty = (s.y / 5);// +15;
                     
                     PhysObject phy = new Obstacle(objcount++, "obstactle", new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);

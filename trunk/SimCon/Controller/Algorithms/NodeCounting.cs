@@ -30,6 +30,9 @@ namespace CS266.SimCon.Controller.Algorithms
         /// algorithm is trying to avoid and is in the obstacle avoidance routine
         /// </summary>
         public bool finishedTurning = false;
+        int lastcol = 0;
+        int lastrow = 0;
+
 
         public NodeCounting(Robot r)
             : base(r)
@@ -166,24 +169,32 @@ namespace CS266.SimCon.Controller.Algorithms
                 int rowIndexOfSmallest = 0;
                 int colIndexOfSmallest = 0;
 
-                bool found = false;
-                for (colIndexOfSmallest = 0; colIndexOfSmallest < 3; colIndexOfSmallest++)
+                if (directionalvalues[lastcol, lastrow] >= 0)
+                {//if the last direction is legal
+                    colIndexOfSmallest = lastcol;
+                    rowIndexOfSmallest = lastrow;
+                }
+                else
                 {
-                    for(rowIndexOfSmallest = 0; rowIndexOfSmallest < 3; rowIndexOfSmallest++)
+                    bool found = false;
+                    for (colIndexOfSmallest = 0; colIndexOfSmallest < 3; colIndexOfSmallest++)
                     {
-                        if (directionalvalues[colIndexOfSmallest, rowIndexOfSmallest] >= 0)
+                        for (rowIndexOfSmallest = 0; rowIndexOfSmallest < 3; rowIndexOfSmallest++)
                         {
-                            found = true;
+                            if (directionalvalues[colIndexOfSmallest, rowIndexOfSmallest] >= 0)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found == true)
+                        {
                             break;
                         }
                     }
-                    if (found == true)
-                    {
-                        break;
-                    }
                 }
 
-
+                
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
@@ -196,6 +207,8 @@ namespace CS266.SimCon.Controller.Algorithms
                         {
                             continue;
                         }
+                        // Comparator is < here to give tie-breaking preference to the 
+                        // directionvalue at [lastcol, lastrow]
                         if (directionalvalues[i, j] < directionalvalues[colIndexOfSmallest, rowIndexOfSmallest])
                         {
                             colIndexOfSmallest = i;
@@ -203,18 +216,27 @@ namespace CS266.SimCon.Controller.Algorithms
                         }
                     }
                 }
+                
+                // Update the last chosen directional index
+                Console.WriteLine("Last col and row: " + lastcol + " " + lastrow);
+                
+                lastcol = colIndexOfSmallest;
+                lastrow = rowIndexOfSmallest;
 
+                Console.WriteLine("Current col and row: " + lastcol + " " + lastrow);
 
-
-                Console.WriteLine("Node counting says Moving to " + colIndexOfSmallest + ", " + rowIndexOfSmallest);
+            //    Console.WriteLine("Node counting says Moving to " + colIndexOfSmallest + ", " + rowIndexOfSmallest);
                 // get base direction (angles from -180 to 180 for the agent to go in)
                 double angle = getBaseDirection(colIndexOfSmallest, rowIndexOfSmallest);
 
                 Console.WriteLine("Angle to go: " + angle);
+                
 
                 // get robot orientation
                 double orientation = this.robot.Orientation;
-                
+
+                Console.WriteLine("Robot's current orientation: " + orientation);
+
                 // Figure out how many angles to get the robot to turn, 
                 turnDegrees = (double)(angle - orientation);
 
@@ -231,10 +253,25 @@ namespace CS266.SimCon.Controller.Algorithms
                     }
                 }
 
-               // Console.WriteLine("Turn this much: " + turnDegrees);
-                robot.Turn(turnDegrees);
-                finishedTurning = true;
-                return;
+                 Console.WriteLine("Turn this much: " + turnDegrees);
+               
+                // Check turnDegrees. If it is very small (hard-coded to 5), 
+                // we prefer to go in our current direction if there is no obstacle there
+                if (Math.Abs(turnDegrees) < 5 && !faceObstacle)
+                {
+                    // can go in current direction, so let's go and set finishedTurning to false so node counting will choose
+                    // direction next time again
+                    robot.MoveForward(150);
+                    finishedTurning = false;
+                    return;
+                }
+                else
+                { /// turn as usual and leave figuring out direction for next time
+                    robot.Turn(turnDegrees);
+                    finishedTurning = true;
+                    return;
+                }
+
 
         }
         

@@ -93,11 +93,12 @@ namespace CS266.SimCon.Controller
         /// </summary>
         private void GetInput()
         {
-            worldState = Wii.getWorldState();
-          //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
+           worldState = Wii.getWorldState();
+           //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
            // Console.WriteLine("controloop con");
 
-            Console.WriteLine("*****Number of objects in the world: " +worldState.physobjects.Count + "*******");
+            Console.WriteLine("*****Number of objects in the world: " + (worldState.physobjects.Count) + "*******");
+            Console.WriteLine("**********Number of food objects in the world: " + (worldState.foodlist.Count) + "*******");
             //update robot orientation and location
             foreach (Robot z in worldState.robots)
             {
