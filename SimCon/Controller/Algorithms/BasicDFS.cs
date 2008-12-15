@@ -28,7 +28,8 @@ namespace CS266.SimCon.Controller.Algorithms
         /// <summary>
         /// True if leader should move randomly, false, if leader always should move in directions its facing too
         /// </summary>
-        bool moveRandom;
+        private bool moveRandom;
+        private Random rand;
 
         //public BasicDFS(Robot r)
         //    : base(r)
@@ -51,9 +52,12 @@ namespace CS266.SimCon.Controller.Algorithms
             this.isActive = true;
             this.isTurnPhase = true;
             this.isTail = true;
+            rand = new Random();
         }
 
          public override void Execute(){
+            ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).SetSensingDistance(1.75);
+
             Console.WriteLine("****************DFS Output*********************");
             Console.WriteLine("x robot    = " + this.robot.Location.X);
             Console.WriteLine("y robot    = " + this.robot.Location.Y);
@@ -112,7 +116,9 @@ namespace CS266.SimCon.Controller.Algorithms
                         if (isTurnPhase)
                         {
                             //moveIndex indicated the index of the possibleMoves field assuming that possibleMoves includes the degrees the robot can possible move to
-                            int moveIndex = new Random().Next(0, possibleMoves.Count);
+                            Console.WriteLine("****In MoveRandom: Num possible moves: " + possibleMoves.Count);
+                            int moveIndex = rand.Next(0, possibleMoves.Count);
+                            Console.WriteLine("****In MoveRandom: random index: " + moveIndex);
                             robot.Turn(possibleMoves[moveIndex]);
                         }
                         else
@@ -130,19 +136,28 @@ namespace CS266.SimCon.Controller.Algorithms
                             bool right = false;
                             for (int i = 0; i < possibleMoves.Count; i++)
                             {
+                                Console.WriteLine("possible Move[i]: " + possibleMoves[i]);
                                 //possibleMoves returns array of turnDegrees
-                                if (possibleMoves[i] == 0)
+                                //orientation is imprecise because of physical simulation of robots 
+                                //therefore test for whole range of angle
+                                if (possibleMoves[i] >= -45 && possibleMoves[i] <= 45)
                                     forward = true;
-                                else if (possibleMoves[i] == 90)
+                                else if (possibleMoves[i] >= 45 && possibleMoves[i] <= 135)
                                     left = true;
-                                else if (possibleMoves[i] == -90)
+                                else if (possibleMoves[i] >= -135 && possibleMoves[i] <= -45)
                                     right = true;
                             }
                             Console.WriteLine("===================================Forward =: " + forward);
-                            if (((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject) forward = false;
-
-                            Console.WriteLine("===================================AFTER BOUNDARY SENSOR Forward =: " + forward);
+                            ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).UpdateSensor();
+                            bool senseBoundary = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).detectObject;
+                            double senseDist = ((BoundarySensor)this.robot.Sensors["BoundarySensor"]).objectSensingDist;
+                            Console.WriteLine("===================================BOUNDARY SENSOR senseDistance = " + senseDist);
+                            Console.WriteLine("===================================BOUNDARY SENSOR detectObject = " + senseBoundary);
+                            
+                            if (senseBoundary) forward = false;
                             Console.WriteLine("robot id: " + this.robot.Id);
+                            Console.WriteLine("Num possible moves: " + possibleMoves.Count);
+                            Console.WriteLine("forward is equal to: " + forward);
                             Console.WriteLine("left is equal to: " + left);
                             Console.WriteLine("right is equal to: " + right);
 
