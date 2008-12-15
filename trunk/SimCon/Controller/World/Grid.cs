@@ -283,11 +283,29 @@ namespace CS266.SimCon.Controller
          */ 
         public GridData getGridLoc(Coordinates location)
         {
-
+            double epsilon = 0.00001; // to avoid numeric issues with double equality comparison
             int gridX;
             int gridY;
-            // Get grid coordinates. Round down
-            //if (location.X >= WorldWidth)
+
+            // check for boundary conditions. If X location is at world boundaries, then grid should be 
+            // at last square 
+            if (location.X >= WorldWidth && location.X - WorldWidth <= epsilon) gridX = NumSquaresX - 1;
+            // to avoid numeric issues of a 0 location as being recognized as slightly off the grid
+            else if (location.X <= 0 && location.X >= -epsilon) gridX = 0;
+            // range from [0, NumSquaresX - 1] as long as location.X != WorldWidth (case handled above)
+            else gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
+
+            // check for boundary conditions. If X location is at world boundaries, then grid should be 
+            // at last square 
+            if (location.Y >= WorldHeight && location.Y - WorldHeight <= epsilon) gridY = NumSquaresY - 1;
+            // to avoid numeric issues of a 0 location as being recognized as slightly off the grid                       
+            else if (location.Y <= 0 && location.Y >= -epsilon) gridY = 0;
+            // range from [0, NumSquaresY - 1] as long as location.Y != WorldHeight (case handled above)
+            else gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
+
+            return gridData[gridX, gridY];
+
+            
             //    gridX = NumSquaresX - 1;
             ////else if (location.X < 0)
             ////    gridX = 0;
@@ -312,9 +330,7 @@ namespace CS266.SimCon.Controller
 
             //return gridData[gridX, gridY];
 
-            gridX = (int)Math.Floor(NumSquaresX * location.X / WorldWidth);
-            gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
-            return gridData[gridX, gridY];
+            
         }
 
         public GridData getGridLoc(int gridX, int gridY)
