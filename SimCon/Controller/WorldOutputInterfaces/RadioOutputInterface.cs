@@ -85,6 +85,17 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             sendCommand("C," + degree1.ToString() + "," + degree2.ToString());
         }
 
+        internal void rotateOneWheel(int id, int degree)
+        {
+            int degree1 = degree * 6;
+            int degree2 = -degree1;
+
+            wheelCountReset(id);
+            sendCommand("*" + id.ToString());
+            sendCommand("C," + "0" + "," + degree2.ToString());
+        }
+
+
         internal void moveDistance(int id, int dist)
         {
             dist = (int)Math.Floor(dist * 12.5);

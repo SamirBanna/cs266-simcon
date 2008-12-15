@@ -22,7 +22,7 @@ namespace CS266.SimCon.Controller
         public static void Main()
         {
 
-            Driver.Driver.Run("WalkStraight");
+            Driver.Driver.Run("RandomWalk");
 
         }
     }

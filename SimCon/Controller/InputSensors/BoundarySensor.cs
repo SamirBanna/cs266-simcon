@@ -10,7 +10,7 @@ namespace CS266.SimCon.Controller.InputSensors
     {
         public double objectSensingAngle = 15; // angle at which it can sense obstacle objects
         // assumed symmetric for + or - direction
-        public double objectSensingDist = 10; // distance at which obstacles can be sensed [cm]
+        public double objectSensingDist = 20; // distance at which obstacles can be sensed [cm]
 
         public bool detectObject;
 
