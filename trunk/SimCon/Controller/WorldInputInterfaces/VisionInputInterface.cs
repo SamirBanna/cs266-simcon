@@ -69,10 +69,10 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     double roboty = (s.y / 5) + 15;
 
 
-                    if (robotx > 235 || roboty > 114)
-                        continue;
-                    if (robotx < 0 || roboty < 0)
-                        continue;
+                    //if (robotx > 235 || roboty > 114)
+                    //    continue;
+                    //if (robotx < 0 || roboty < 0)
+                    //    continue;
                     
                     if(s.id == 8){
 
@@ -163,14 +163,23 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
 
 			// TODO: Make the location of the vision output VARIABLE!
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge.robo"))
-                Console.WriteLine("Blue Program didn't run.\n");
-
-
-            while (rr.getVariable("BProgram") != "1")
+            do
             {
-                Thread.Sleep(5);
-            }
+                if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge_test.robo"))
+                    Console.WriteLine("Blue Program didn't run.\n");
+
+
+                while (rr.getVariable("BProgram") != "1")
+                {
+                    Thread.Sleep(5);
+                }
+                if (rr.getVariable("berror") != "0")
+                {
+                    Console.WriteLine("Fail recognition. Retake camera image, might take a longer time.\n");
+                    if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
+                        Console.WriteLine("Program didn't run.\n");
+                }
+            } while (rr.getVariable("berror") != "0");
 
             sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue.out");
             s = "";
@@ -190,42 +199,64 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
 
             ///*Start blob processing
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_blobs.robo"))
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red_blobs.robo"))
                 Console.WriteLine("Red Blobs Program didn't run.\n");
 
 
-            while (rr.getVariable("RProgram") != "1")
+            while (rr.getVariable("ObProgram") != "1")
             {
                 Thread.Sleep(5);
             }
-            System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blobs.out");
-            int[] Blobx = new int[100];
-            int[] Bloby = new int[100];
+            System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Obstacles.out");
+            //int[] Blobx = new int[100];
+            //int[] Bloby = new int[100];
 
             s = "";
-            int bcount = 0;
+            //int bcount = 0;
             while ((s = sblob.ReadLine()) != null)
             {
+                shape obs = new shape();
+
+                obs.shapetype = "boundary";
+                obs.id = 0;
+
                 string[] toks = s.Split(' ');
                 
-                Blobx[bcount] = int.Parse(toks[0]);
-                Bloby[bcount] = int.Parse(toks[1]);
+                //Blobx[bcount] = int.Parse(toks[0]);
+                //Bloby[bcount] = int.Parse(toks[1]);
 
-                bcount ++;
+                obs.x = double.Parse(toks[0])-100;
+                obs.y = double.Parse(toks[1])-280;
+                obs.orientation = 0;
+
+                if (obs != null)
+                    shapeList.Add(obs);
+                
+                //bcount ++;
             }
 
 
            // End blob processing*/
 
 
-
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge.robo"))
-                Console.WriteLine("Red Program didn't run.\n");
-
-            while (rr.getVariable("RProgram") != "1")
+            do
             {
-                Thread.Sleep(5);
-            }
+                if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_test.robo"))
+                    Console.WriteLine("Red Program didn't run.\n");
+
+                while (rr.getVariable("RProgram") != "1")
+                {
+                    Thread.Sleep(5);
+                }
+
+                if(rr.getVariable("rerror") != "0")
+                {
+                    Console.WriteLine("Fail recognition. Retake camera image, might take a longer time.\n");
+                    if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
+                        Console.WriteLine("Program didn't run.\n");
+                }
+            } while (rr.getVariable("rerror") != "0");
+
 
             sr = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red.out");
             s = "";
@@ -303,6 +334,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
 
             oldShapeList = anOldshapeList; */
+
+            Console.WriteLine("VISION: Number of detected objects: "+shapeList.Count+"\n");
+
             return shapeList;
         }
             
@@ -328,10 +362,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 sh.confidence = double.Parse(line[0]);
 
                 // need to update this once there are more shapes
+                
                 if (line[6] == "square")
                 {
-                    sh.shapetype = "boundary";
-                    sh.id = 0;
+                    //sh.shapetype = "boundary";
+                    //sh.id = 0;
                 }
                 else if (line[6] == "food")
                 {
@@ -351,6 +386,17 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     {
                         return null;
                     }
+                }
+
+                if (sh.x > 1200)
+                {
+                    Console.WriteLine("VISION: coordinate problem " + sh.id + " x " + sh.x + "\n");
+                    Thread.Sleep(10000);
+                }
+                if (sh.y > 600)
+                {
+                    Console.WriteLine("VISION: coordinate problem " + sh.id + " y " + sh.y + "\n");
+                    Thread.Sleep(10000);
                 }
 
                 // RIGHT NOW WIDTH AND HEIGHT AREN'T DEFINED
