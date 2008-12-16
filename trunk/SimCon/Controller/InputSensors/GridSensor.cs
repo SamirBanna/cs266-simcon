@@ -87,7 +87,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 try
                 {
                     GridData west = ControlLoop.robotGrid.getGridLoc(x - 1, y);
-                    if (west.objectsInSquare.Count == 0)
+                    if (west.objectsInSquare.Count == 0 && (x-1) > 1)
                     {
                         int turnDegrees = 180 - (int)orientation; // west = 180 degrees
                         if (turnDegrees > 180) turnDegrees = turnDegrees - 360;
@@ -103,7 +103,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 try
                 {
                     GridData east = ControlLoop.robotGrid.getGridLoc(x + 1, y);
-                    if (east.objectsInSquare.Count == 0)
+                    if (east.objectsInSquare.Count == 0 && (x+1) < (ControlLoop.robotGrid.NumSquaresX-2))
                     {
                         int turnDegrees = 0 - (int)orientation; // east = 0 degrees
                         if (turnDegrees > 180) turnDegrees = turnDegrees - 360;
@@ -120,7 +120,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 try
                 {
                     GridData north = ControlLoop.robotGrid.getGridLoc(x, y + 1);
-                    if (north.objectsInSquare.Count == 0)
+                    if (north.objectsInSquare.Count == 0 && (y+1) < (ControlLoop.robotGrid.NumSquaresY-2))
                     {
                         int turnDegrees = 90 - (int)orientation; // north = 90 degrees
                         if (turnDegrees > 180) turnDegrees = turnDegrees - 360;
@@ -137,7 +137,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 try
                 {
                     GridData south = ControlLoop.robotGrid.getGridLoc(x, y - 1);
-                    if (south.objectsInSquare.Count == 0)
+                    if (south.objectsInSquare.Count == 0 && (y-1) > 1)
                     {
                         int turnDegrees = -90 - (int)orientation; // south = -90 degrees
                         if (turnDegrees > 180) turnDegrees = turnDegrees - 360;
