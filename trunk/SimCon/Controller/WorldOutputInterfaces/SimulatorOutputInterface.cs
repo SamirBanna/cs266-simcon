@@ -43,15 +43,25 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             }
             else if (action.ActionType == PhysicalActionType.Turn)
             {
-                if (action.ActionValue < 0)
+                if (os.Algo.name != "DFS")
                 {
-                    action.ActionValue = 360 + action.ActionValue;
+                    if (action.ActionValue < 0)
+                    {
+                        action.ActionValue = (-1) * (360f + action.ActionValue);
+                    }
+                    else
+                    {
+                        action.ActionValue *= -1;
+                    }
                 }
-
+            
                 Console.WriteLine("=====================TURNING THIS ANGLE: " + action.ActionValue);
 
                 CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
-                rb.Add(new RobotAction(action.RobotId.ToString(), (-1)*(float)action.ActionValue, 0));
+                
+                //rb.Add(new RobotAction(action.RobotId.ToString(), (float)action.ActionValue, 0));
+                
+                rb.Add(new RobotAction(action.RobotId.ToString(), (-1) * (float)action.ActionValue, 0));
                 // multiply by -1 to undo what Robot.cs does!
                 os.ExecuteActions(rb);
             }
