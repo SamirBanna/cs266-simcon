@@ -282,6 +282,8 @@ namespace CS266.SimCon.Simulator
                 float y_vol = rng.Next(1, (int)(ydim - 1));
                 int position_x = rng.Next(1, (int)(xdim - 1));
                 int position_y = rng.Next(1, (int)(ydim - 1));
+                
+             
 
                 //Consider making z-oriented obstacles
                 if (rng.NextDouble() < .5) //probability .5
@@ -293,7 +295,7 @@ namespace CS266.SimCon.Simulator
                     }
                     //objects oriented along the x axis
                     //The first ".5f" was x_vol
-                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x + .5f, (float)position_y + .5f, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
                 }
                 else
                 {
@@ -304,7 +306,7 @@ namespace CS266.SimCon.Simulator
                     }
                     //objects oriented along the y axis
                     //The "-.5f" was y_vol
-                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x, (float)position_y, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
+                    o.Add(new ObjectState(name, "obstacle", new float[3] { (float)position_x + .5f, (float)position_y + .5f, .5f }, new float[3] { 1, 0, 0 }, new float[3] { 0, 0, 0 }, new float[3] { .5f, -.5f, .8f }));
                 }
             }
 
@@ -553,7 +555,7 @@ namespace CS266.SimCon.Simulator
                             //Drive the correct distance
                             //Console.WriteLine("ROBOT DRIVE DISTANCE IS EQUAL TO: " + actions_vector.actions[j].distance);
                             this.RobotList[i].DriveDistance(actions_vector.actions[j].distance, 1f);
-                            Thread.Sleep(1100);
+                            Thread.Sleep(2000);
                             break;
                         }
                     }
