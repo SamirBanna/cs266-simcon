@@ -18,8 +18,8 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>False</DelaySign>
     <SignAssembly>True</SignAssembly>
-    <OutputType>Library</OutputType>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <OutputType>Exe</OutputType>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
@@ -75,7 +75,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Simulator|AnyCPU' ">
-    <OutputPath>..\..\..\..\..\..\Microsoft Robotics Studio %281.5%29\bin\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\Microsoft Robotics Studio %281.5%29\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE;INSTRUMENTED</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
@@ -87,10 +87,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft_Xna_Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Microsoft Robotics Studio (1.5)\bin\Microsoft_Xna_Framework.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

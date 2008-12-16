@@ -40,7 +40,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 else if (orientation == 0)
                     turnDegrees = 90;
                 else if (orientation == 180 || orientation == -180)
-                    turnDegrees = 270;
+                    turnDegrees = 270; //Make -90
             }
 
             // if pred is in south cell
@@ -49,7 +49,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 if (orientation == -90)
                     turnDegrees = 0;
                 else if (orientation == 0)
-                    turnDegrees = 270;
+                    turnDegrees = 270; //Make -90
                 else if (orientation == 180 || orientation == -180)
                     turnDegrees = 90;
             }
@@ -62,7 +62,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 else if (orientation == 90)
                     turnDegrees = 90;
                 else if (orientation == -90)
-                    turnDegrees = 270;
+                    turnDegrees = 270;  //Make -90
             }
 
             // if pred is in east cell
@@ -71,7 +71,7 @@ namespace CS266.SimCon.Controller.InputSensors
                 if (orientation == 0)
                     turnDegrees = 0;
                 else if (orientation == 90)
-                    turnDegrees = 270;
+                    turnDegrees = 270; //Make -90
                 else if (orientation == -90)
                     turnDegrees = 90;
             }

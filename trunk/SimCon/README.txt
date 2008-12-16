@@ -10,4 +10,6 @@ To work with the Robotics Studio Simulator Environment:
 1. Choose the Simulator configuration.
 2. Under the SimCon project properties, choose
     Output type:    "Class library"
+3. Make sure that Build > Output directory is
+      C:\Microsoft Robotics Studio (1.5)\bin\
 

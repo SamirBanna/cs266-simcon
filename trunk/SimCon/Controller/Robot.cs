@@ -66,12 +66,20 @@ namespace CS266.SimCon.Controller
             ControlLoop.ActionQueue.Enqueue(new PhysicalRobotAction(this.Id, PhysicalActionType.Turn, degrees));
         }
 
-
+        /// <summary>
+        /// Send a message to a specific robot
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="msg"></param>
         public void SendMessage(int id, Message msg)
         {
             // TODO
         }
 
+        /// <summary>
+        /// Broadcast a message to all robots
+        /// </summary>
+        /// <param name="msg"></param>
         public void SendMessage(Message msg)
         {
             // TODO

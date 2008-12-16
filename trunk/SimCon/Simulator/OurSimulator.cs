@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft;
 using Microsoft.Robotics.PhysicalModel;
 using Microsoft.Robotics.Simulation.Engine;
-using Microsoft.Robotics.Simulation.Physics;
+using Microsoft.Robotics.Simulation.Physics; 
 using CS266.SimCon.Controller;
 
 using System.IO;
@@ -547,7 +547,8 @@ namespace CS266.SimCon.Simulator
                         {
                             //Console.WriteLine("ROBOT TURN ANGLE IS EQUAL TO: " + actions_vector.actions[j].newdegreesfromx);
                             //Rotate by the stated number of degrees
-                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, .1f);
+                            //Speed was .1f. . . current value seems  reasonable, but .1f is always okay
+                            this.RobotList[i].RotateDegrees(actions_vector.actions[j].newdegreesfromx, .5f);
                             Thread.Sleep(2500);
                         }
                         if (actions_vector.actions[j].distance > .1)
