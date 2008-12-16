@@ -69,7 +69,7 @@ namespace CS266.SimCon.Controller.Algorithms
                 ControlLoop.robotGrid.GridUpdate(this.robot);
               
                 //sensors all robots need
-                double moveDistance = ((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
+                double moveDistance = 10*((GridSensor)this.robot.Sensors["GridSensor"]).getCellLength();
                 Console.WriteLine("move distance = " + moveDistance);
                 
                 
@@ -97,7 +97,7 @@ namespace CS266.SimCon.Controller.Algorithms
                     {
                         if (isTurnPhase) // also, must be in Turn phase
                         {
-                            robot.Stop();
+                            //robot.Stop();
                             if (succ != null)
                             {
                                 ((BasicDFS)succ.CurrentAlgorithm).isLeader = true;
@@ -131,12 +131,15 @@ namespace CS266.SimCon.Controller.Algorithms
                     {
                         if (isTurnPhase)
                         {
+                            ControlLoop.robotGrid.PrintGridObjects();
+                            System.Threading.Thread.Sleep(2000);
+
                             bool forward = false;
                             bool left = false;
                             bool right = false;
                             for (int i = 0; i < possibleMoves.Count; i++)
                             {
-                                Console.WriteLine("possible Move[i]: " + possibleMoves[i]);
+                                Console.WriteLine("===================================possible Move[i]: " + possibleMoves[i]);
                                 //possibleMoves returns array of turnDegrees
                                 //orientation is imprecise because of physical simulation of robots 
                                 //therefore test for whole range of angle
@@ -163,13 +166,16 @@ namespace CS266.SimCon.Controller.Algorithms
 
                             if (!forward)
                             {
-                                if (left)
+                                if (right)
                                 {
-                                    robot.Turn(90);
+                                    robot.Turn(270); // opposite because flipped later!
                                 }
-                                else if (right)
-                                    robot.Turn(-90);
-                            }
+                                else if (left)
+                                {
+                                    robot.Turn(90); // opposite because flipped later!
+                                }
+                                 
+                            }                           
                         }
                         else
                         {
@@ -197,21 +203,22 @@ namespace CS266.SimCon.Controller.Algorithms
             }
 
             //If at door, create new robot (regardless of whether leader/follower)
-            if (isTail && !isTurnPhase){   
-                //this method MUST assign predecessor (for new robot) and succesor (for this robot)
-                //and reassign the chaintail to the new robot
+                if (isTail && !isTurnPhase)
+                {
+                    //this method MUST assign predecessor (for new robot) and succesor (for this robot)
+                    //and reassign the chaintail to the new robot
 
-                // create new robot
-                int id = ((DFSSensor)this.robot.Sensors["DFSSensor"]).nextID();
-                //this is for the simulator
-                robot.createNewRobot(id);
-                Robot nextRobot = clone(id);
-                ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
+                    // create new robot
+                    int id = ((DFSSensor)this.robot.Sensors["DFSSensor"]).nextID();
+                    //this is for the simulator
+                    robot.createNewRobot(id);
+                    Robot nextRobot = clone(id);
+                    ((DFSSensor)this.robot.Sensors["DFSSensor"]).addRobotToList(nextRobot);
 
-                //this exception tells the simulator not to overwrite previous action with "createNewRobot"  
-                isTurnPhase = !isTurnPhase;
-                throw new NewRobotException(nextRobot);               
-            }          
+                    //this exception tells the simulator not to overwrite previous action with "createNewRobot"  
+                    isTurnPhase = !isTurnPhase;
+                    throw new NewRobotException(nextRobot);
+                }          
         }
             // switch Turn phase <-> Move phase
             isTurnPhase = !isTurnPhase;
