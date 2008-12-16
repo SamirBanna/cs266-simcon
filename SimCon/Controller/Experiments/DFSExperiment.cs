@@ -21,7 +21,7 @@ namespace CS266.SimCon.Controller.Experiments
 
         public static float doorX = 9.5f;
         public static float doorY = 4.5f;
-        private bool moveRandom = true; // whether or not the leader should move randomly
+        private bool moveRandom = false; // whether or not the leader should move randomly
 
         public DFSExperiment( 
             WorldInputInterface Wii, 
