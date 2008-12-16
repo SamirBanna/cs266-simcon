@@ -45,7 +45,8 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             {
                 Console.WriteLine("=====================TURNING THIS ANGLE: " + action.ActionValue);
                 CS266.SimCon.Simulator.RobotActions rb = new RobotActions();
-                rb.Add(new RobotAction(action.RobotId.ToString(), (float)action.ActionValue, 0));
+                rb.Add(new RobotAction(action.RobotId.ToString(), (-1)*(float)action.ActionValue, 0));
+                // multiply by -1 to undo what Robot.cs does!
                 os.ExecuteActions(rb);
             }
             else if (action.ActionType == PhysicalActionType.CreateRobot)
