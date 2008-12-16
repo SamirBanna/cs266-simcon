@@ -119,7 +119,9 @@ namespace CS266.SimCon.Controller.Algorithms
                             Console.WriteLine("****In MoveRandom: Num possible moves: " + possibleMoves.Count);
                             int moveIndex = rand.Next(0, possibleMoves.Count);
                             Console.WriteLine("****In MoveRandom: random index: " + moveIndex);
-                            robot.Turn(possibleMoves[moveIndex]);
+                            double degrees = possibleMoves[moveIndex];
+                            if (degrees < 0) degrees += 360;
+                            robot.Turn(degrees);
                         }
                         else
                         {
@@ -168,6 +170,7 @@ namespace CS266.SimCon.Controller.Algorithms
                             {
                                 if (right)
                                 {
+                                    //Make -90
                                     robot.Turn(270); // opposite because flipped later!
                                 }
                                 else if (left)
