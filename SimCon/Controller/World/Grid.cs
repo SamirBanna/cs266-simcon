@@ -162,6 +162,34 @@ namespace CS266.SimCon.Controller
           
         }
 
+        public void PrintGridObjects()
+        {
+            for (int j = NumSquaresY - 1; j >= 0; j--)
+            {
+                for (int i = 0; i < NumSquaresX; i++)
+                {
+                    GridData data = gridData[i, j];
+                    if (data.objectsInSquare.Count > 0)
+                    {
+                        foreach (PhysObject o in data.objectsInSquare)
+                        {
+                            if (o.GetType() == typeof(Robot))
+                                Console.Write("R");
+                            else if (o.GetType() == typeof(Food))
+                                Console.Write("F");
+                            else
+                                Console.Write("O");
+                        }
+                    }
+                    else 
+                        Console.Write("-");
+                }
+                Console.WriteLine();
+            }
+
+
+        }
+
         public void PrintPheromoneGrid()
         {
             for (int j = NumSquaresY - 1; j >= 0; j--)
