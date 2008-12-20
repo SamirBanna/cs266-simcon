@@ -12,5 +12,4 @@ To work with the Robotics Studio Simulator Environment:
     Output type:    "Class library"
 3. Make sure that Build > Output directory is
       C:\Microsoft Robotics Studio (1.5)\bin\
-      test
 
