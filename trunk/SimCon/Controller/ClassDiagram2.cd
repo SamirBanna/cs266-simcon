@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.WorldInputInterface">
-    <Position X="6.5" Y="5" Width="1.75" />
+    <Position X="6" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIBgQAAAEAAUAQBAAAAIA=</HashCode>
       <FileName>Controller\WorldInputInterfaces\WorldInputInterface.cs</FileName>
@@ -117,10 +117,11 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controller\PhysObject\Obstacle.cs</FileName>
+      <NewMemberFileName>Controller\PhysObject\Food.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.Robot">
-    <Position X="6.25" Y="14.5" Width="1.5" />
+    <Position X="6" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAIAAAAQAAAAACACABAIAAEAAAAAIAAAABBAAAA=</HashCode>
       <FileName>Controller\Robot.cs</FileName>
@@ -138,6 +139,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAEAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controller\PhysicalRobotAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.ControllerWorldState">
+    <Position X="8" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAADAAAAA=</HashCode>
+      <FileName>Controller\World\ControllerWorldState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CS266.SimCon.Controller.PhysicalActionType">
