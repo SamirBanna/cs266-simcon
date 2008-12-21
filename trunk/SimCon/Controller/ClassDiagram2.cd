@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CS266.SimCon.Controller.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Controller\Driver\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Driver.Driver">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAEAAgAAAAI=</HashCode>
+      <FileName>Controller\Driver\Driver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.WorldInputInterface">
+    <Position X="6.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIBgQAAAEAAUAQBAAAAIA=</HashCode>
+      <FileName>Controller\WorldInputInterfaces\WorldInputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.VisionInputInterface">
+    <Position X="5.25" Y="8.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAABAQAAAAAAAAAAAAAAAAAwABAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\WorldInputInterfaces\VisionInputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldInputInterfaces.SimulatorInputInterface">
+    <Position X="7.75" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEACAAQAAAEAAAEAAAAAAAA=</HashCode>
+      <FileName>Controller\WorldInputInterfaces\SimulatorInputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.WorldOutputInterface">
+    <Position X="1.75" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\WorldOutputInterfaces\WorldOutputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.SimulatorOutputInterface">
+    <Position X="2.75" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAIAAEAAAEAAAAAAAA=</HashCode>
+      <FileName>Controller\WorldOutputInterfaces\SimulatorOutputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.WorldOutputInterfaces.RadioOutputInterface">
+    <Position X="0.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAABCAAAAAABAAAAAAAABAAAA4AAAAAgAIAAgAAAA=</HashCode>
+      <FileName>Controller\WorldOutputInterfaces\RadioOutputInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Experiments.Experiment">
+    <Position X="2.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBAAAAAAAAAAAAAMAEAAIAAAAQIAAAAACAAAAIAAA=</HashCode>
+      <FileName>Controller\Experiments\Experiment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Experiments.RandomWalkExperiment">
+    <Position X="3.5" Y="21.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Experiments\RandomWalkExperiment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Experiments.WalkStraightExperiment">
+    <Position X="0.5" Y="21.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Experiments\WalkStraightExperiment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Algorithms.Algorithm">
+    <Position X="7.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAQEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Algorithms\Algorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Algorithms.WalkStraight">
+    <Position X="6.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Controller\Algorithms\WalkStraight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Algorithms.RandomWalk">
+    <Position X="8.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABQAAQAAAAAAAAAAAAAAAAAAAAIAAQAAAA=</HashCode>
+      <FileName>Controller\Algorithms\RandomWalk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.PhysObject">
+    <Position X="4.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABQAgAAAAAAIAAEAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\PhysObject\PhysObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Food">
+    <Position X="2.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\PhysObject\Food.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Obstacle">
+    <Position X="4.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\PhysObject\Obstacle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.Robot">
+    <Position X="6.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAIAAAAQAAAAACACABAIAAEAAAAAIAAAABBAAAA=</HashCode>
+      <FileName>Controller\Robot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.ControlLoop">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAAAAAAAAAAAEABAAAABAQQAAAAAAABAAAAgjA=</HashCode>
+      <FileName>Controller\ControlLoop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.PhysicalRobotAction">
+    <Position X="5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAEAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\PhysicalRobotAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CS266.SimCon.Controller.PhysicalActionType">
+    <Position X="5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACABAABAEAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Controller\PhysicalRobotAction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
