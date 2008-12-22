@@ -128,7 +128,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CS266.SimCon.Controller.ControlLoop">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAABAAAAAAAAAAAAEABAAAABAQQAAAAAAABAAAAgjA=</HashCode>
       <FileName>Controller\ControlLoop.cs</FileName>
@@ -146,6 +146,84 @@
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAADAAAAA=</HashCode>
       <FileName>Controller\World\ControllerWorldState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.InputSensor">
+    <Position X="5" Y="23.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAEAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\SensorInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.BoundarySensor">
+    <Position X="0.5" Y="26" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAMAAAAIQAAAAAAAAAAAAAAAAAAIAQAAAAE=</HashCode>
+      <FileName>Controller\InputSensors\BoundarySensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.FoodSensor">
+    <Position X="4.75" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\FoodSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.GridSensor">
+    <Position X="2.5" Y="26" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAEAAAAAAAAAAAAAAAAIAAAAACAAAA=</HashCode>
+      <FileName>Controller\InputSensors\GridSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.LocalGridSensor">
+    <Position X="10.5" Y="26" Width="1.5" />
+    <InheritanceLine Type="CS266.SimCon.Controller.InputSensors.InputSensor" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="25.207" />
+        <Point X="5.75" Y="25.625" />
+        <Point X="11.25" Y="25.625" />
+        <Point X="11.25" Y="26" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEEAAAAAAAgAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\LocalGridSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.ObstacleSensor">
+    <Position X="6.5" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\ObstacleSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.ProximitySensor">
+    <Position X="6.75" Y="26" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAMAAAAIAAAAAAAAAAAAAAAAAAAIAQAAAAE=</HashCode>
+      <FileName>Controller\InputSensors\ProximitySensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.RandomWalkInputSensor">
+    <Position X="4.5" Y="26" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAABAIAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\RandomWalkSensorInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.RobotSensor">
+    <Position X="8.25" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\RobotSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CS266.SimCon.Controller.InputSensors.SpeedSensor">
+    <Position X="8.75" Y="26" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAIAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\InputSensors\SpeedSensor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CS266.SimCon.Controller.PhysicalActionType">
