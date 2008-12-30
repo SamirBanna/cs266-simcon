@@ -162,7 +162,12 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
                 Console.WriteLine("Program didn't run.\n");
-
+            
+            //wait until image capture is complete
+            while (rr.getVariable("imageCaptureComplete") != "1")
+            {
+                Thread.Sleep(100);
+            }
 
 			// TODO: Make the location of the vision output VARIABLE!
             do
