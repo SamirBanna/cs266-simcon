@@ -143,6 +143,21 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         
         public List<shape> oldShapeList = new List<shape>();
 
+        private void takeNewCameraImage()
+        {
+            //rr.run("on");
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
+                Console.WriteLine("Image capture program didn't run.\n");
+            rr.run("once");
+
+            //wait until image capture is complete
+            while (rr.getVariable("imageCaptureComplete") != "1")
+            {
+                Thread.Sleep(100);
+            }
+            rr.run("off");
+        }
+
         private List<shape> getCameraData()
         {
 
@@ -160,31 +175,25 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 connected = true;
             }
 
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
-                Console.WriteLine("Program didn't run.\n");
-            
-            //wait until image capture is complete
-            while (rr.getVariable("imageCaptureComplete") != "1")
-            {
-                Thread.Sleep(100);
-            }
+            takeNewCameraImage();
 
 			// TODO: Make the location of the vision output VARIABLE!
             do
             {
+                
                 if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge_test.robo"))
                     Console.WriteLine("Blue Program didn't run.\n");
-
+                rr.run("once");
 
                 while (rr.getVariable("BProgram") != "1")
                 {
                     Thread.Sleep(5);
                 }
+                rr.run("off");
                 if (rr.getVariable("berror") != "0")
                 {
                     Console.WriteLine("Fail recognition. Retake camera image, might take a longer time.\n");
-                    if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
-                        Console.WriteLine("Program didn't run.\n");
+                    takeNewCameraImage();
                 }
             } while (rr.getVariable("berror") != "0");
 
@@ -208,12 +217,13 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             ///*Start blob processing
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red_blobs.robo"))
                 Console.WriteLine("Red Blobs Program didn't run.\n");
-
+            rr.run("once");
 
             while (rr.getVariable("ObProgram") != "1")
             {
                 Thread.Sleep(5);
             }
+            rr.run("off");
             System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Obstacles.out");
             //int[] Blobx = new int[100];
             //int[] Bloby = new int[100];
@@ -248,12 +258,13 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 ///*Start food processing
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue_blobs.robo"))
                 Console.WriteLine("Blue Blobs Program didn't run.\n");
-
+            rr.run("once");
 
             while (rr.getVariable("FoProgram") != "1")
             {
                 Thread.Sleep(5);
             }
+            rr.run("off");
             System.IO.StreamReader sfood = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Food.out");
             //int[] Blobx = new int[100];
             //int[] Bloby = new int[100];
@@ -287,17 +298,17 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             {
                 if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_test.robo"))
                     Console.WriteLine("Red Program didn't run.\n");
+                rr.run("once");
 
                 while (rr.getVariable("RProgram") != "1")
                 {
                     Thread.Sleep(5);
                 }
-
+                rr.run("off");
                 if(rr.getVariable("rerror") != "0")
                 {
                     Console.WriteLine("Fail recognition. Retake camera image, might take a longer time.\n");
-                    if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\GetImage.robo"))
-                        Console.WriteLine("Program didn't run.\n");
+                    takeNewCameraImage();
                 }
             } while (rr.getVariable("rerror") != "0");
 
