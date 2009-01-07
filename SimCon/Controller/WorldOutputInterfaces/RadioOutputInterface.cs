@@ -54,7 +54,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
             System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
             byte [] cmdBytes = encoding.GetBytes(cmd);
             serialPort.Write(cmdBytes, 0, cmdBytes.Length);
-            Console.WriteLine("Sending command to robot " + cmd);
+            //Console.WriteLine("Sending command to robot " + cmd);
             Thread.Sleep(100);
         }
 
@@ -77,6 +77,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
 
         internal void rotateDegree(int id, int degree)
         {
+            Console.WriteLine("robot command - robot " + id.ToString() + " angle " + degree.ToString());
             int degree1 = degree * 6;
             int degree2 = -degree1;
 
@@ -98,6 +99,7 @@ namespace CS266.SimCon.Controller.WorldOutputInterfaces
 
         internal void moveDistance(int id, int dist)
         {
+            Console.WriteLine("robot command - robot " + id.ToString() + " distance " + dist.ToString());
             dist = (int)Math.Floor(dist * 12.5);
             wheelCountReset(id);
             sendCommand("*" + id.ToString());

@@ -52,24 +52,27 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             
             
             List<shape> cameraData;
-            cameraData = getCameraData();
+            cameraData = getCameraData();//returns positions in units of pixels, correctly zeroed
             
             if (cameraData == null)
             {
                 Console.WriteLine("Could not find camera, system shutting down");
                 Environment.Exit(0);
             }
-            Console.WriteLine("Number of shapes I detect: " + cameraData.Count);
+            Console.WriteLine("camera sees the folowing world state (dimensions in cm):");
+            Console.WriteLine("number of shapes - " + cameraData.Count);
             int objcount = 0;
             foreach (shape s in cameraData)
             {
                 if (s.shapetype == "robot")
                 {
-                    Console.WriteLine("Vision before Victor: " + s.x + " " + s.y);
+                    //these conversions appear to convert from pixels to cm
+                    //Console.WriteLine("Position (x,y) in pixels: " + s.x + " " + s.y);
                     double robotx = (s.x / 5);// +15;
                     //This conversion scale requires a +2
                     double roboty = (s.y / 5);// +15;
-                    Console.WriteLine("Vision after Victor: " + robotx + " " + roboty);
+                    //Console.WriteLine("Position (x,y) in cm: " + robotx + " " + roboty);
+                    Console.WriteLine("robot id# " + s.id + "   x - " + robotx + "   y - " + roboty + "   orientation - " + s.orientation);
 
                     //if (robotx > 235 || roboty > 114)
                     //    continue;
@@ -78,7 +81,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     
                     if(s.id == 8){
 
-                        Console.WriteLine("CAMERA SENSES food***************************************");
+                        Console.WriteLine("food" + "   x - " + robotx + "   y - " + roboty);
                         Food f = new Food(s.id, "food", new Coordinates(robotx,roboty), s.orientation, s.width, s.height);
                         FoodList.Add(f);
                         //PhysObjList.Add(f);
@@ -98,9 +101,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     {// robot hasn't already been inserted
                         
                             RobotList.Add(r);
-                            Console.WriteLine("Robot's X is: " + robotx);
-                            Console.WriteLine("Robot's Y is: " + roboty);
-                            Console.WriteLine("Robot's id is: " + s.id);
+                            //Console.WriteLine("Robot's X is: " + robotx);
+                            //Console.WriteLine("Robot's Y is: " + roboty);
+                            //Console.WriteLine("Robot's id is: " + s.id);
                             //Console.WriteLine("ROBOT ANGLE!!!!!!!!!!!!!!!!!!!!!: " + r.Orientation);
                     }
                     else
@@ -122,15 +125,18 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                     
                     PhysObject phy = new Obstacle(objcount++, "obstactle", new Coordinates(robotx, roboty), s.orientation, s.width, s.height);
                     PhysObjList.Add(phy);
-                    
-                    
+
+                    Console.WriteLine("obstacle" + "   x - " + robotx + "   y - " + roboty + "   orientation - " + s.orientation);
                 }
                 
             }
             Console.WriteLine("Number of physical objects in the world: " + PhysObjList.Count);
             Console.WriteLine("Number of robots in the world: " + RobotList.Count);
+            Console.WriteLine("end camera world state");
             //ws.physobjects = PhysObjList;
             //ws.robots = RobotList;
+            Console.WriteLine("just read world state from camera, continue?");
+            Console.ReadLine();
         }
 
         /**
@@ -153,7 +159,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             //wait until image capture is complete
             while (rr.getVariable("imageCaptureComplete") != "1")
             {
-                Thread.Sleep(100);
+                Thread.Sleep(50);
+                Console.WriteLine("sleeping in takeNewCameraImage()");
             }
             rr.run("off");
         }
@@ -176,18 +183,76 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
 
             takeNewCameraImage();
+            //sometimes the next roborealm loadProgram() gets stuck, regardless of which program it is
+            //the sleep_counter thing in the wait loop below is a hack to restart roborealm in this case
+            
+            //Thread.Sleep(100);
+            //begin red obstacles
+            ///*Start blob processing
+            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red_blobs.robo"))
+                Console.WriteLine("Red Blobs Program didn't run.\n");
+            rr.run("on");//unknown whether this should be "once" or "on".  "once" gets stuck sometimes
 
+            int sleep_counter = 0;
+
+            while (rr.getVariable("ObProgram") != "1")
+            {
+                Thread.Sleep(50);
+                Console.WriteLine("sleeping in obstacles"+"   roborealm running.. " + rr.getVariable("counter"));
+                sleep_counter++;
+
+                if (sleep_counter > 20)
+                {
+                    Console.WriteLine("Roborealm seems to stuck, rerun..");
+                    rr.run("off");
+                    rr.run("on");
+                }
+
+            }
+            rr.run("off");
+            System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Obstacles.out");
+            //int[] Blobx = new int[100];
+            //int[] Bloby = new int[100];
+
+            s = "";
+            //int bcount = 0;
+            while ((s = sblob.ReadLine()) != null)
+            {
+                shape obs = new shape();
+
+                obs.shapetype = "boundary";
+                obs.id = 0;
+
+                string[] toks = s.Split(' ');
+
+                //Blobx[bcount] = int.Parse(toks[0]);
+                //Bloby[bcount] = int.Parse(toks[1]);7
+
+                obs.x = double.Parse(toks[0]) - 100;
+                obs.y = double.Parse(toks[1]) - 280;
+                obs.orientation = 0;
+
+                if (obs != null)
+                    shapeList.Add(obs);
+
+                //bcount ++;
+            }
+
+            // End red obstacles
+
+
+            //begin blue robots
 			// TODO: Make the location of the vision output VARIABLE!
             do
             {
-                
                 if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\BlueStuff_smoothLarge_test.robo"))
                     Console.WriteLine("Blue Program didn't run.\n");
                 rr.run("once");
 
                 while (rr.getVariable("BProgram") != "1")
                 {
-                    Thread.Sleep(5);
+                    Thread.Sleep(50);
+                    Console.WriteLine("sleeping in blue robots");
                 }
                 rr.run("off");
                 if (rr.getVariable("berror") != "0")
@@ -206,63 +271,23 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 // print out for testing
                 //System.Console.WriteLine("blue shapes");
                 //System.Console.WriteLine(s);
-
+                Console.WriteLine("reading line " +s);
                 shape sh = parseShapes(s);
                 if (sh != null)
                     shapeList.Add(sh);
             }
             sr.Close();
+            //end blue robots
 
-
-            ///*Start blob processing
-            if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Red_blobs.robo"))
-                Console.WriteLine("Red Blobs Program didn't run.\n");
-            rr.run("once");
-
-            while (rr.getVariable("ObProgram") != "1")
-            {
-                Thread.Sleep(5);
-            }
-            rr.run("off");
-            System.IO.StreamReader sblob = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Obstacles.out");
-            //int[] Blobx = new int[100];
-            //int[] Bloby = new int[100];
-
-            s = "";
-            //int bcount = 0;
-            while ((s = sblob.ReadLine()) != null)
-            {
-                shape obs = new shape();
-
-                obs.shapetype = "boundary";
-                obs.id = 0;
-
-                string[] toks = s.Split(' ');
-                
-                //Blobx[bcount] = int.Parse(toks[0]);
-                //Bloby[bcount] = int.Parse(toks[1]);7
-
-                obs.x = double.Parse(toks[0])-100;
-                obs.y = double.Parse(toks[1])-280;
-                obs.orientation = 0;
-
-                if (obs != null)
-                    shapeList.Add(obs);
-                
-                //bcount ++;
-            }
-
-
-           // End blob processing*/
-
-///*Start food processing
+            ///*Start food processing
             if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Blue_blobs.robo"))
                 Console.WriteLine("Blue Blobs Program didn't run.\n");
             rr.run("once");
 
             while (rr.getVariable("FoProgram") != "1")
             {
-                Thread.Sleep(5);
+                Thread.Sleep(50);
+                Console.WriteLine("sleeping in blue blobs");
             }
             rr.run("off");
             System.IO.StreamReader sfood = System.IO.File.OpenText("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\Food.out");
@@ -293,7 +318,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             }
 // end of food
 
-
+            /*
+            //start of red robot processing
             do
             {
                 if (!rr.loadProgram("c:\\Documents and Settings\\cs266\\Desktop\\API\\API\\Python\\RedStuff_smoothLarge_test.robo"))
@@ -302,7 +328,8 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
                 while (rr.getVariable("RProgram") != "1")
                 {
-                    Thread.Sleep(5);
+                    Thread.Sleep(50);
+                    Console.WriteLine("sleeping in red robots");
                 }
                 rr.run("off");
                 if(rr.getVariable("rerror") != "0")
@@ -324,6 +351,9 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
                 if (sh != null)
                     shapeList.Add(sh);
             }
+            //end of red robot processing
+            */
+            
 
             //shape s_stored = new shape();
             //s_stored.id = -1;
@@ -390,88 +420,94 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 
             oldShapeList = anOldshapeList; */
 
-            Console.WriteLine("VISION: Number of detected objects: "+shapeList.Count+"\n");
+            //Console.WriteLine("VISION: Number of detected objects: "+shapeList.Count+"\n");
 
             return shapeList;
         }
             
         private shape parseShapes(string s)
         {
+            //this is only called for robot shapes
+            string[] line = s.Split(' ');
+            
+            if (line.Length < 2)
+                return null;
 
-                string[] line = s.Split(' ');
-                
-                if (line.Length < 2)
+            shape sh = new shape();
+
+            sh.orientation = (450+double.Parse(line[1]))%360;
+            if (sh.orientation > 180)
+                sh.orientation -= 360;
+            
+            //line 2,3,4,5 are the limits of the bounding box, these lines find the center
+            //line 2,4 is bottom left
+            //line 3,5 is the top right
+            //bounding box does not take into account robot orientation
+            sh.x = double.Parse(line[2]) + (double.Parse(line[3]) - double.Parse(line[2])) / 2;
+            sh.y = double.Parse(line[4]) + (double.Parse(line[5]) - double.Parse(line[4])) / 2;
+            //these are pixel offsets to place (0,0)
+            //when this isn't called (eg for an obstacle), the offset must still be done
+            sh.x -= 100;
+            sh.y -= 280;
+
+            sh.confidence = double.Parse(line[0]);
+
+            // need to update this once there are more shapes
+            //does this ever happen? parseShapes() is only called for robots
+            if (line[6] == "square")
+            {
+                //sh.shapetype = "boundary";
+                //sh.id = 0;
+            }
+            else if (line[6] == "food")
+            {
+                //Console.WriteLine("DSLFKJS:DLFKJS:DLFKJS:DLFKJS SAW FOOD");
+                //sh.shapetype = "robot";
+                //sh.id = 8;
+            }
+            else //always
+            {
+                //Console.WriteLine("++++++++++++++Line 6:" + line[6]);
+                sh.shapetype = "robot";
+                try
+                {
+                    sh.id = int.Parse(line[6]);
+                }
+                catch (Exception e)
+                {
                     return null;
-
-                shape sh = new shape();
-
-                sh.orientation = (450+double.Parse(line[1]))%360;
-                if (sh.orientation > 180)
-                    sh.orientation -= 360;
-
-                sh.x = double.Parse(line[2]) + (double.Parse(line[3]) - double.Parse(line[2])) / 2;
-                sh.y = double.Parse(line[4]) + (double.Parse(line[5]) - double.Parse(line[4])) / 2;
-                sh.x -= 100;
-                sh.y -= 280;
-
-                sh.confidence = double.Parse(line[0]);
-
-                // need to update this once there are more shapes
-                
-                if (line[6] == "square")
-                {
-                    //sh.shapetype = "boundary";
-                    //sh.id = 0;
                 }
-                else if (line[6] == "food")
-                {
-                    //Console.WriteLine("DSLFKJS:DLFKJS:DLFKJS:DLFKJS SAW FOOD");
-                    //sh.shapetype = "robot";
-                    //sh.id = 8;
-                }
-                else
-                {
-                    //Console.WriteLine("++++++++++++++Line 6:" + line[6]);
-                    sh.shapetype = "robot";
-                    try
-                    {
-                        sh.id = int.Parse(line[6]);
-                    }
-                    catch (Exception e)
-                    {
-                        return null;
-                    }
-                }
+            }
 
-                if (sh.x > 1200)
-                {
-                    Console.WriteLine("VISION: coordinate problem " + sh.id + " x " + sh.x + "\n");
-                    Thread.Sleep(10000);
-                }
-                if (sh.y > 600)
-                {
-                    Console.WriteLine("VISION: coordinate problem " + sh.id + " y " + sh.y + "\n");
-                    Thread.Sleep(10000);
-                }
+            if (sh.x > 1200)
+            {
+                Console.WriteLine("VISION: coordinate problem " + sh.id + " x " + sh.x + "\n");
+                Thread.Sleep(10000);
+            }
+            if (sh.y > 600)
+            {
+                Console.WriteLine("VISION: coordinate problem " + sh.id + " y " + sh.y + "\n");
+                Thread.Sleep(10000);
+            }
 
-                // RIGHT NOW WIDTH AND HEIGHT AREN'T DEFINED
-                //Console.WriteLine("==========================new camera data==================================");
-                //System.Console.WriteLine("testing");
-                //System.Console.WriteLine(sh.id);
-                //System.Console.WriteLine(sh.shapetype);
-                //System.Console.WriteLine("xmin" + line[2]);
-                //System.Console.WriteLine("xmax" + line[3]);
-                //System.Console.WriteLine("ymin" + line[4]);
-                //System.Console.WriteLine("ymax" + line[5]);
-                //System.Console.WriteLine(sh.x);
-                //System.Console.WriteLine(sh.y);
-                //System.Console.WriteLine("orientation unfixed" + double.Parse(line[1]));
-                //System.Console.WriteLine("orientation"+sh.orientation);
-                //System.Console.WriteLine(sh.width);
-                //System.Console.WriteLine(sh.height);
+            // RIGHT NOW WIDTH AND HEIGHT AREN'T DEFINED
+            //Console.WriteLine("==========================new camera data==================================");
+            //System.Console.WriteLine("testing");
+            //System.Console.WriteLine(sh.id);
+            //System.Console.WriteLine(sh.shapetype);
+            //System.Console.WriteLine("xmin" + line[2]);
+            //System.Console.WriteLine("xmax" + line[3]);
+            //System.Console.WriteLine("ymin" + line[4]);
+            //System.Console.WriteLine("ymax" + line[5]);
+            //System.Console.WriteLine(sh.x);
+            //System.Console.WriteLine(sh.y);
+            //System.Console.WriteLine("orientation unfixed" + double.Parse(line[1]));
+            //System.Console.WriteLine("orientation"+sh.orientation);
+            //System.Console.WriteLine(sh.width);
+            //System.Console.WriteLine(sh.height);
 
-                
-                return sh;
+            
+            return sh;
     
         }
 

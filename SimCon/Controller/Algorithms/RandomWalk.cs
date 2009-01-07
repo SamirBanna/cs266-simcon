@@ -63,7 +63,7 @@ namespace CS266.SimCon.Controller.Algorithms
             
             if (senseFood == true)
             {
-                Console.WriteLine("FOUND FOOD ON THE BOARD*********************88");
+                Console.WriteLine("robot " + this.robot.Id + " found food");
                 isFinished = true; // throw global termination (TODO: check if isFinished does this)
                 Finished();
 
@@ -79,7 +79,7 @@ namespace CS266.SimCon.Controller.Algorithms
             }
             else if (faceObstacle == false) // Not facing an obstacle
             { // and agent is not moving    
-                Console.WriteLine("Not facing obstacle and not moving");
+                Console.WriteLine("robot " + this.robot.Id + " not facing obstacle and not moving");
                 double prob = new Random().Next(0, 100) / (double)100; // discretizing probabilities to within 100 b/c we are lazy
                 if (prob > probTurn)
                 { // shouldn't turn 
@@ -112,7 +112,7 @@ namespace CS266.SimCon.Controller.Algorithms
                 }
             }
             else { // face obstacle and isn't moving
-                Console.WriteLine("Facing obstacle and not moving");
+                Console.WriteLine("robot " + this.robot.Id + " facing obstacle and not moving");
                 int howManyIntervals = (int)(360 / degInterval);
                 double turnDegrees = (double)(new Random().Next(0, howManyIntervals)) * degInterval;
 
