@@ -11,10 +11,10 @@ namespace CS266.SimCon.Controller.InputSensors
         public bool senseFood(double maxangle, double maxdistance, Robot robot,
                               PhysObject obj)
         {
-            Console.WriteLine("object location: " + obj.Location.X + " " + obj.Location.Y);
+            //Console.WriteLine("object location: " + obj.Location.X + " " + obj.Location.Y);
             if (obj.GetType() == typeof(Food))
             {
-                Console.WriteLine("THIS IS A FOOD OBJECT");
+                //Console.WriteLine("THIS IS A FOOD OBJECT");
                 
             }
             return (base.senseObject(maxangle, maxdistance, robot, obj) && (obj.GetType() == typeof(Food)));

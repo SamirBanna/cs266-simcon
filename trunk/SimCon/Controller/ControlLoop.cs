@@ -66,7 +66,8 @@ namespace CS266.SimCon.Controller
         /// </summary>
         public void RunLoop()
         {
-           // Console.WriteLine("Number of robots in the ControlLoop: " + Robots.Count);
+            Console.WriteLine("about to run control loop, continue?");
+            Console.ReadLine();
             this.GetInput();
             //Console.WriteLine("got input");
 
@@ -97,8 +98,8 @@ namespace CS266.SimCon.Controller
            //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
            // Console.WriteLine("controloop con");
 
-            Console.WriteLine("*****Number of objects in the world: " + (worldState.physobjects.Count) + "*******");
-            Console.WriteLine("**********Number of food objects in the world: " + (worldState.foodlist.Count) + "*******");
+            //Console.WriteLine("*****Number of objects in the world: " + (worldState.physobjects.Count) + "*******");
+            //Console.WriteLine("**********Number of food objects in the world: " + (worldState.foodlist.Count) + "*******");
             //update robot orientation and location
             foreach (Robot z in worldState.robots)
             {

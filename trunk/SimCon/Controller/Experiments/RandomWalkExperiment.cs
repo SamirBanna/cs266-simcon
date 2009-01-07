@@ -43,7 +43,8 @@ namespace CS266.SimCon.Controller.Experiments
         {
             Wii.setupInitialState();
             robots = Wii.GetRobots();
-            
+            //at this point, robot positions are in cm
+
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new RandomWalk(r);

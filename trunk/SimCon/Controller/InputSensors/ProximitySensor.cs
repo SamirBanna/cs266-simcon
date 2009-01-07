@@ -46,12 +46,12 @@ namespace CS266.SimCon.Controller.InputSensors
 	            (objectLocation.X - robotLocation.X)*(objectLocation.X - robotLocation.X) + 
 	            (objectLocation.Y - robotLocation.Y)*(objectLocation.Y - robotLocation.Y));
 
-                Console.WriteLine("==================Proximity Sensor===========================");
-                Console.WriteLine("x obstacle = " + objectLocation.X);
-                Console.WriteLine("y obstacle = " + objectLocation.Y);
-                Console.WriteLine("x robot    = " + robotLocation.X);
-                Console.WriteLine("y robot    = " + robotLocation.Y);
-                Console.WriteLine("orientation robot = " + robot.Orientation);
+                //Console.WriteLine("==================Proximity Sensor===========================");
+                //Console.WriteLine("x obstacle = " + objectLocation.X);
+                //Console.WriteLine("y obstacle = " + objectLocation.Y);
+                //Console.WriteLine("x robot    = " + robotLocation.X);
+                //Console.WriteLine("y robot    = " + robotLocation.Y);
+                //Console.WriteLine("orientation robot = " + robot.Orientation);
                 
 
                 //Console.WriteLine("DISTANCE = " + distance);
@@ -60,13 +60,13 @@ namespace CS266.SimCon.Controller.InputSensors
 
                 if (distance > maxdistance)
                 {
-                    Console.WriteLine("Detectable distance:" + maxdistance);
-                    Console.WriteLine("Actual Distance: " + distance);
-                    Console.WriteLine("Too far away, cannot sense it. ");
+                    //Console.WriteLine("Detectable distance:" + maxdistance);
+                    //Console.WriteLine("Actual Distance: " + distance);
+                    //Console.WriteLine("Too far away, cannot sense it. ");
                      
                     return false;
                 }
-               Console.WriteLine("Object is close to robot");
+                //Console.WriteLine("robot " + robot.Id + " detects an obstacle");
 
                 // get angle between
                 double radians = Math.Atan2(objectLocation.Y - robotLocation.Y,
@@ -75,14 +75,14 @@ namespace CS266.SimCon.Controller.InputSensors
                                                                                      // vision
                 double angle = radians * (180/Math.PI); // convert to from -180 to 180
 
-                Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
+                //Console.WriteLine("ROBOT-OBSTACLE ANGLE = " + angle);
 
                 // assume orientation is defined from -180 to 180
                 // TODO: Is the above true?
                 double angleDifference;
                 double orientation = robot.Orientation;
 
-                Console.WriteLine("ROBOT DIRECTION = " + orientation);
+                //Console.WriteLine("ROBOT DIRECTION = " + orientation);
 
                 if((angle >= 0 && orientation >= 0) || (angle <= 0 && orientation <= 0)){
 
@@ -100,12 +100,12 @@ namespace CS266.SimCon.Controller.InputSensors
                     }
                 }
 
-                Console.WriteLine("ANGLE DIFFERENCE = " + angleDifference);
+                //Console.WriteLine("ANGLE DIFFERENCE = " + angleDifference);
                 //Console.WriteLine("=============================================");
                 if(angleDifference < maxangle){
-                    Console.WriteLine("max angle:" + maxangle);
-                     Console.WriteLine("Actual angle: " + angle);
-                    Console.WriteLine("Angle difference is less than max angle");
+                    //Console.WriteLine("max angle:" + maxangle);
+                    //Console.WriteLine("Actual angle: " + angle);
+                    //Console.WriteLine("Angle difference is less than max angle");
                     Console.WriteLine("Colliding with object");
                     return true;    
                 }
