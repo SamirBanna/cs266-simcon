@@ -67,13 +67,13 @@ namespace CS266.SimCon.Controller.Experiments
         }
 
         /// <summary>
-        /// Setup Experiment should create the Robot class instantiations.
-        /// This could be creating robots based on a specific input, ie the camera
-        /// The desired implementation is left to the child class
+        /// <code>SetupExperiment()</code> should create the Robot class instantiations.
+        /// This could be done, for example, by creating robots based on a specific input, e.g. the camera.
+        /// The desired implementation is left to the child class.
         /// </summary>
         public abstract void SetupExperiment();
 
-        public void runExperiment()
+        public void RunExperiment()
         {
             
             ControlLoop cl = new ControlLoop(Wii, Woi);
@@ -107,7 +107,7 @@ namespace CS266.SimCon.Controller.Experiments
                             Wii = new SimulatorInputInterface(osNew);
                             Woi = new SimulatorOutputInterface(osNew);
                             SetupExperiment();
-                            runExperiment();
+                            RunExperiment();
                             break;
                         }
                     }
@@ -129,7 +129,7 @@ namespace CS266.SimCon.Controller.Experiments
                             Wii = new SimulatorInputInterface(osNew);
                             Woi = new SimulatorOutputInterface(osNew);
                             SetupExperiment();
-                            runExperiment();
+                            RunExperiment();
                             break;
                         }
                     }
