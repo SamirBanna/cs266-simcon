@@ -25,13 +25,7 @@ namespace CS266.SimCon.Controller.Experiments
         public Algorithm algName;
         public GlobalAlgorithm globalAlg = null;
 
-        /// <summary>
-        /// Sensors required for this experiment 
-        /// </summary>
-        public Dictionary<String, InputSensor> sensor;
-
-
-        
+       
         /// <summary>
         /// List of the sensors that will be created for this experiment 
         /// </summary>
