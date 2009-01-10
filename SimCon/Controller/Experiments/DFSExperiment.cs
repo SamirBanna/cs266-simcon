@@ -45,7 +45,7 @@ namespace CS266.SimCon.Controller.Experiments
         //Place in their algorithms
         public override void SetupExperiment()
         {
-            Wii.setupInitialState();
+            Wii.SetupInitialState();
             robots = Wii.GetRobots();
             //NOTE: look at SimulatorInputInterface for info on where/how many robots are created
             

@@ -30,23 +30,23 @@ namespace CS266.SimCon.Controller.Driver
             {
                 DFSExperiment exp = new DFSExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
             else if (os.Algo.name == "RandomWalk")
             {
                 RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
             else if (os.Algo.name == "NodeCounting")
             {
                 NodeCountingExperiment exp = new NodeCountingExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
 
             //exp.SetupExperiment();
-            //exp.runExperiment();
+            //exp.RunExperiment();
         }
 
         public static void Run(String experimentType)
@@ -63,7 +63,7 @@ namespace CS266.SimCon.Controller.Driver
 
                 WalkStraightExperiment exp = new WalkStraightExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
             else if (experimentType == "RandomWalk")
             {
@@ -73,7 +73,7 @@ namespace CS266.SimCon.Controller.Driver
 
                 RandomWalkExperiment exp = new RandomWalkExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
             else if (experimentType == "NodeCounting")
             {
@@ -83,7 +83,7 @@ namespace CS266.SimCon.Controller.Driver
 
                 NodeCountingExperiment exp = new NodeCountingExperiment(wii, woi);
                 exp.SetupExperiment();
-                exp.runExperiment();
+                exp.RunExperiment();
             }
 
             //roboRealmProcess.Close();

@@ -26,7 +26,7 @@ namespace CS266.SimCon.Controller.Experiments
 
         public override void SetupExperiment()
         {
-            Wii.setupInitialState();
+            Wii.SetupInitialState();
             robots = Wii.getWorldState().robots;
             foreach (Robot r in robots)
             {

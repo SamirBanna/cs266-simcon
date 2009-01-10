@@ -43,14 +43,14 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             RobotList.Clear();
             PhysObjList.Clear();
             FoodList.Clear();
-            setupInitialState();
+            SetupInitialState();
 
             return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
             // fixed params to new convention: height, then width
         }
 
 
-        public override void setupInitialState()
+        public override void SetupInitialState()
         {
             CS266.SimCon.Simulator.WorldState simWS = os.GetWorldState();
             int x = 0;
