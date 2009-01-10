@@ -37,7 +37,7 @@ namespace CS266.SimCon.Controller.Experiments
         {
             Wii.SetupInitialState();
             robots = Wii.GetRobots();
-            ControllerWorldState worldstate = Wii.getWorldState();
+            ControllerWorldState worldstate = Wii.GetWorldState();
             //NOTE: look at SimulatorInputInterface for info on where/how many robots are created
             
             // Create grid           

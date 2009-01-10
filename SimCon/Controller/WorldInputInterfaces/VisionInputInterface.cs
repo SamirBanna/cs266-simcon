@@ -35,7 +35,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        public override ControllerWorldState getWorldState()
+        public override ControllerWorldState GetWorldState()
         {
             
             //Thread.Sleep(10000);

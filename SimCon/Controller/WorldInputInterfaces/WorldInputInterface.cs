@@ -42,7 +42,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             return FoodList;
         }
 
-        public abstract ControllerWorldState getWorldState();
+        public abstract ControllerWorldState GetWorldState();
         public abstract void SetupInitialState();
     }
 }
