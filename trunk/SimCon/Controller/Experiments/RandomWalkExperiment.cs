@@ -41,7 +41,7 @@ namespace CS266.SimCon.Controller.Experiments
         /// </summary>
         public override void SetupExperiment()
         {
-            Wii.setupInitialState();
+            Wii.SetupInitialState();
             robots = Wii.GetRobots();
             //at this point, robot positions are in cm
 

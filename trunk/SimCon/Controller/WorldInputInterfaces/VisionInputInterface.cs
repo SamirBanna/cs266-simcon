@@ -43,11 +43,11 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
             PhysObjList.Clear();
             FoodList.Clear();
 
-            setupInitialState();
+            SetupInitialState();
             return new ControllerWorldState(RobotList, PhysObjList, FoodList, worldHeight, worldWidth);
         }
 
-        public override void setupInitialState()
+        public override void SetupInitialState()
         {
             
             

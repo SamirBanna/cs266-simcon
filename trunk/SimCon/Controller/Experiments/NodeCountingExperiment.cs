@@ -26,14 +26,16 @@ namespace CS266.SimCon.Controller.Experiments
         }
 
      
-            //Setup all the intial values for the experiment
-        //Create the robots
-        //Create their sensors
-        //Set their initial coordinates
-        //Place in their algorithms
+        /// <summary>
+        /// Setup all the intial values for the experiment.
+        /// Create the robots.
+        /// Create their sensors.
+        /// Set their initial coordinates.
+        /// Place in their algorithms.
+        /// </summary>
         public override void SetupExperiment()
         {
-            Wii.setupInitialState();
+            Wii.SetupInitialState();
             robots = Wii.GetRobots();
             ControllerWorldState worldstate = Wii.getWorldState();
             //NOTE: look at SimulatorInputInterface for info on where/how many robots are created
