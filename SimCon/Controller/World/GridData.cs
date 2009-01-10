@@ -5,7 +5,7 @@ using System.Text;
 namespace CS266.SimCon.Controller
 {
     // What occupies the grid. Contains information that can be added or taken away
-    public class GridData
+    public class CellData
     {
         public int numTimesVisited;
         public int pheromoneLevel;
@@ -14,13 +14,13 @@ namespace CS266.SimCon.Controller
         public int col = 0;
 
         // If no information given, assume initialized at beginning
-        public GridData()
+        public CellData()
         {
             pheromoneLevel = 0;
             numTimesVisited = 0;
             objectsInSquare = new List<PhysObject>();
         }
-        public GridData(int col, int row)
+        public CellData(int col, int row)
         {
             pheromoneLevel = 0;
             numTimesVisited = 0;
@@ -30,7 +30,7 @@ namespace CS266.SimCon.Controller
             
         }
 
-        public GridData(int visited)
+        public CellData(int visited)
         {
             this.numTimesVisited = visited;
         }

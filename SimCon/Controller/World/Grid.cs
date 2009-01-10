@@ -11,7 +11,7 @@ namespace CS266.SimCon.Controller
         public ControllerWorldState ws;
 
         // Actual grid
-        public GridData[,] gridData;
+        public CellData[,] cellData;
 
         // Dimensions of the world
         public double WorldWidth;
@@ -33,18 +33,17 @@ namespace CS266.SimCon.Controller
         {
             this.prevLocations = new Dictionary<Robot, Coordinates>();
             this.prevLocationsForMark = new Dictionary<Robot, Coordinates>();
-            this.ws = ws;
             this.WorldWidth = WorldWidth;
             this.WorldHeight = WorldHeight;
             this.NumSquaresX = numX;
             this.NumSquaresY = numY;
 
-            gridData = new GridData[NumSquaresX, NumSquaresY];
+            cellData = new CellData[NumSquaresX, NumSquaresY];
             for (int i = 0; i < NumSquaresX; i++)
             {
                 for (int j = 0; j < NumSquaresY; j++)
                 {
-                    gridData[i, j] = new GridData(i,j);
+                    cellData[i, j] = new CellData(i,j);
                 }
             }
         }
@@ -64,12 +63,12 @@ namespace CS266.SimCon.Controller
 //            // Mark continuously with interpolation
 //            // Assume previous location is already marked
 //            //Console.WriteLine("In Mark:: new location is for " + newLoc.X + ", " + newLoc.Y);
-//            GridData finalSpot = getGridLoc(newLoc);
-//            GridData startSpot = getGridLoc(startLoc);
+//            CellData finalSpot = getGridLoc(newLoc);
+//            CellData startSpot = getGridLoc(startLoc);
 //            //Console.WriteLine("In Mark:: destination grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
 
 //            //Console.WriteLine("In Mark: Getting grid loc current spot for " + curLoc.X + "," + curLoc.Y);
-//            GridData curSpot = getGridLoc(curLoc);
+//            CellData curSpot = getGridLoc(curLoc);
 //            //Console.WriteLine("In Mark:: old grid coordinates is " + finalSpot.row + ", " + finalSpot.col);
 
 //            if (finalSpot.row == curSpot.row && finalSpot.col == curSpot.col)
@@ -102,7 +101,7 @@ namespace CS266.SimCon.Controller
 // //           Console.WriteLine("End spot: " + finalSpot.col + " " + finalSpot.row);
 //            do
 //                {
-//                    GridData nextSpot;
+//                    CellData nextSpot;
 
 //                    //Console.WriteLine("In Mark: Before incrementing, we were at location " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
 //                    //Console.WriteLine("In Mark: We are at grid location " + curSpot.row + ", " + curSpot.col + " trying to reach " + finalSpot.row + ", " + finalSpot.col);
@@ -134,7 +133,7 @@ namespace CS266.SimCon.Controller
 //                return;
 //        }
 
-        public bool inBounds(GridData currentLocation, GridData startLocation, GridData finalLocation)
+        public bool inBounds(CellData currentLocation, CellData startLocation, CellData finalLocation)
         {
             int px = currentLocation.col;
             int py = currentLocation.row;
@@ -154,7 +153,7 @@ namespace CS266.SimCon.Controller
             {
                 for (int i = 0; i < NumSquaresX; i++)
                 {
-                    Console.Write(gridData[i, j].numTimesVisited + " ");
+                    Console.Write(cellData[i, j].numTimesVisited + " ");
                 }
                 Console.WriteLine();
             }
@@ -168,7 +167,7 @@ namespace CS266.SimCon.Controller
             {
                 for (int i = 0; i < NumSquaresX; i++)
                 {
-                    GridData data = gridData[i, j];
+                    CellData data = cellData[i, j];
                     if (data.objectsInSquare.Count > 0)
                     {
                         foreach (PhysObject o in data.objectsInSquare)
@@ -196,7 +195,7 @@ namespace CS266.SimCon.Controller
             {
                 for (int i = 0; i < NumSquaresX; i++)
                 {
-                    Console.Write(gridData[i, j].pheromoneLevel + " ");
+                    Console.Write(cellData[i, j].pheromoneLevel + " ");
                 }
                 Console.WriteLine();
             }
@@ -214,7 +213,7 @@ namespace CS266.SimCon.Controller
             Console.WriteLine("ROBOT's Y in gridupdate : " + robot.Location.Y);
             // Take out robot from locations of where robot is in the grid
  
-            GridData location = findObj(robot);
+            CellData location = findObj(robot);
             if (location != null)
             {
                 location.objectsInSquare.Remove(robot);
@@ -225,7 +224,7 @@ namespace CS266.SimCon.Controller
 
             Coordinates newLoc = new Coordinates(robot.Location.X, robot.Location.Y);
             
-            GridData finalSpot = getGridLoc(newLoc);
+            CellData finalSpot = getGridLoc(newLoc);
             
 
             // Update prevLocationsForMark so that they're synchronized. This assume that Mark is called AFTER GridUpdate
@@ -245,8 +244,8 @@ namespace CS266.SimCon.Controller
             Coordinates prevLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
             Coordinates curLoc = new Coordinates(prevLocations[robot].X, prevLocations[robot].Y);
            
-            GridData curSpot = getGridLoc(curLoc);
-            GridData startSpot = getGridLoc(curLoc);
+            CellData curSpot = getGridLoc(curLoc);
+            CellData startSpot = getGridLoc(curLoc);
 
             if(finalSpot.row == curSpot.row && finalSpot.col == curSpot.col){
                 // don't mark anything
@@ -263,7 +262,7 @@ namespace CS266.SimCon.Controller
               //  Console.WriteLine("Prev location is " + curLoc.X + ", " + curLoc.Y + " trying to reach " + newLoc.X + ", " + newLoc.Y);
                 do
                 {
-                    GridData nextSpot;
+                    CellData nextSpot;
                     // Increment X and Y
                     curLoc.X += incrX;
                     curLoc.Y += incrY;
@@ -306,10 +305,10 @@ namespace CS266.SimCon.Controller
         }
 
 
-        /* Get the location on the grid (actually the GridData object at that
+        /* Get the location on the grid (actually the CellData object at that
          * location, which contains all the information)
          */ 
-        public GridData getGridLoc(Coordinates location)
+        public CellData getGridLoc(Coordinates location)
         {
             double epsilon = 0.00001; // to avoid numeric issues with double equality comparison
             int gridX;
@@ -331,7 +330,7 @@ namespace CS266.SimCon.Controller
             // range from [0, NumSquaresY - 1] as long as location.Y != WorldHeight (case handled above)
             else gridY = (int)Math.Floor(NumSquaresY * location.Y / WorldHeight);
 
-            return gridData[gridX, gridY];
+            return cellData[gridX, gridY];
 
             
             //    gridX = NumSquaresX - 1;
@@ -356,25 +355,25 @@ namespace CS266.SimCon.Controller
             //Console.WriteLine("grid [x, y]:" + gridX + " " + gridY);
             //Console.WriteLine(".......................................");
 
-            //return gridData[gridX, gridY];
+            //return cellData[gridX, gridY];
 
             
         }
 
-        public GridData getGridLoc(int gridX, int gridY)
+        public CellData getGridLoc(int gridX, int gridY)
         {
-            return gridData[gridX, gridY];
+            return cellData[gridX, gridY];
         }
 
         // Find an object in the grid (right now, only robots)
-        public GridData findObj(PhysObject obj)
+        public CellData findObj(PhysObject obj)
         {
             for (int i = 0; i < NumSquaresX; i++)
             {
                 for (int j = 0; j < NumSquaresY; j++)
                 {
-                    if (gridData[i, j].objectsInSquare.Contains(obj))
-                        return gridData[i, j];
+                    if (cellData[i, j].objectsInSquare.Contains(obj))
+                        return cellData[i, j];
                 }
             }
             return null;
@@ -386,7 +385,7 @@ namespace CS266.SimCon.Controller
             {
                 for (int j = 0; j < NumSquaresY; j++)
                 {
-                    if (gridData[i, j].objectsInSquare.Contains(obj))
+                    if (cellData[i, j].objectsInSquare.Contains(obj))
                     {
                         int[] loc = { i, j };
                         return loc;
@@ -416,7 +415,7 @@ namespace CS266.SimCon.Controller
 
         public List<PhysObject> getObjectsInCell(int x, int y)
         {
-            return gridData[x, y].objectsInSquare;
+            return cellData[x, y].objectsInSquare;
         }
 
         public bool gridVisited()
@@ -425,7 +424,7 @@ namespace CS266.SimCon.Controller
             {
                 for (int j = 0; j < NumSquaresY; j++)
                 {
-                    if (gridData[i, j].numTimesVisited == 0)
+                    if (cellData[i, j].numTimesVisited == 0)
                         return false;
                 }
             }
