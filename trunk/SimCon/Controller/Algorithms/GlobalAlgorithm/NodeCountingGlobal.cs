@@ -20,7 +20,7 @@ namespace CS266.SimCon.Controller.Algorithms
                 for (int j = 0; j < GlobalGrid.NumSquaresY; j++)
                 {
                     // Get grid data
-                    GridData cell = GlobalGrid.getGridLoc(i, j);
+                    CellData cell = GlobalGrid.getGridLoc(i, j);
                     foreach (PhysObject obj in cell.objectsInSquare)
                     {
                         if (!(obj is Obstacle))

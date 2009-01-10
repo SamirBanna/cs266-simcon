@@ -24,7 +24,7 @@ namespace CS266.SimCon.Controller.InputSensors
             double orientation = this.robot.Orientation;
             //if facing to east we do not want to look backwards (west)
             if ((orientation != 0) && (x - 1 >= 0)){
-                GridData west = ControlLoop.robotGrid.getGridLoc(x - 1, y);
+                CellData west = ControlLoop.robotGrid.getGridLoc(x - 1, y);
                 foreach (PhysObject physObj in west.objectsInSquare)
                 {
                     if (physObj.GetType() == typeof(Food))
@@ -35,7 +35,7 @@ namespace CS266.SimCon.Controller.InputSensors
             //TODO. is it 180 or -180
             if ((orientation != 180) && (orientation != -180) && (x + 1 < ControlLoop.robotGrid.NumSquaresX))
             {
-                GridData east = ControlLoop.robotGrid.getGridLoc(x + 1, y);
+                CellData east = ControlLoop.robotGrid.getGridLoc(x + 1, y);
                 foreach (PhysObject physObj in east.objectsInSquare)
                 {
                     if (physObj.GetType() == typeof(Food))
@@ -45,7 +45,7 @@ namespace CS266.SimCon.Controller.InputSensors
             //if facing to south we do not want to look backwards (north)
             if ((orientation != -90) && (y + 1 < ControlLoop.robotGrid.NumSquaresY))
             {
-                GridData north = ControlLoop.robotGrid.getGridLoc(x, y + 1);
+                CellData north = ControlLoop.robotGrid.getGridLoc(x, y + 1);
                 foreach (PhysObject physObj in north.objectsInSquare)
                 {
                     if (physObj.GetType() == typeof(Food))
@@ -56,7 +56,7 @@ namespace CS266.SimCon.Controller.InputSensors
             //if facing to north we do not want to look backwards (south)
             if ((orientation != 90) && (y - 1 >= 0))
             {
-                GridData south = ControlLoop.robotGrid.getGridLoc(x, y - 1);
+                CellData south = ControlLoop.robotGrid.getGridLoc(x, y - 1);
                 foreach (PhysObject physObj in south.objectsInSquare)
                 {
                     if (physObj.GetType() == typeof(Food))
@@ -86,7 +86,7 @@ namespace CS266.SimCon.Controller.InputSensors
             {
                 try
                 {
-                    GridData west = ControlLoop.robotGrid.getGridLoc(x - 1, y);
+                    CellData west = ControlLoop.robotGrid.getGridLoc(x - 1, y);
                     if (west.objectsInSquare.Count == 0 && (x-1) > 1)
                     {
                         int turnDegrees = 180 - (int)orientation; // west = 180 degrees
@@ -102,7 +102,7 @@ namespace CS266.SimCon.Controller.InputSensors
             {
                 try
                 {
-                    GridData east = ControlLoop.robotGrid.getGridLoc(x + 1, y);
+                    CellData east = ControlLoop.robotGrid.getGridLoc(x + 1, y);
                     if (east.objectsInSquare.Count == 0 && (x+1) < (ControlLoop.robotGrid.NumSquaresX-2))
                     {
                         int turnDegrees = 0 - (int)orientation; // east = 0 degrees
@@ -119,7 +119,7 @@ namespace CS266.SimCon.Controller.InputSensors
             {
                 try
                 {
-                    GridData north = ControlLoop.robotGrid.getGridLoc(x, y + 1);
+                    CellData north = ControlLoop.robotGrid.getGridLoc(x, y + 1);
                     if (north.objectsInSquare.Count == 0 && (y+1) < (ControlLoop.robotGrid.NumSquaresY-2))
                     {
                         int turnDegrees = 90 - (int)orientation; // north = 90 degrees
@@ -136,7 +136,7 @@ namespace CS266.SimCon.Controller.InputSensors
             {
                 try
                 {
-                    GridData south = ControlLoop.robotGrid.getGridLoc(x, y - 1);
+                    CellData south = ControlLoop.robotGrid.getGridLoc(x, y - 1);
                     if (south.objectsInSquare.Count == 0 && (y-1) > 1)
                     {
                         int turnDegrees = -90 - (int)orientation; // south = -90 degrees

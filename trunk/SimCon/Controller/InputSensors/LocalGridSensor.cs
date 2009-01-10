@@ -45,7 +45,7 @@ namespace CS266.SimCon.Controller.InputSensors
 
             Grid grid = CS266.SimCon.Controller.ControlLoop.robotGrid;
 
-            GridData robotLocation = ControlLoop.robotGrid.getGridLoc(this.robot.Location);
+            CellData robotLocation = ControlLoop.robotGrid.getGridLoc(this.robot.Location);
             
             int row = robotLocation.row;
             int col = robotLocation.col;
@@ -59,7 +59,7 @@ namespace CS266.SimCon.Controller.InputSensors
 
                     if (0 <= gridrow && 0 <= gridcol && gridrow < grid.NumSquaresY && gridcol < grid.NumSquaresX)
                     {
-                        localgrid[i, j] = (double)grid.gridData[gridcol, gridrow].numTimesVisited;
+                        localgrid[i, j] = (double)grid.cellData[gridcol, gridrow].numTimesVisited;
                     }
                     else
                     {

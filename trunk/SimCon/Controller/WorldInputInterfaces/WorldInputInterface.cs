@@ -8,10 +8,21 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
 {
     public abstract class WorldInputInterface
     {
-
+        /// <summary>
+        /// Holds a list of Robot objects to be updated. This overlaps with the physical object list.
+        /// </summary>
         protected List<Robot> RobotList;
+        /// <summary>
+        /// Holds a list of all physical objects in the world except food. (This design decision might be reconsidered.)
+        /// </summary>
         protected List<PhysObject> PhysObjList;
+        /// <summary>
+        /// Holds a list of all food objects.
+        /// </summary>
         protected List<Food> FoodList;
+        /// <summary>
+        /// 
+        /// </summary>
         public ControllerWorldState ws;
         public double worldWidth;
         public double worldHeight;
