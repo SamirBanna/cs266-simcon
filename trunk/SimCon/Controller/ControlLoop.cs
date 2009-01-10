@@ -94,7 +94,7 @@ namespace CS266.SimCon.Controller
         /// </summary>
         private void GetInput()
         {
-           worldState = Wii.getWorldState();
+           worldState = Wii.GetWorldState();
            //  Console.WriteLine("Control Loop WS Angle before sensor: "+ worldState.robots[0].Orientation);
            // Console.WriteLine("controloop con");
 

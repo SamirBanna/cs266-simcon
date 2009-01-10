@@ -27,7 +27,7 @@ namespace CS266.SimCon.Controller.Experiments
         public override void SetupExperiment()
         {
             Wii.SetupInitialState();
-            robots = Wii.getWorldState().robots;
+            robots = Wii.GetWorldState().robots;
             foreach (Robot r in robots)
             {
                 r.CurrentAlgorithm = new WalkStraight(r);

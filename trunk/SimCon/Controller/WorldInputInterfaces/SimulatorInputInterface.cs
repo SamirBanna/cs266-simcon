@@ -37,7 +37,7 @@ namespace CS266.SimCon.Controller.WorldInputInterfaces
         }
 
 
-        public override ControllerWorldState getWorldState()
+        public override ControllerWorldState GetWorldState()
         {
             Console.WriteLine("Making new world state");
             RobotList.Clear();
